@@ -28,29 +28,36 @@ class AppPersistent(
         get() = mPackageName
         set(packageName) {
             mPackageName = packageName
-            identifier = generateIdentifier(mPackageName, mName)
+            identifier = generateIdentifier(packageName = mPackageName, name = mName)
         }
     var name: String
         get() = mName
         set(name) {
             mName = name
-            identifier = generateIdentifier(mPackageName, mName)
+            identifier = generateIdentifier(packageName = mPackageName, name = mName)
         }
 
     override fun toString(): String {
-        return "AppPersistent{" + "mPackageName='" + mPackageName + '\'' + ", mName='" + mName + '\'' + ", mIdentifier='" + identifier + '\'' + ", mOpenCount=" + openCount + ", mOrderNumber=" + orderNumber + ", mAppVisible=" + isAppVisible + '}'
+        return "AppPersistent{mPackageName='$mPackageName', mName='$mName', mIdentifier='$identifier', mOpenCount=$openCount, mOrderNumber=$orderNumber, mAppVisible=$isAppVisible}"
     }
 
     companion object {
         private const val DEFAULT_APP_VISIBILITY = true
         private const val DEFAULT_ORDER_NUMBER = -1
         private const val DEFAULT_OPEN_COUNT: Long = 1
-        fun generateIdentifier(packageName: String, name: String): String {
+
+        fun generateIdentifier(
+            packageName: String,
+            name: String
+        ): String {
             return "$packageName-$name"
         }
 
         @JvmStatic
-        fun incrementAppCount(packageName: String, name: String) {
+        fun incrementAppCount(
+            packageName: String,
+            name: String
+        ) {
             val identifier = generateIdentifier(packageName, name)
             val appPersistent = Select.from(
                 AppPersistent::class.java
@@ -61,17 +68,21 @@ class AppPersistent(
                 appPersistent.save()
             } else {
                 val newAppPersistent = AppPersistent(
-                    packageName,
-                    name,
-                    DEFAULT_OPEN_COUNT,
-                    DEFAULT_ORDER_NUMBER,
-                    DEFAULT_APP_VISIBILITY
+                    mPackageName = packageName,
+                    mName = name,
+                    openCount = DEFAULT_OPEN_COUNT,
+                    orderNumber = DEFAULT_ORDER_NUMBER,
+                    appVisible = DEFAULT_APP_VISIBILITY
                 )
                 newAppPersistent.save()
             }
         }
 
-        fun setAppOrderNumber(packageName: String, name: String, orderNumber: Int) {
+        fun setAppOrderNumber(
+            packageName: String,
+            name: String,
+            orderNumber: Int
+        ) {
             val identifier = generateIdentifier(packageName, name)
             val appPersistent = Select.from(
                 AppPersistent::class.java
@@ -82,18 +93,21 @@ class AppPersistent(
                 appPersistent.save()
             } else {
                 val newAppPersistent = AppPersistent(
-                    packageName,
-                    name,
-                    DEFAULT_OPEN_COUNT,
-                    DEFAULT_ORDER_NUMBER,
-                    DEFAULT_APP_VISIBILITY
+                    mPackageName = packageName,
+                    mName = name,
+                    openCount = DEFAULT_OPEN_COUNT,
+                    orderNumber = DEFAULT_ORDER_NUMBER,
+                    appVisible = DEFAULT_APP_VISIBILITY
                 )
                 newAppPersistent.save()
             }
         }
 
         @JvmStatic
-        fun getAppVisibility(packageName: String, name: String): Boolean {
+        fun getAppVisibility(
+            packageName: String,
+            name: String
+        ): Boolean {
             val identifier = generateIdentifier(packageName, name)
             val appPersistent = Select.from(
                 AppPersistent::class.java
@@ -103,7 +117,11 @@ class AppPersistent(
         }
 
         @JvmStatic
-        fun setAppVisibility(packageName: String, name: String, mHideApp: Boolean) {
+        fun setAppVisibility(
+            packageName: String,
+            name: String,
+            mHideApp: Boolean
+        ) {
             val identifier = generateIdentifier(packageName, name)
             val appPersistent = Select.from(
                 AppPersistent::class.java
@@ -114,14 +132,21 @@ class AppPersistent(
                 appPersistent.save()
             } else {
                 val newAppPersistent = AppPersistent(
-                    packageName, name, DEFAULT_OPEN_COUNT, DEFAULT_ORDER_NUMBER, mHideApp
+                    mPackageName = packageName,
+                    mName = name,
+                    openCount = DEFAULT_OPEN_COUNT,
+                    orderNumber = DEFAULT_ORDER_NUMBER,
+                    appVisible = mHideApp
                 )
                 newAppPersistent.save()
             }
         }
 
         @JvmStatic
-        fun getAppOpenCount(packageName: String, name: String): Long {
+        fun getAppOpenCount(
+            packageName: String,
+            name: String
+        ): Long {
             val identifier = generateIdentifier(packageName, name)
             val appPersistent = Select.from(
                 AppPersistent::class.java
