@@ -29,9 +29,9 @@ dependencies {
     implementation 'com.github.satyan:sugar:1.5'
     implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.5.0'
-
-//    implementation 'com.jakewharton:butterknife:8.8.1'
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.jakewharton:butterknife:10.0.0'
     annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
+
+    // debugImplementation because LeakCanary should only run in debug builds.
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
 }
