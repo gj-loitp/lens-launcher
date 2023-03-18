@@ -1,20 +1,13 @@
 package com.roy.model;
 
+import androidx.annotation.NonNull;
+
 import com.orm.SugarRecord;
 import com.orm.query.Condition;
 import com.orm.query.Select;
 import com.orm.util.NamingHelper;
 
-/**
- * Created by rish on 20/5/16.
- */
 public class AppPersistent extends SugarRecord {
-
-    private static final String TAG = "AppPersistent";
-
-    /* Required Default Constructor */
-    public AppPersistent() {
-    }
 
     private String mPackageName;
     private String mName;
@@ -23,9 +16,9 @@ public class AppPersistent extends SugarRecord {
     private int mOrderNumber;
     private boolean mAppVisible;
 
-    private static boolean DEFAULT_APP_VISIBILITY = true;
-    private static int DEFAULT_ORDER_NUMBER = -1;
-    private static long DEFAULT_OPEN_COUNT = 1;
+    private static final boolean DEFAULT_APP_VISIBILITY = true;
+    private static final int DEFAULT_ORDER_NUMBER = -1;
+    private static final long DEFAULT_OPEN_COUNT = 1;
 
     public AppPersistent(String packageName, String name, long openCount, int orderNumber, boolean appVisible) {
         this.mPackageName = packageName;
@@ -84,6 +77,7 @@ public class AppPersistent extends SugarRecord {
         this.mAppVisible = appVisible;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "AppPersistent{" +
