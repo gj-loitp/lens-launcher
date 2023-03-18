@@ -11,18 +11,19 @@ import android.graphics.Bitmap;
 import android.graphics.Rect;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.core.app.ActivityOptionsCompat;
-import androidx.core.content.ContextCompat;
 import android.view.View;
 import android.widget.Toast;
 
-import java.util.ArrayList;
-import java.util.List;
+import androidx.core.app.ActivityOptionsCompat;
+import androidx.core.content.ContextCompat;
 
 import com.roy.R;
 import com.roy.background.BroadcastReceivers;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by nickrout on 2016/04/02.
@@ -87,7 +88,7 @@ public class AppUtil {
             Intent componentIntent = new Intent();
             componentIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             componentIntent.setComponent(new ComponentName(packageName, name));
-            if (!packageName.equals("nickrout.lenslauncher")) {
+            if (!packageName.equals("com.roy93group.lenslauncher")) {
                 componentIntent.setAction(Intent.ACTION_MAIN);
             }
             componentIntent.addCategory(Intent.CATEGORY_LAUNCHER);

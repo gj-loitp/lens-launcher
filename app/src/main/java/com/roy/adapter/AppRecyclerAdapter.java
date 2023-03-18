@@ -113,7 +113,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter {
             } else {
                 mToggleAppVisibility.setImageResource(R.drawable.ic_visibility_off_grey_24dp);
             }
-            if (mApp.getPackageName().toString().equals("nickrout.lenslauncher")) {
+            if (mApp.getPackageName().toString().equals("com.roy93group.lenslauncher")) {
                 mToggleAppVisibility.setVisibility(View.INVISIBLE);
             } else {
                 mToggleAppVisibility.setVisibility(View.VISIBLE);

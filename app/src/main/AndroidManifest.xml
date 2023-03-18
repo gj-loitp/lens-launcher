@@ -31,7 +31,7 @@
             android:value="false" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="nickrout.lenslauncher.model" />
+            android:value="com.roy.model" />
 
         <activity
             android:name=".ui.HomeActivity"
