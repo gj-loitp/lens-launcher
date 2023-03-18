@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 import com.roy.model.App;
 import com.roy.util.AppSorter;
-import com.roy.AppsSingleton;
+import com.roy.app.AppsSingleton;
 import com.roy.util.Settings;
 
 /**

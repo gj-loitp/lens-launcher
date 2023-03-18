@@ -1,9 +1,10 @@
-package com.roy;
+package com.roy.app;
 
 import android.graphics.Bitmap;
 
-import java.util.ArrayList;
 import com.roy.model.App;
+
+import java.util.ArrayList;
 
 /**
  * Created by nicholasrout on 2016/05/30.

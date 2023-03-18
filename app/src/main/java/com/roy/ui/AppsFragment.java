@@ -22,7 +22,7 @@ import com.roy.R;
 import com.roy.adapter.AppRecyclerAdapter;
 import com.roy.model.App;
 import com.roy.util.AppSorter;
-import com.roy.AppsSingleton;
+import com.roy.app.AppsSingleton;
 import com.roy.background.BroadcastReceivers;
 import com.roy.util.Settings;
 

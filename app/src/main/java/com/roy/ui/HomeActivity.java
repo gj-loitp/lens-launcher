@@ -23,7 +23,7 @@ import com.roy.background.NightModeObservable;
 import com.roy.background.VisibilityChangedObservable;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
-import com.roy.AppsSingleton;
+import com.roy.app.AppsSingleton;
 import com.roy.background.LoadedObservable;
 
 /**

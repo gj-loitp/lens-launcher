@@ -23,7 +23,7 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-import com.roy.AppsSingleton;
+import com.roy.app.AppsSingleton;
 import com.roy.R;
 import com.roy.background.BroadcastReceivers;
 import com.roy.background.LoadedObservable;
