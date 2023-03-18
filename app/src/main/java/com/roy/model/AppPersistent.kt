@@ -47,16 +47,14 @@ class AppPersistent(
         private const val DEFAULT_OPEN_COUNT: Long = 1
 
         fun generateIdentifier(
-            packageName: String,
-            name: String
+            packageName: String, name: String
         ): String {
             return "$packageName-$name"
         }
 
         @JvmStatic
         fun incrementAppCount(
-            packageName: String,
-            name: String
+            packageName: String, name: String
         ) {
             val identifier = generateIdentifier(packageName, name)
             val appPersistent = Select.from(
@@ -79,9 +77,7 @@ class AppPersistent(
         }
 
         fun setAppOrderNumber(
-            packageName: String,
-            name: String,
-            orderNumber: Int
+            packageName: String, name: String, orderNumber: Int
         ) {
             val identifier = generateIdentifier(packageName, name)
             val appPersistent = Select.from(
@@ -105,54 +101,62 @@ class AppPersistent(
 
         @JvmStatic
         fun getAppVisibility(
-            packageName: String,
-            name: String
+            packageName: String, name: String
         ): Boolean {
-            val identifier = generateIdentifier(packageName, name)
-            val appPersistent = Select.from(
-                AppPersistent::class.java
-            ).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier))
-                .first()
-            return appPersistent?.isAppVisible ?: true
+            return try {
+                val identifier = generateIdentifier(packageName, name)
+                val appPersistent = Select.from(
+                    AppPersistent::class.java
+                ).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier))
+                    .first()
+                appPersistent?.isAppVisible ?: true
+            } catch (e: Exception) {
+                true
+            }
         }
 
         @JvmStatic
         fun setAppVisibility(
-            packageName: String,
-            name: String,
-            mHideApp: Boolean
+            packageName: String, name: String, mHideApp: Boolean
         ) {
-            val identifier = generateIdentifier(packageName, name)
-            val appPersistent = Select.from(
-                AppPersistent::class.java
-            ).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier))
-                .first()
-            if (appPersistent != null) {
-                appPersistent.isAppVisible = mHideApp
-                appPersistent.save()
-            } else {
-                val newAppPersistent = AppPersistent(
-                    mPackageName = packageName,
-                    mName = name,
-                    openCount = DEFAULT_OPEN_COUNT,
-                    orderNumber = DEFAULT_ORDER_NUMBER,
-                    appVisible = mHideApp
-                )
-                newAppPersistent.save()
+            try {
+                val identifier = generateIdentifier(packageName, name)
+                val appPersistent = Select.from(
+                    AppPersistent::class.java
+                ).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier))
+                    .first()
+                if (appPersistent != null) {
+                    appPersistent.isAppVisible = mHideApp
+                    appPersistent.save()
+                } else {
+                    val newAppPersistent = AppPersistent(
+                        mPackageName = packageName,
+                        mName = name,
+                        openCount = DEFAULT_OPEN_COUNT,
+                        orderNumber = DEFAULT_ORDER_NUMBER,
+                        appVisible = mHideApp
+                    )
+                    newAppPersistent.save()
+                }
+            } catch (e: Exception) {
+                e.printStackTrace()
             }
         }
 
         @JvmStatic
         fun getAppOpenCount(
-            packageName: String,
-            name: String
+            packageName: String, name: String
         ): Long {
-            val identifier = generateIdentifier(packageName, name)
-            val appPersistent = Select.from(
-                AppPersistent::class.java
-            ).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier))
-                .first()
-            return appPersistent?.openCount ?: 0
+            return try {
+                val identifier = generateIdentifier(packageName, name)
+                val appPersistent = Select.from(
+                    AppPersistent::class.java
+                ).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier))
+                    .first()
+                appPersistent?.openCount ?: 0
+            } catch (e: Exception) {
+                0
+            }
         }
     }
 }
