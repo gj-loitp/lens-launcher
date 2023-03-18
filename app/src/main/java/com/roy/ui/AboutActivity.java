@@ -1,14 +1,8 @@
 package com.roy.ui;
 
-import static com.roy.Pro.PRO;
-
 import android.animation.Animator;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.annotation.Nullable;
-import com.google.android.material.appbar.CollapsingToolbarLayout;
-import androidx.core.content.ContextCompat;
-import androidx.appcompat.widget.Toolbar;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
 import android.view.MenuItem;
@@ -17,21 +11,24 @@ import android.view.ViewAnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.content.ContextCompat;
+
+import com.google.android.material.appbar.CollapsingToolbarLayout;
+import com.roy.R;
+import com.roy.background.NightModeObservable;
+
 import java.util.Observable;
 import java.util.Observer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import com.roy.Pro;
-import com.roy.R;
-import com.roy.background.NightModeObservable;
 
 /**
  * Created by nickrout on 2016/04/06.
  */
 public class AboutActivity extends BaseActivity implements Observer {
-
-    private static final String TAG = "AboutActivity";
 
     @BindView(R.id.text_view_about)
     TextView mTextViewAbout;
@@ -83,16 +80,7 @@ public class AboutActivity extends BaseActivity implements Observer {
     }
 
     private void setupViews() {
-        if (PRO) {
-            mProAbout.setVisibility(View.GONE);
-        } else {
-            mProAbout.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Pro.showPro(view.getContext());
-                }
-            });
-        }
+        mProAbout.setVisibility(View.GONE);
         mTextViewAbout.setText(Html.fromHtml(getString(R.string.about)));
         mTextViewAbout.setMovementMethod(LinkMovementMethod.getInstance());
     }

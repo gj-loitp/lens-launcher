@@ -1,29 +1,39 @@
 package com.roy.ui;
 
-import static com.roy.Pro.PRO;
-
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
-import androidx.annotation.ColorInt;
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.google.android.material.tabs.TabLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
-import androidx.viewpager.widget.ViewPager;
-import androidx.appcompat.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 
+import androidx.annotation.ColorInt;
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentStatePagerAdapter;
+import androidx.viewpager.widget.ViewPager;
+
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.tabs.TabLayout;
+import com.roy.AppsSingleton;
+import com.roy.R;
+import com.roy.background.BroadcastReceivers;
+import com.roy.background.LoadedObservable;
+import com.roy.background.NightModeObservable;
+import com.roy.model.App;
+import com.roy.util.AppSorter;
+import com.roy.util.IconPackManager;
+import com.roy.util.LauncherUtil;
+import com.roy.util.NightModeUtil;
+import com.roy.util.Settings;
 
 import java.util.ArrayList;
 import java.util.EnumSet;
@@ -34,18 +44,6 @@ import java.util.Observer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import com.roy.Pro;
-import com.roy.R;
-import com.roy.background.NightModeObservable;
-import com.roy.model.App;
-import com.roy.util.AppSorter;
-import com.roy.AppsSingleton;
-import com.roy.background.BroadcastReceivers;
-import com.roy.util.IconPackManager;
-import com.roy.util.LauncherUtil;
-import com.roy.background.LoadedObservable;
-import com.roy.util.NightModeUtil;
-import com.roy.util.Settings;
 
 /**
  * Created by nicholasrout on 2016/06/07.
@@ -73,11 +71,7 @@ public class SettingsActivity extends BaseActivity
 
     @OnClick(R.id.fab_sort)
     public void onSortClicked() {
-        if (PRO) {
-            showSortTypeDialog();
-        } else {
-            showPro();
-        }
+        showSortTypeDialog();
     }
 
     private FragmentPagerAdapter mPagerAdapter;
@@ -93,25 +87,33 @@ public class SettingsActivity extends BaseActivity
     public interface LensInterface {
         void onDefaultsReset();
     }
+
     private LensInterface mLensInterface;
+
     public void setLensInterface(LensInterface lensInterface) {
         mLensInterface = lensInterface;
     }
 
     public interface AppsInterface {
         void onDefaultsReset();
+
         void onAppsUpdated(ArrayList<App> apps);
     }
+
     private AppsInterface mAppsInterface;
+
     public void setAppsInterface(AppsInterface appsInterface) {
         mAppsInterface = appsInterface;
     }
 
     public interface SettingsInterface {
         void onDefaultsReset();
+
         void onValuesUpdated();
     }
+
     private SettingsInterface mSettingsInterface;
+
     public void setSettingsInterface(SettingsInterface settingsInterface) {
         mSettingsInterface = settingsInterface;
     }
@@ -385,10 +387,6 @@ public class SettingsActivity extends BaseActivity
                 .allowUserColorInputAlpha(false)
                 .tag(COLOR_TAG_HIGHLIGHT)
                 .show(this);
-    }
-
-    private void showPro() {
-        Pro.showPro(this);
     }
 
     @Override

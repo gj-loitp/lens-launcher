@@ -1,17 +1,11 @@
 package com.roy.adapter;
 
-import static com.roy.Pro.PRO;
-
 import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.Settings;
-import com.google.android.material.snackbar.Snackbar;
-import androidx.cardview.widget.CardView;
-import androidx.appcompat.widget.PopupMenu;
-import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,17 +14,22 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.util.List;
+import androidx.appcompat.widget.PopupMenu;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.RecyclerView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import com.roy.Pro;
+import com.google.android.material.snackbar.Snackbar;
 import com.roy.R;
 import com.roy.background.BroadcastReceivers;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
 import com.roy.ui.SettingsActivity;
 import com.roy.util.AppUtil;
+
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 public class AppRecyclerAdapter extends RecyclerView.Adapter {
 
@@ -163,15 +162,11 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter {
             mToggleAppVisibility.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (PRO) {
-                        if (mApp != null) {
-                            sendChangeAppsVisibilityBroadcast();
-                            toggleAppVisibility(mApp);
-                        } else {
-                            Snackbar.make(mContainer, mContext.getString(R.string.error_app_not_found), Snackbar.LENGTH_LONG).show();
-                        }
+                    if (mApp != null) {
+                        sendChangeAppsVisibilityBroadcast();
+                        toggleAppVisibility(mApp);
                     } else {
-                        showPro();
+                        Snackbar.make(mContainer, mContext.getString(R.string.error_app_not_found), Snackbar.LENGTH_LONG).show();
                     }
                 }
             });
@@ -214,8 +209,8 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter {
             return false;
         }
 
-        private void showPro() {
-            if (mContext != null) Pro.showPro(mContext);
-        }
+//        private void showPro() {
+//            if (mContext != null) Pro.showPro(mContext);
+//        }
     }
 }
