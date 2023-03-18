@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="nickrout.lenslauncher">
-    
+
     <uses-permission android:name="QUERY_ALL_PACKAGES" />
 
     <queries>
@@ -15,11 +14,11 @@
         android:name=".LensLauncherApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
-        android:roundIcon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:largeHeap="true"
-        android:theme="@style/AppTheme"
-        android:supportsRtl="true">
+        android:roundIcon="@mipmap/ic_launcher"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
 
         <meta-data
             android:name="DATABASE"
@@ -36,13 +35,14 @@
 
         <activity
             android:name=".ui.HomeActivity"
-            android:label="@string/app_name"
+            android:exported="true"
             android:launchMode="singleTask"
             android:stateNotNeeded="true"
             android:taskAffinity=""
             android:theme="@style/HomeTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
@@ -50,7 +50,7 @@
 
         <activity
             android:name=".ui.SettingsActivity"
-            android:label="@string/app_name"
+            android:exported="true"
             android:launchMode="singleTask"
             android:stateNotNeeded="true"
             android:taskAffinity=""
@@ -66,44 +66,44 @@
 
         <activity
             android:name=".ui.AboutActivity"
+            android:exported="true"
             android:label="@string/activity_title_about"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".ui.FakeLauncherActivity"
-            android:enabled="false">
+            android:enabled="false"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.HOME" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
 
-        <receiver android:name=".background.BroadcastReceivers$AppsUpdatedReceiver">
+        <receiver
+            android:name=".background.BroadcastReceivers$AppsUpdatedReceiver"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
                 <action android:name="android.intent.action.PACKAGE_CHANGED" />
                 <action android:name="android.intent.action.PACKAGE_REPLACED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".background.BroadcastReceivers$AppsEditedReceiver">
-        </receiver>
+        <receiver android:name=".background.BroadcastReceivers$AppsEditedReceiver" />
 
-        <receiver android:name=".background.BroadcastReceivers$AppsVisibilityChangedReceiver">
-        </receiver>
+        <receiver android:name=".background.BroadcastReceivers$AppsVisibilityChangedReceiver" />
 
-        <receiver android:name=".background.BroadcastReceivers$AppsLoadedReceiver">
-        </receiver>
+        <receiver android:name=".background.BroadcastReceivers$AppsLoadedReceiver" />
 
-        <receiver android:name=".background.BroadcastReceivers$BackgroundChangedReceiver">
-        </receiver>
+        <receiver android:name=".background.BroadcastReceivers$BackgroundChangedReceiver" />
 
-        <receiver android:name=".background.BroadcastReceivers$NightModeReceiver">
-        </receiver>
+        <receiver android:name=".background.BroadcastReceivers$NightModeReceiver" />
 
     </application>
 
