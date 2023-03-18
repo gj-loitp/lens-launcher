@@ -6,7 +6,7 @@ import android.net.Uri;
 
 public class Pro {
 
-    public static final boolean PRO = false;
+    public static final boolean PRO = true;
 
     private static final String PRO_URL = "https://play.google.com/store/apps/details?id=nickrout.lenslauncherpro";
 
