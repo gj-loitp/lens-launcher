@@ -7,12 +7,12 @@ import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
-import java.util.ArrayList;
-
+import com.roy.app.AppsSingleton;
 import com.roy.model.App;
 import com.roy.util.AppUtil;
-import com.roy.app.AppsSingleton;
 import com.roy.util.Settings;
+
+import java.util.ArrayList;
 
 /**
  * Created by rish on 26/5/16.

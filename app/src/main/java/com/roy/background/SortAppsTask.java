@@ -6,12 +6,12 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
-import java.util.ArrayList;
-
+import com.roy.app.AppsSingleton;
 import com.roy.model.App;
 import com.roy.util.AppSorter;
-import com.roy.app.AppsSingleton;
 import com.roy.util.Settings;
+
+import java.util.ArrayList;
 
 /**
  * Created by nicholasrout on 2016/06/23.

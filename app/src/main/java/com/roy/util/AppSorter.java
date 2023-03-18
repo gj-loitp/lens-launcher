@@ -1,12 +1,12 @@
 package com.roy.util;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-
 import com.roy.R;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 /**
  * Created by nicholasrout on 2016/05/28.
