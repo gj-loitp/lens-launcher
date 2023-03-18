@@ -1,48 +1,44 @@
-package com.roy.app;
+package com.roy.app
 
-import com.orm.SugarApp;
-import com.roy.background.EditedObservable;
-import com.roy.background.SortAppsTask;
-import com.roy.background.UpdateAppsTask;
-import com.roy.background.UpdatedObservable;
+import com.orm.SugarApp
+import com.roy.background.EditedObservable
+import com.roy.background.SortAppsTask
+import com.roy.background.UpdateAppsTask
+import com.roy.background.UpdatedObservable
+import java.util.*
 
-import java.util.Observable;
-import java.util.Observer;
+class MyApplication : SugarApp(), Observer {
 
-/**
- * Created by nicholasrout on 2016/06/12.
- */
-public class MyApplication extends SugarApp implements Observer {
+    override fun onCreate() {
+        super.onCreate()
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
-        UpdatedObservable.getInstance().addObserver(this);
-        EditedObservable.getInstance().addObserver(this);
-        updateApps();
+        UpdatedObservable.getInstance().addObserver(this)
+        EditedObservable.getInstance().addObserver(this)
+        updateApps()
     }
 
-    @Override
-    public void update(Observable observable, Object data) {
-        if (observable instanceof UpdatedObservable) {
-            updateApps();
-        } else if (observable instanceof EditedObservable) {
-            editApps();
+    override fun update(
+        observable: Observable, data: Any
+    ) {
+        if (observable is UpdatedObservable) {
+            updateApps()
+        } else if (observable is EditedObservable) {
+            editApps()
         }
     }
 
-    private void updateApps() {
-        new UpdateAppsTask(
-                getPackageManager(),
-                getApplicationContext(),
-                this)
-                .execute();
+    private fun updateApps() {
+        UpdateAppsTask(
+            /* packageManager = */ packageManager,
+            /* context = */ applicationContext,
+            /* application = */ this
+        ).execute()
     }
 
-    private void editApps() {
-        new SortAppsTask(
-                getApplicationContext(),
-                this)
-                .execute();
+    private fun editApps() {
+        SortAppsTask(
+            /* context = */ applicationContext,
+            /* application = */ this
+        ).execute()
     }
 }
