@@ -10,8 +10,8 @@
         android:shortcutLongLabel="@string/activity_title_settings">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="nickrout.roy"
-            android:targetClass="nickrout.roy.ui.SettingsActivity" />
+            android:targetPackage="com.roy"
+            android:targetClass="com.roy.ui.SettingsActivity" />
     </shortcut>
 
     <shortcut
@@ -22,8 +22,8 @@
         android:shortcutLongLabel="@string/activity_title_apps">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="nickrout.roy"
-            android:targetClass="nickrout.roy.ui.HomeActivity" />
+            android:targetPackage="com.roy"
+            android:targetClass="com.roy.ui.HomeActivity" />
     </shortcut>
 
 </shortcuts>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="nickrout.roy">
+    package="com.roy">
 
     <!--    TODO fix-->
     <uses-permission android:name="QUERY_ALL_PACKAGES" />
@@ -12,7 +12,7 @@
     </queries>
 
     <application
-        android:name="nickrout.roy.LensLauncherApplication"
+        android:name="com.roy.LensLauncherApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -35,7 +35,7 @@
             android:value="nickrout.lenslauncher.model" />
 
         <activity
-            android:name="nickrout.roy.ui.HomeActivity"
+            android:name="com.roy.ui.HomeActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:stateNotNeeded="true"
@@ -50,7 +50,7 @@
         </activity>
 
         <activity
-            android:name="nickrout.roy.ui.SettingsActivity"
+            android:name="com.roy.ui.SettingsActivity"
             android:exported="true"
             android:launchMode="singleTask"
             android:stateNotNeeded="true"
@@ -66,13 +66,13 @@
         </activity>
 
         <activity
-            android:name="nickrout.roy.ui.AboutActivity"
+            android:name="com.roy.ui.AboutActivity"
             android:exported="true"
             android:label="@string/activity_title_about"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name="nickrout.roy.ui.FakeLauncherActivity"
+            android:name="com.roy.ui.FakeLauncherActivity"
             android:enabled="false"
             android:exported="true">
             <intent-filter>
@@ -84,7 +84,7 @@
         </activity>
 
         <receiver
-            android:name="nickrout.roy.background.BroadcastReceivers$AppsUpdatedReceiver"
+            android:name="com.roy.background.BroadcastReceivers$AppsUpdatedReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
@@ -96,15 +96,15 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name="nickrout.roy.background.BroadcastReceivers$AppsEditedReceiver" />
+        <receiver android:name="com.roy.background.BroadcastReceivers$AppsEditedReceiver" />
 
-        <receiver android:name="nickrout.roy.background.BroadcastReceivers$AppsVisibilityChangedReceiver" />
+        <receiver android:name="com.roy.background.BroadcastReceivers$AppsVisibilityChangedReceiver" />
 
-        <receiver android:name="nickrout.roy.background.BroadcastReceivers$AppsLoadedReceiver" />
+        <receiver android:name="com.roy.background.BroadcastReceivers$AppsLoadedReceiver" />
 
-        <receiver android:name="nickrout.roy.background.BroadcastReceivers$BackgroundChangedReceiver" />
+        <receiver android:name="com.roy.background.BroadcastReceivers$BackgroundChangedReceiver" />
 
-        <receiver android:name="nickrout.roy.background.BroadcastReceivers$NightModeReceiver" />
+        <receiver android:name="com.roy.background.BroadcastReceivers$NightModeReceiver" />
 
     </application>
 
