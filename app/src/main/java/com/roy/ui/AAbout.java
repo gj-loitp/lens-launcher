@@ -27,19 +27,19 @@ import butterknife.ButterKnife;
 
 public class AAbout extends ABase implements Observer {
 
-    @BindView(R.id.text_view_about)
+    @BindView(R.id.tvAbout)
     TextView mTextViewAbout;
 
     @BindView(R.id.backdrop)
     ImageView mImageAbout;
 
-    @BindView(R.id.collapsing_toolbar)
+    @BindView(R.id.collapsingToolbar)
     CollapsingToolbarLayout mCollapsingToolbar;
 
     @BindView(R.id.toolbar)
     Toolbar mToolbar;
 
-    @BindView(R.id.pro_about)
+    @BindView(R.id.tvpProAbout)
     View mProAbout;
 
     @Override
