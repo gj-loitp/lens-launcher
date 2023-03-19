@@ -12,24 +12,20 @@ import com.roy.util.AppSorter;
 import com.roy.util.Settings;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-/**
- * Created by nicholasrout on 2016/06/23.
- */
+//2023.03.19 tried to convert kotlin but failed
 public class SortAppsTask extends AsyncTask<Void, Void, Void> {
 
-    private Context mContext;
-    private Application mApplication;
-    private Settings mSettings;
+    private final Application mApplication;
+    private final Settings mSettings;
 
     private ArrayList<App> mApps;
     private ArrayList<Bitmap> mAppIcons;
 
-    public SortAppsTask(Context context,
-                        Application application) {
-        mContext = context;
+    public SortAppsTask(Context context, Application application) {
         mApplication = application;
-        mSettings = new Settings(mContext);
+        mSettings = new Settings(context);
     }
 
     @Override
@@ -39,11 +35,11 @@ public class SortAppsTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        ArrayList<App> apps = AppsSingleton.getInstance().getApps();
+        ArrayList<App> apps = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
         AppSorter.sort(apps, mSettings.getSortType());
         mApps = new ArrayList<>();
         mAppIcons = new ArrayList<>();
-        for (int i = 0; i < apps.size(); i++) {
+        for (int i = 0; i < Objects.requireNonNull(apps).size(); i++) {
             App app = apps.get(i);
             Bitmap appIcon = app.getIcon();
             if (appIcon != null) {
@@ -56,7 +52,7 @@ public class SortAppsTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        AppsSingleton.getInstance().setApps(mApps);
+        Objects.requireNonNull(AppsSingleton.getInstance()).setApps(mApps);
         AppsSingleton.getInstance().setAppIcons(mAppIcons);
         Intent appsLoadedIntent = new Intent(mApplication, BroadcastReceivers.AppsLoadedReceiver.class);
         mApplication.sendBroadcast(appsLoadedIntent);

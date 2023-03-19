@@ -2,7 +2,7 @@ package com.roy.bkg;
 
 import java.util.Observable;
 
-
+//2023.03.19 tried to convert kotlin but failed
 public class NightModeObservable extends Observable {
     private static final NightModeObservable instance = new NightModeObservable();
 
