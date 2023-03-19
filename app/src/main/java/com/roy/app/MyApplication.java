@@ -9,14 +9,13 @@ import com.roy.background.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
-/**
- * Created by nicholasrout on 2016/06/12.
- */
+//2023.03.18 tried to convert to kotlin but failed
 public class MyApplication extends SugarApp implements Observer {
 
     @Override
     public void onCreate() {
         super.onCreate();
+
         UpdatedObservable.getInstance().addObserver(this);
         EditedObservable.getInstance().addObserver(this);
         updateApps();
