@@ -1,7 +1,6 @@
 package com.roy.ui;
 
 import android.animation.Animator;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.method.LinkMovementMethod;
@@ -19,15 +18,13 @@ import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.roy.R;
 import com.roy.sv.NightModeObservable;
 
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-/**
- * Created by nickrout on 2016/04/06.
- */
 public class AboutActivity extends BaseActivity implements Observer {
 
     @BindView(R.id.text_view_about)
@@ -51,31 +48,22 @@ public class AboutActivity extends BaseActivity implements Observer {
         setContentView(R.layout.activity_about);
         ButterKnife.bind(this);
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         mCollapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(this, R.color.colorTransparent));
         setupViews();
-        mImageAbout.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                circularRevealAboutImage();
-            }
-        }, 150);
+        mImageAbout.postDelayed(this::circularRevealAboutImage, 150);
         NightModeObservable.getInstance().addObserver(this);
     }
 
     private void circularRevealAboutImage() {
         if (mImageAbout != null) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                int cx = mImageAbout.getWidth() / 2;
-                int cy = mImageAbout.getHeight() / 2;
-                float finalRadius = (float) Math.hypot(cx, cy);
-                Animator anim =
-                        ViewAnimationUtils.createCircularReveal(mImageAbout, cx, cy, 0, finalRadius);
-                mImageAbout.setVisibility(View.VISIBLE);
-                anim.start();
-            } else {
-                mImageAbout.setVisibility(View.VISIBLE);
-            }
+            int cx = mImageAbout.getWidth() / 2;
+            int cy = mImageAbout.getHeight() / 2;
+            float finalRadius = (float) Math.hypot(cx, cy);
+            Animator anim =
+                    ViewAnimationUtils.createCircularReveal(mImageAbout, cx, cy, 0, finalRadius);
+            mImageAbout.setVisibility(View.VISIBLE);
+            anim.start();
         }
     }
 
@@ -98,10 +86,9 @@ public class AboutActivity extends BaseActivity implements Observer {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                finish();
-                return true;
+        if (item.getItemId() == android.R.id.home) {
+            finish();
+            return true;
         }
         return super.onOptionsItemSelected(item);
     }
