@@ -1,53 +1,52 @@
-package com.roy.app;
+package com.roy.app
 
-import android.graphics.Bitmap;
+import android.graphics.Bitmap
+import com.roy.model.App
 
-import com.roy.model.App;
+class AppsSingleton private constructor() {
+    private var mApps: ArrayList<App>? = null
+    private var mAppIcons: ArrayList<Bitmap>? = null
 
-import java.util.ArrayList;
-
-/**
- * Created by nicholasrout on 2016/05/30.
- */
-public class AppsSingleton {
-
-    private static AppsSingleton mAppsSingleton;
-
-    private ArrayList<App> mApps;
-    private ArrayList<Bitmap> mAppIcons;
-
-    private AppsSingleton() {}
-
-    public static AppsSingleton getInstance() {
-        if (mAppsSingleton == null) {
-            mAppsSingleton = new AppsSingleton();
+    var apps: ArrayList<App>?
+        get() {
+            val apps = ArrayList<App>()
+            if (mApps == null) {
+                return apps
+            }
+            mApps?.let {
+                apps.addAll(it)
+            }
+            return apps
         }
-        return mAppsSingleton;
-    }
-
-    public ArrayList<App> getApps() {
-        ArrayList<App> apps = new ArrayList<>();
-        if (mApps == null) {
-            return apps;
+        set(apps) {
+            mApps = apps
         }
-        apps.addAll(mApps);
-        return apps;
-    }
 
-    public void setApps(ArrayList<App> apps) {
-        mApps = apps;
-    }
-
-    public ArrayList<Bitmap> getAppIcons() {
-        ArrayList<Bitmap> appIcons = new ArrayList<>();
-        if (mAppIcons == null) {
-            return appIcons;
+    var appIcons: ArrayList<Bitmap>?
+        get() {
+            val appIcons = ArrayList<Bitmap>()
+            if (mAppIcons == null) {
+                return appIcons
+            }
+            mAppIcons?.let {
+                appIcons.addAll(it)
+            }
+            return appIcons
         }
-        appIcons.addAll(mAppIcons);
-        return appIcons;
-    }
+        set(appIcons) {
+            mAppIcons = appIcons
+        }
 
-    public void setAppIcons(ArrayList<Bitmap> appIcons) {
-        mAppIcons = appIcons;
+    companion object {
+        private var mAppsSingleton: AppsSingleton? = null
+
+        @JvmStatic
+        val instance: AppsSingleton?
+            get() {
+                if (mAppsSingleton == null) {
+                    mAppsSingleton = AppsSingleton()
+                }
+                return mAppsSingleton
+            }
     }
 }
