@@ -19,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import com.roy.R;
-import com.roy.adapter.AppRecyclerAdapter;
+import com.roy.a.AppAdapter;
 import com.roy.model.App;
 import com.roy.util.AppSorter;
 import com.roy.app.AppsSingleton;
@@ -40,7 +40,7 @@ public class AppsFragment extends Fragment implements SettingsActivity.AppsInter
     MaterialProgressBar mProgress;
 
     private Settings mSettings;
-    private AppRecyclerAdapter mAppRecyclerAdapter;
+    private AppAdapter mAppAdapter;
     private int mScrolledItemIndex;
 
     public AppsFragment() {
@@ -87,8 +87,8 @@ public class AppsFragment extends Fragment implements SettingsActivity.AppsInter
         }
         mProgress.setVisibility(View.INVISIBLE);
         mRecycler.setVisibility(View.VISIBLE);
-        mAppRecyclerAdapter = new AppRecyclerAdapter(getActivity(), apps);
-        mRecycler.setAdapter(mAppRecyclerAdapter);
+        mAppAdapter = new AppAdapter(getActivity(), apps);
+        mRecycler.setAdapter(mAppAdapter);
         mRecycler.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.columns_apps)));
         mRecycler.setItemAnimator(new DefaultItemAnimator());
         mRecycler.scrollToPosition(mScrolledItemIndex);

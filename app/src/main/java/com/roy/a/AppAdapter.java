@@ -1,4 +1,4 @@
-package com.roy.adapter;
+package com.roy.a;
 
 import android.content.ActivityNotFoundException;
 import android.content.Context;
@@ -33,12 +33,12 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AppRecyclerAdapter extends RecyclerView.Adapter {
+public class AppAdapter extends RecyclerView.Adapter {
 
     private final Context mContext;
     private final List<App> mApps;
 
-    public AppRecyclerAdapter(Context mContext, List<App> mApps) {
+    public AppAdapter(Context mContext, List<App> mApps) {
         this.mContext = mContext;
         this.mApps = mApps;
     }
