@@ -2,12 +2,9 @@ package com.roy.bkg;
 
 import java.util.Observable;
 
-/**
- * Created by nicholasrout on 2017/01/15.
- */
 
 public class NightModeObservable extends Observable {
-    private static NightModeObservable instance = new NightModeObservable();
+    private static final NightModeObservable instance = new NightModeObservable();
 
     public static NightModeObservable getInstance() {
         return instance;
