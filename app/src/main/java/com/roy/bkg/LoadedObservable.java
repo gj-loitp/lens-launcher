@@ -2,11 +2,8 @@ package com.roy.bkg;
 
 import java.util.Observable;
 
-/**
- * Created by nicholasrout on 2016/06/12.
- */
 public class LoadedObservable extends Observable {
-    private static LoadedObservable instance = new LoadedObservable();
+    private static final LoadedObservable instance = new LoadedObservable();
 
     public static LoadedObservable getInstance() {
         return instance;
