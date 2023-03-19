@@ -28,49 +28,49 @@ import butterknife.ButterKnife;
 public class AAbout extends ABase implements Observer {
 
     @BindView(R.id.tvAbout)
-    TextView mTextViewAbout;
+    TextView tvAbout;
 
     @BindView(R.id.backdrop)
-    ImageView mImageAbout;
+    ImageView backdrop;
 
     @BindView(R.id.collapsingToolbar)
-    CollapsingToolbarLayout mCollapsingToolbar;
+    CollapsingToolbarLayout collapsingToolbar;
 
     @BindView(R.id.toolbar)
-    Toolbar mToolbar;
+    Toolbar toolbar;
 
-    @BindView(R.id.tvpProAbout)
-    View mProAbout;
+    @BindView(R.id.tvProAbout)
+    View tvpProAbout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_about);
         ButterKnife.bind(this);
-        setSupportActionBar(mToolbar);
+        setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        mCollapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(this, R.color.colorTransparent));
+        collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(this, R.color.colorTransparent));
         setupViews();
-        mImageAbout.postDelayed(this::circularRevealAboutImage, 150);
+        backdrop.postDelayed(this::circularRevealAboutImage, 150);
         NightModeObservable.getInstance().addObserver(this);
     }
 
     private void circularRevealAboutImage() {
-        if (mImageAbout != null) {
-            int cx = mImageAbout.getWidth() / 2;
-            int cy = mImageAbout.getHeight() / 2;
+        if (backdrop != null) {
+            int cx = backdrop.getWidth() / 2;
+            int cy = backdrop.getHeight() / 2;
             float finalRadius = (float) Math.hypot(cx, cy);
             Animator anim =
-                    ViewAnimationUtils.createCircularReveal(mImageAbout, cx, cy, 0, finalRadius);
-            mImageAbout.setVisibility(View.VISIBLE);
+                    ViewAnimationUtils.createCircularReveal(backdrop, cx, cy, 0, finalRadius);
+            backdrop.setVisibility(View.VISIBLE);
             anim.start();
         }
     }
 
     private void setupViews() {
-        mProAbout.setVisibility(View.GONE);
-        mTextViewAbout.setText(Html.fromHtml(getString(R.string.about)));
-        mTextViewAbout.setMovementMethod(LinkMovementMethod.getInstance());
+        tvpProAbout.setVisibility(View.GONE);
+        tvAbout.setText(Html.fromHtml(getString(R.string.about)));
+        tvAbout.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
     @Override
