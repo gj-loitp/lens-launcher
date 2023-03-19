@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.Objects;
 
 //2023.03.19 tried to convert kotlin but failed
-public class SortAppsTask extends AsyncTask<Void, Void, Void> {
+public class TaskSortApps extends AsyncTask<Void, Void, Void> {
 
     private final Application mApplication;
     private final Settings mSettings;
@@ -23,7 +23,7 @@ public class SortAppsTask extends AsyncTask<Void, Void, Void> {
     private ArrayList<App> mApps;
     private ArrayList<Bitmap> mAppIcons;
 
-    public SortAppsTask(Context context, Application application) {
+    public TaskSortApps(Context context, Application application) {
         mApplication = application;
         mSettings = new Settings(context);
     }
