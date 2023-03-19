@@ -16,6 +16,7 @@ import com.roy.sv.BackgroundChangedObservable;
 import com.roy.sv.LoadedObservable;
 import com.roy.sv.NightModeObservable;
 import com.roy.sv.VisibilityChangedObservable;
+import com.roy.views.LensView;
 
 import java.util.ArrayList;
 import java.util.Objects;

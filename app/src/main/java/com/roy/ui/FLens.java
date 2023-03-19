@@ -15,6 +15,7 @@ import androidx.fragment.app.Fragment;
 
 import com.roy.R;
 import com.roy.util.Settings;
+import com.roy.views.LensView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

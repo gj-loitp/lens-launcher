@@ -1,5 +1,6 @@
-package com.roy.ui;
+package com.roy.views;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -10,8 +11,6 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.NinePatchDrawable;
-import android.os.Build;
-import androidx.core.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.HapticFeedbackConstants;
 import android.view.MotionEvent;
@@ -21,7 +20,7 @@ import android.view.animation.AccelerateDecelerateInterpolator;
 import android.view.animation.Animation;
 import android.view.animation.Transformation;
 
-import java.util.ArrayList;
+import androidx.core.content.ContextCompat;
 
 import com.roy.R;
 import com.roy.model.App;
@@ -31,12 +30,10 @@ import com.roy.util.AppUtil;
 import com.roy.util.LensCalculator;
 import com.roy.util.Settings;
 
-/**
- * Created by nickrout on 2016/04/02.
- */
-public class LensView extends View {
+import java.util.ArrayList;
+import java.util.Objects;
 
-    private static final String TAG = "LensView";
+public class LensView extends View {
 
     private Paint mPaintIcons;
     private Paint mPaintCircles;
@@ -59,7 +56,6 @@ public class LensView extends View {
     private float mAnimationMultiplier = 0.0f;
     private boolean mAnimationHiding = false;
 
-    private int mNumberOfCircles;
     private float mTouchSlop;
     private boolean mMoving;
 
@@ -147,7 +143,7 @@ public class LensView extends View {
         mPaintText.setColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
         mPaintText.setTextSize(getResources().getDimension(R.dimen.text_size_lens));
         mPaintText.setTextAlign(Paint.Align.CENTER);
-        mPaintText.setTypeface(Typeface.createFromAsset(getContext().getAssets(),"fonts/RobotoCondensed-Regular.ttf"));
+        mPaintText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/RobotoCondensed-Regular.ttf"));
 
         mPaintNewAppTag = new Paint();
         mPaintNewAppTag.setAntiAlias(true);
@@ -176,13 +172,14 @@ public class LensView extends View {
                 drawTouchSelection(canvas);
             }
         } else if (mDrawType == DrawType.CIRCLES) {
-            mNumberOfCircles = 100;
+            int mNumberOfCircles = 100;
             mTouchX = getWidth() / 2;
             mTouchY = getHeight() / 2;
             drawGrid(canvas, mNumberOfCircles);
         }
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public boolean onTouchEvent(MotionEvent event) {
         if (mDrawType == DrawType.APPS) {
@@ -247,11 +244,9 @@ public class LensView extends View {
     }
 
     private void drawWorkspaceBackground(Canvas canvas) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Rect rect = new Rect(0, 0, getWidth(), getHeight());
-            mWorkspaceBackgroundDrawable.setBounds(rect);
-            mWorkspaceBackgroundDrawable.draw(canvas);
-        }
+        Rect rect = new Rect(0, 0, getWidth(), getHeight());
+        mWorkspaceBackgroundDrawable.setBounds(rect);
+        mWorkspaceBackgroundDrawable.draw(canvas);
     }
 
     private void drawTouchSelection(Canvas canvas) {
@@ -318,11 +313,7 @@ public class LensView extends View {
         }
 
         if (selectIndex >= 0) {
-            if (selectIndex != mSelectIndex) {
-                mMustVibrate = true;
-            } else {
-                mMustVibrate = false;
-            }
+            mMustVibrate = selectIndex != mSelectIndex;
         } else {
             mMustVibrate = false;
         }
@@ -346,13 +337,9 @@ public class LensView extends View {
             Rect src = new Rect(0, 0, appIcon.getWidth(), appIcon.getHeight());
             canvas.drawBitmap(appIcon, src, rect, mPaintIcons);
 
-            /**
-             * Check if the app was installed Settings.SHOW_NEW_APP_TAG_DURATION ago, and if it has been opened since.
-             * If not, drawNewAppTag()
-             */
             if ((mApps.get(index).getInstallDate() >= (System.currentTimeMillis() - Settings.SHOW_NEW_APP_TAG_DURATION)
                     && (AppPersistent.getAppOpenCount(
-                    mApps.get(index).getPackageName().toString(), mApps.get(index).getName().toString()) == 0))) {
+                    Objects.requireNonNull(mApps.get(index).getPackageName()).toString(), Objects.requireNonNull(mApps.get(index).getName()).toString()) == 0))) {
                 drawNewAppTag(canvas, rect);
             }
         }
@@ -416,7 +403,7 @@ public class LensView extends View {
 
     private class LensAnimation extends Animation {
 
-        private boolean mShow;
+        private final boolean mShow;
 
         public LensAnimation(boolean show) {
             mShow = show;
