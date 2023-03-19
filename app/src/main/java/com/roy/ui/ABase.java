@@ -15,11 +15,11 @@ import com.roy.util.UtilSettings;
 
 public class ABase extends AppCompatActivity {
 
-    protected UtilSettings mUtilSettings;
+    protected UtilSettings utilSettings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        mUtilSettings = new UtilSettings(this);
+        utilSettings = new UtilSettings(this);
         if (savedInstanceState == null) {
             updateNightMode();
         }
@@ -42,9 +42,9 @@ public class ABase extends AppCompatActivity {
     }
 
     protected void updateNightMode() {
-        if (mUtilSettings == null) {
-            mUtilSettings = new UtilSettings(this);
+        if (utilSettings == null) {
+            utilSettings = new UtilSettings(this);
         }
-        getDelegate().setLocalNightMode(mUtilSettings.getNightMode());
+        getDelegate().setLocalNightMode(utilSettings.getNightMode());
     }
 }

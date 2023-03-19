@@ -232,14 +232,14 @@ public class ASettings extends ABase
         for (int i = 0; i < sortTypes.size(); i++) {
             sortTypeStrings.add(getApplicationContext().getString(sortTypes.get(i).getDisplayNameResId()));
         }
-        UtilAppSorter.SortType selectedSortType = mUtilSettings.getSortType();
+        UtilAppSorter.SortType selectedSortType = utilSettings.getSortType();
         int selectedIndex = sortTypes.indexOf(selectedSortType);
         mSortTypeDialog = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_sort_apps)
                 .items(sortTypeStrings)
                 .alwaysCallSingleChoiceCallback()
                 .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
-                    mUtilSettings.save(sortTypes.get(which));
+                    utilSettings.save(sortTypes.get(which));
                     sendEditAppsBroadcast();
                     return true;
                 })
@@ -256,14 +256,14 @@ public class ASettings extends ABase
                 iconPackNames.add(availableIconPacks.get(i).mName);
             }
         }
-        String selectedPackageName = mUtilSettings.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME);
+        String selectedPackageName = utilSettings.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME);
         int selectedIndex = iconPackNames.indexOf(selectedPackageName);
         mIconPackDialog = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_icon_pack)
                 .items(iconPackNames)
                 .alwaysCallSingleChoiceCallback()
                 .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
-                    mUtilSettings.save(UtilSettings.KEY_ICON_PACK_LABEL_NAME, iconPackNames.get(which));
+                    utilSettings.save(UtilSettings.KEY_ICON_PACK_LABEL_NAME, iconPackNames.get(which));
                     if (mSettingsInterface != null) {
                         mSettingsInterface.onValuesUpdated();
                     }
@@ -283,7 +283,7 @@ public class ASettings extends ABase
         for (int i = 0; i < availableNightModes.length; i++) {
             nightModes.add(availableNightModes[i]);
         }
-        String selectedNightMode = UtilNightModeUtil.getNightModeDisplayName(mUtilSettings.getNightMode());
+        String selectedNightMode = UtilNightModeUtil.getNightModeDisplayName(utilSettings.getNightMode());
         int selectedIndex = nightModes.indexOf(selectedNightMode);
         mNightModeDialog = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_night_mode)
@@ -293,7 +293,7 @@ public class ASettings extends ABase
                     @Override
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         String selection = nightModes.get(which);
-                        mUtilSettings.save(UtilSettings.KEY_NIGHT_MODE, UtilNightModeUtil.getNightModeFromDisplayName(selection));
+                        utilSettings.save(UtilSettings.KEY_NIGHT_MODE, UtilNightModeUtil.getNightModeFromDisplayName(selection));
                         sendNightModeBroadcast();
                         if (mSettingsInterface != null) {
                             mSettingsInterface.onValuesUpdated();
@@ -311,7 +311,7 @@ public class ASettings extends ABase
         for (int i = 0; i < availableBackgrounds.length; i++) {
             backgroundNames.add(availableBackgrounds[i]);
         }
-        String selectedBackground = mUtilSettings.getString(UtilSettings.KEY_BACKGROUND);
+        String selectedBackground = utilSettings.getString(UtilSettings.KEY_BACKGROUND);
         int selectedIndex = backgroundNames.indexOf(selectedBackground);
         mBackgroundDialog = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_background)
@@ -322,7 +322,7 @@ public class ASettings extends ABase
                     public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
                         String selection = backgroundNames.get(which);
                         if (selection.equals("Wallpaper")) {
-                            mUtilSettings.save(UtilSettings.KEY_BACKGROUND, selection);
+                            utilSettings.save(UtilSettings.KEY_BACKGROUND, selection);
                             sendBackgroundChangedBroadcast();
                             if (mSettingsInterface != null) {
                                 mSettingsInterface.onValuesUpdated();
@@ -351,7 +351,7 @@ public class ASettings extends ABase
                 .doneButton(R.string.md_done_label)
                 .cancelButton(R.string.md_cancel_label)
                 .backButton(R.string.md_back_label)
-                .preselect(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_BACKGROUND_COLOR)))
+                .preselect(Color.parseColor(utilSettings.getString(UtilSettings.KEY_BACKGROUND_COLOR)))
                 .dynamicButtonColor(false)
                 .allowUserColorInputAlpha(false)
                 .tag(COLOR_TAG_BACKGROUND)
@@ -365,7 +365,7 @@ public class ASettings extends ABase
                 .doneButton(R.string.md_done_label)
                 .cancelButton(R.string.md_cancel_label)
                 .backButton(R.string.md_back_label)
-                .preselect(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)))
+                .preselect(Color.parseColor(utilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)))
                 .dynamicButtonColor(false)
                 .allowUserColorInputAlpha(false)
                 .tag(COLOR_TAG_HIGHLIGHT)
@@ -376,11 +376,11 @@ public class ASettings extends ABase
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
         String hexColor = String.format("#%06X", selectedColor);
         if (dialog.tag().equals(COLOR_TAG_BACKGROUND)) {
-            mUtilSettings.save(UtilSettings.KEY_BACKGROUND, "Color");
-            mUtilSettings.save(UtilSettings.KEY_BACKGROUND_COLOR, hexColor);
+            utilSettings.save(UtilSettings.KEY_BACKGROUND, "Color");
+            utilSettings.save(UtilSettings.KEY_BACKGROUND_COLOR, hexColor);
             sendBackgroundChangedBroadcast();
         } else if (dialog.tag().equals(COLOR_TAG_HIGHLIGHT)) {
-            mUtilSettings.save(UtilSettings.KEY_HIGHLIGHT_COLOR, hexColor);
+            utilSettings.save(UtilSettings.KEY_HIGHLIGHT_COLOR, hexColor);
         }
         if (mSettingsInterface != null) {
             mSettingsInterface.onValuesUpdated();
