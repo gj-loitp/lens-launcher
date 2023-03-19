@@ -26,97 +26,97 @@ import butterknife.OnClick;
 
 public class FSettings extends Fragment implements ASettings.SettingsInterface {
 
-    @OnClick(R.id.layout_home_launcher)
+    @OnClick(R.id.llHomeLauncher)
     public void onHomeLauncherClick() {
         showHomeLauncherChooser();
     }
 
-    @BindView(R.id.text_view_selected_home_launcher)
+    @BindView(R.id.tvSelectedHomeLauncher)
     TextView mHomeLauncherTextView;
 
-    @OnClick(R.id.layout_icon_pack)
+    @OnClick(R.id.llIconPack)
     public void onIconPackClick() {
         showIconPackDialog();
     }
 
-    @BindView(R.id.text_view_selected_icon_pack)
+    @BindView(R.id.tvSelectedIconPack)
     TextView mIconPackTextView;
 
-    @BindView(R.id.pro_icon_pack)
+    @BindView(R.id.proIconPack)
     View mProIconPack;
 
-    @OnClick(R.id.layout_night_mode)
+    @OnClick(R.id.llNightMode)
     public void onNightModeClick() {
         showNightModeChooser();
     }
 
-    @BindView(R.id.text_view_selected_night_mode)
+    @BindView(R.id.tvSelectedNightMode)
     TextView mNightModeTextView;
 
-    @BindView(R.id.pro_night_mode)
+    @BindView(R.id.proNightMode)
     View mProNightMode;
 
-    @OnClick(R.id.layout_background)
+    @OnClick(R.id.llBackground)
     public void onBackgroundClick() {
         showBackgroundDialog();
     }
 
-    @BindView(R.id.text_view_selected_background)
+    @BindView(R.id.tvSelectedBackground)
     TextView mBackgroundTextView;
 
-    @BindView(R.id.image_view_selected_background_color)
+    @BindView(R.id.ivSelectedBackgroundColor)
     ImageView mBackgroundColorImageView;
 
-    @BindView(R.id.pro_background)
+    @BindView(R.id.proBackground)
     View mProBackground;
 
-    @OnClick(R.id.layout_highlight_color)
+    @OnClick(R.id.llHighlightColor)
     public void onHighlightColorClick() {
         showHighlightColorDialog();
     }
 
-    @BindView(R.id.text_view_selected_highlight_color)
+    @BindView(R.id.tvSelectedHighlightColor)
     TextView mHighlightColorTextView;
 
-    @BindView(R.id.image_view_selected_highlight_color)
+    @BindView(R.id.ivSelectedHighlightColor)
     ImageView mHighlightColorImageView;
 
-    @BindView(R.id.pro_highlight_color)
+    @BindView(R.id.proHighlightColor)
     View mProHighlightColor;
 
-    @OnClick(R.id.switch_vibrate_app_hover_parent)
+    @OnClick(R.id.rlSwitchVibrateAppHoverParent)
     public void onVibrateAppHoverParentClick() {
     }
 
-    @BindView(R.id.switch_vibrate_app_hover)
+    @BindView(R.id.swVibrateAppHover)
     SwitchCompat mVibrateAppHover;
 
-    @OnClick(R.id.switch_vibrate_app_launch_parent)
+    @OnClick(R.id.rlSwitchVibrateAppLaunchParent)
     public void onVibrateAppLaunchParentClick() {
     }
 
-    @BindView(R.id.switch_vibrate_app_launch)
+    @BindView(R.id.swVibrateAppLaunch)
     SwitchCompat mVibrateAppLaunch;
 
-    @OnClick(R.id.switch_show_name_app_hover_parent)
+    @OnClick(R.id.rlSwitchShowNameAppHoverParent)
     public void onShowNameAppHoverParentClick() {
     }
 
-    @BindView(R.id.switch_show_name_app_hover)
+    @BindView(R.id.swShowNameAppHover)
     SwitchCompat mShowNameAppHover;
 
-    @OnClick(R.id.switch_show_new_app_tag_parent)
+    @OnClick(R.id.swShowNewAppTagParent)
     public void onShowNewAppTagParentClick() {
     }
 
-    @BindView(R.id.switch_show_new_app_tag)
+    @BindView(R.id.swShowNewAppTag)
     SwitchCompat mShowNewAppTag;
 
-    @OnClick(R.id.switch_show_touch_selection_parent)
+    @OnClick(R.id.rlSwitchShowTouchSelectionParent)
     public void onShowTouchSelectionParentClick() {
     }
 
-    @BindView(R.id.switch_show_touch_selection)
+    @BindView(R.id.swShowTouchSelection)
     SwitchCompat mShowTouchSelection;
 
     private UtilSettings mUtilSettings;
