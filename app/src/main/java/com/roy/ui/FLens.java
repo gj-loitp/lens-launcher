@@ -23,47 +23,47 @@ import butterknife.OnClick;
 
 public class FLens extends Fragment implements ASettings.LensInterface {
 
-    @BindView(R.id.lens_view_settings)
+    @BindView(R.id.lensViewsSettings)
     LensView mLensView;
 
-    @OnClick(R.id.seek_bar_min_icon_size_parent)
+    @OnClick(R.id.sbMinIconSizeParent)
     public void onMinIconSizeParentClick() {
     }
 
-    @BindView(R.id.seek_bar_min_icon_size)
+    @BindView(R.id.sbMinIconSize)
     AppCompatSeekBar mMinIconSize;
 
-    @BindView(R.id.value_min_icon_size)
+    @BindView(R.id.tvValueMinIconSize)
     TextView mValueMinIconSize;
 
-    @OnClick(R.id.seek_bar_distortion_factor_parent)
+    @OnClick(R.id.rlSbDistortionFactorParent)
     public void onDistortionFactorParentClick() {
     }
 
-    @BindView(R.id.seek_bar_distortion_factor)
+    @BindView(R.id.sbDistortionFactor)
     AppCompatSeekBar mDistortionFactor;
 
-    @BindView(R.id.value_distortion_factor)
+    @BindView(R.id.tvValueDistortionFactor)
     TextView mValueDistortionFactor;
 
-    @OnClick(R.id.seek_bar_scale_factor_parent)
+    @OnClick(R.id.rlSbScaleFactorParent)
     public void onScaleFactorParentClick() {
     }
 
-    @BindView(R.id.seek_bar_scale_factor)
+    @BindView(R.id.sbScaleFactor)
     AppCompatSeekBar mScaleFactor;
 
-    @BindView(R.id.value_scale_factor)
+    @BindView(R.id.tvValueScaleFactor)
     TextView mValueScaleFactor;
 
-    @OnClick(R.id.seek_bar_animation_time_parent)
+    @OnClick(R.id.rlSbAnimationTimeParent)
     public void onAnimationTimeParentClick() {
     }
 
-    @BindView(R.id.seek_bar_animation_time)
+    @BindView(R.id.sbAnimationTime)
     AppCompatSeekBar mAnimationTime;
 
-    @BindView(R.id.value_animation_time)
+    @BindView(R.id.tvValueAnimationTime)
     TextView mValueAnimationTime;
 
     private UtilSettings mUtilSettings;
