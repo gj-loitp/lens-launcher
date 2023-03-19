@@ -52,17 +52,6 @@
             android:orientation="vertical">
 
             <androidx.appcompat.widget.AppCompatTextView
-                android:id="@+id/tvProAbout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="?attr/colorAccent"
-                android:gravity="center"
-                android:padding="8dp"
-                android:text="@string/get_pro"
-                android:textColor="@color/colorWhite"
-                android:textStyle="bold" />
-
-            <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvAbout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

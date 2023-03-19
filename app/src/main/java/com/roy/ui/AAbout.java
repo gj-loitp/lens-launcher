@@ -22,30 +22,30 @@ import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
+//2023.03.19 tried to convert kotlin but failed
 public class AAbout extends ABase implements Observer {
     TextView tvAbout;
     ImageView backdrop;
     CollapsingToolbarLayout collapsingToolbar;
     Toolbar toolbar;
-    TextView tvProAbout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_about);
 
+        findViews();
+
+        setupViews();
+        backdrop.postDelayed(this::circularRevealAboutImage, 150);
+        NightModeObservable.getInstance().addObserver(this);
+    }
+
+    private void findViews() {
         tvAbout = findViewById(R.id.tvAbout);
         backdrop = findViewById(R.id.backdrop);
         collapsingToolbar = findViewById(R.id.collapsingToolbar);
         toolbar = findViewById(R.id.toolbar);
-        tvProAbout = findViewById(R.id.tvProAbout);
-
-        setSupportActionBar(toolbar);
-        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
-        collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(this, R.color.colorTransparent));
-        setupViews();
-        backdrop.postDelayed(this::circularRevealAboutImage, 150);
-        NightModeObservable.getInstance().addObserver(this);
     }
 
     private void circularRevealAboutImage() {
@@ -60,7 +60,9 @@ public class AAbout extends ABase implements Observer {
     }
 
     private void setupViews() {
-        tvProAbout.setVisibility(View.GONE);
+        setSupportActionBar(toolbar);
+        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
+        collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(this, R.color.colorTransparent));
         tvAbout.setText(Html.fromHtml(getString(R.string.about)));
         tvAbout.setMovementMethod(LinkMovementMethod.getInstance());
     }
