@@ -22,31 +22,24 @@ import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-
 public class AAbout extends ABase implements Observer {
-
-    @BindView(R.id.tvAbout)
     TextView tvAbout;
-
-    @BindView(R.id.backdrop)
     ImageView backdrop;
-
-    @BindView(R.id.collapsingToolbar)
     CollapsingToolbarLayout collapsingToolbar;
-
-    @BindView(R.id.toolbar)
     Toolbar toolbar;
-
-    @BindView(R.id.tvProAbout)
-    View tvpProAbout;
+    TextView tvProAbout;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_about);
-        ButterKnife.bind(this);
+
+        tvAbout = findViewById(R.id.tvAbout);
+        backdrop = findViewById(R.id.backdrop);
+        collapsingToolbar = findViewById(R.id.collapsingToolbar);
+        toolbar = findViewById(R.id.toolbar);
+        tvProAbout = findViewById(R.id.tvProAbout);
+
         setSupportActionBar(toolbar);
         Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         collapsingToolbar.setExpandedTitleColor(ContextCompat.getColor(this, R.color.colorTransparent));
@@ -60,15 +53,14 @@ public class AAbout extends ABase implements Observer {
             int cx = backdrop.getWidth() / 2;
             int cy = backdrop.getHeight() / 2;
             float finalRadius = (float) Math.hypot(cx, cy);
-            Animator anim =
-                    ViewAnimationUtils.createCircularReveal(backdrop, cx, cy, 0, finalRadius);
+            Animator anim = ViewAnimationUtils.createCircularReveal(backdrop, cx, cy, 0, finalRadius);
             backdrop.setVisibility(View.VISIBLE);
             anim.start();
         }
     }
 
     private void setupViews() {
-        tvpProAbout.setVisibility(View.GONE);
+        tvProAbout.setVisibility(View.GONE);
         tvAbout.setText(Html.fromHtml(getString(R.string.about)));
         tvAbout.setMovementMethod(LinkMovementMethod.getInstance());
     }
