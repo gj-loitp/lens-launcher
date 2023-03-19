@@ -18,53 +18,16 @@ import com.roy.itf.LensInterface;
 import com.roy.util.UtilSettings;
 import com.roy.views.LensView;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class FLens extends Fragment implements LensInterface {
 
-    @BindView(R.id.lensViewsSettings)
     LensView lensViewsSettings;
-
-    @OnClick(R.id.sbMinIconSizeParent)
-    public void onMinIconSizeParentClick() {
-    }
-
-    @BindView(R.id.sbMinIconSize)
     AppCompatSeekBar sbMinIconSize;
-
-    @BindView(R.id.tvValueMinIconSize)
     TextView tvValueMinIconSize;
-
-    @OnClick(R.id.rlSbDistortionFactorParent)
-    public void onDistortionFactorParentClick() {
-    }
-
-    @BindView(R.id.sbDistortionFactor)
     AppCompatSeekBar sbDistortionFactor;
-
-    @BindView(R.id.tvValueDistortionFactor)
     TextView tvValueDistortionFactor;
-
-    @OnClick(R.id.rlSbScaleFactorParent)
-    public void onScaleFactorParentClick() {
-    }
-
-    @BindView(R.id.sbScaleFactor)
     AppCompatSeekBar sbScaleFactor;
-
-    @BindView(R.id.tvValueScaleFactor)
     TextView tvValueScaleFactor;
-
-    @OnClick(R.id.rlSbAnimationTimeParent)
-    public void onAnimationTimeParentClick() {
-    }
-
-    @BindView(R.id.sbAnimationTime)
     AppCompatSeekBar sbAnimationTime;
-
-    @BindView(R.id.tvValueAnimationTime)
     TextView tvValueAnimationTime;
 
     private UtilSettings utilSettings;
@@ -80,11 +43,16 @@ public class FLens extends Fragment implements LensInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.f_lens, container, false);
-        ButterKnife.bind(this, view);
         utilSettings = new UtilSettings(getActivity());
-        setupViews();
-        assignValues();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setupViews(view);
+        assignValues();
     }
 
     @Override
@@ -95,7 +63,30 @@ public class FLens extends Fragment implements LensInterface {
         }
     }
 
-    private void setupViews() {
+    private void setupViews(View view) {
+        lensViewsSettings = view.findViewById(R.id.lensViewsSettings);
+        sbMinIconSize = view.findViewById(R.id.sbMinIconSize);
+        tvValueMinIconSize = view.findViewById(R.id.tvValueMinIconSize);
+        sbDistortionFactor = view.findViewById(R.id.sbDistortionFactor);
+        tvValueDistortionFactor = view.findViewById(R.id.tvValueDistortionFactor);
+        sbScaleFactor = view.findViewById(R.id.sbScaleFactor);
+        tvValueScaleFactor = view.findViewById(R.id.tvValueScaleFactor);
+        sbAnimationTime = view.findViewById(R.id.sbAnimationTime);
+        tvValueAnimationTime = view.findViewById(R.id.tvValueAnimationTime);
+
+        view.findViewById(R.id.sbMinIconSizeParent).setOnClickListener(v -> {
+            //do nothing
+        });
+        view.findViewById(R.id.rlSbDistortionFactorParent).setOnClickListener(v -> {
+            //do nothing
+        });
+        view.findViewById(R.id.rlSbScaleFactorParent).setOnClickListener(v -> {
+            //do nothing
+        });
+        view.findViewById(R.id.rlSbAnimationTimeParent).setOnClickListener(v -> {
+            //do nothing
+        });
+
         lensViewsSettings.setDrawType(LensView.DrawType.CIRCLES);
         sbMinIconSize.setMax(UtilSettings.MAX_ICON_SIZE);
         sbMinIconSize.setOnSeekBarChangeListener(new AppCompatSeekBar.OnSeekBarChangeListener() {
