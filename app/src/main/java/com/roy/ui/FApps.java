@@ -20,7 +20,7 @@ import com.roy.a.AppAdapter;
 import com.roy.app.AppsSingleton;
 import com.roy.model.App;
 import com.roy.sv.BroadcastReceivers;
-import com.roy.util.AppSorter;
+import com.roy.util.UtilAppSorter;
 import com.roy.util.Settings;
 
 import java.util.ArrayList;
@@ -93,7 +93,7 @@ public class FApps extends Fragment implements ASettings.AppsInterface {
 
     @Override
     public void onDefaultsReset() {
-        if (mSettings.getSortType() != AppSorter.SortType.values()[Settings.DEFAULT_SORT_TYPE]) {
+        if (mSettings.getSortType() != UtilAppSorter.SortType.values()[Settings.DEFAULT_SORT_TYPE]) {
             mSettings.save(Settings.KEY_SORT_TYPE, Settings.DEFAULT_SORT_TYPE);
             sendEditAppsBroadcast();
         }

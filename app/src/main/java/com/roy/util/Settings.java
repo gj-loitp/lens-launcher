@@ -178,13 +178,13 @@ public class Settings {
         }
     }
 
-    public void save(AppSorter.SortType value) {
+    public void save(UtilAppSorter.SortType value) {
         save(KEY_SORT_TYPE, value.ordinal());
     }
 
-    public AppSorter.SortType getSortType() {
+    public UtilAppSorter.SortType getSortType() {
         int ordinal = sharedPreferences().getInt(KEY_SORT_TYPE, DEFAULT_SORT_TYPE);
-        return AppSorter.SortType.values()[ordinal];
+        return UtilAppSorter.SortType.values()[ordinal];
     }
 
     public float getMaxFloatValue(String name) {

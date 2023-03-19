@@ -35,7 +35,7 @@ public class AppUtil {
     // Get all available apps for launcher
     public static ArrayList<App> getApps(
             PackageManager packageManager, Context context, Application application,
-            String iconPackLabelName, AppSorter.SortType sortType) {
+            String iconPackLabelName, UtilAppSorter.SortType sortType) {
         ArrayList<App> apps = new ArrayList<>();
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -78,7 +78,7 @@ public class AppUtil {
                 apps.add(app);
             }
         }
-        AppSorter.sort(apps, sortType);
+        UtilAppSorter.sort(apps, sortType);
         return apps;
     }
 
@@ -99,8 +99,8 @@ public class AppUtil {
                 AppPersistent.incrementAppCount(packageName, name);
                 // Resort apps (if open count selected)
                 Settings settings = new Settings(context);
-                if (settings.getSortType() == AppSorter.SortType.OPEN_COUNT_ASCENDING ||
-                        settings.getSortType() == AppSorter.SortType.OPEN_COUNT_DESCENDING) {
+                if (settings.getSortType() == UtilAppSorter.SortType.OPEN_COUNT_ASCENDING ||
+                        settings.getSortType() == UtilAppSorter.SortType.OPEN_COUNT_DESCENDING) {
                     Intent editAppsIntent = new Intent(context, BroadcastReceivers.AppsEditedReceiver.class);
                     context.sendBroadcast(editAppsIntent);
                 }

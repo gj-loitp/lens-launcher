@@ -29,7 +29,7 @@ import com.roy.model.App;
 import com.roy.sv.BroadcastReceivers;
 import com.roy.sv.LoadedObservable;
 import com.roy.sv.NightModeObservable;
-import com.roy.util.AppSorter;
+import com.roy.util.UtilAppSorter;
 import com.roy.util.IconPackManager;
 import com.roy.util.LauncherUtil;
 import com.roy.util.NightModeUtil;
@@ -227,12 +227,12 @@ public class ASettings extends ABase
     }
 
     private void showSortTypeDialog() {
-        final List<AppSorter.SortType> sortTypes = new ArrayList<>(EnumSet.allOf(AppSorter.SortType.class));
+        final List<UtilAppSorter.SortType> sortTypes = new ArrayList<>(EnumSet.allOf(UtilAppSorter.SortType.class));
         final List<String> sortTypeStrings = new ArrayList<>();
         for (int i = 0; i < sortTypes.size(); i++) {
             sortTypeStrings.add(getApplicationContext().getString(sortTypes.get(i).getDisplayNameResId()));
         }
-        AppSorter.SortType selectedSortType = mSettings.getSortType();
+        UtilAppSorter.SortType selectedSortType = mSettings.getSortType();
         int selectedIndex = sortTypes.indexOf(selectedSortType);
         mSortTypeDialog = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_sort_apps)
