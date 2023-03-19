@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
@@ -27,15 +28,14 @@ import com.roy.ui.SettingsActivity;
 import com.roy.util.AppUtil;
 
 import java.util.List;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 public class AppRecyclerAdapter extends RecyclerView.Adapter {
 
-    public static final String TAG = "AppRecyclerAdapter";
-
-    private Context mContext;
+    private final Context mContext;
     private final List<App> mApps;
 
     public AppRecyclerAdapter(Context mContext, List<App> mApps) {
@@ -57,6 +57,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter {
         return mApps.get(position).getId();
     }
 
+    @NonNull
     @Override
     public AppViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
@@ -67,7 +68,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter {
     }
 
     @Override
-    public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
         App app = getItemForPosition(position);
         if (app == null) {
             return;
@@ -94,7 +95,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter {
         ImageView mMenu;
 
         private App mApp;
-        private Context mContext;
+        private final Context mContext;
 
         public AppViewHolder(View itemView, Context context) {
             super(itemView);
@@ -107,7 +108,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter {
             mLabel.setText(mApp.getLabel());
             mIcon.setImageBitmap(mApp.getIcon());
             boolean isAppVisible =
-                    AppPersistent.getAppVisibility(mApp.getPackageName().toString(), mApp.getName().toString());
+                    AppPersistent.getAppVisibility(Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString());
             if (isAppVisible) {
                 mToggleAppVisibility.setImageResource(R.drawable.ic_visibility_grey_24dp);
             } else {
@@ -123,7 +124,7 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter {
         public void toggleAppVisibility(App app) {
             this.mApp = app;
             boolean isAppVisible =
-                    AppPersistent.getAppVisibility(mApp.getPackageName().toString(), mApp.getName().toString());
+                    AppPersistent.getAppVisibility(Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString());
             AppPersistent.setAppVisibility(
                     mApp.getPackageName().toString(),
                     mApp.getName().toString(),
@@ -150,35 +151,24 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter {
         }
 
         public void setOnClickListeners() {
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    AppUtil.launchComponent(
-                            mContext,
-                            mApp.getPackageName().toString(), mApp.getName().toString(),
-                            itemView, new Rect(0, 0, itemView.getMeasuredWidth(), itemView.getMeasuredHeight()));
-                }
-            });
-            mToggleAppVisibility.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    if (mApp != null) {
-                        sendChangeAppsVisibilityBroadcast();
-                        toggleAppVisibility(mApp);
-                    } else {
-                        Snackbar.make(mContainer, mContext.getString(R.string.error_app_not_found), Snackbar.LENGTH_LONG).show();
-                    }
+            itemView.setOnClickListener(view -> AppUtil.launchComponent(
+                    mContext,
+                    Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString(),
+                    itemView, new Rect(0, 0, itemView.getMeasuredWidth(), itemView.getMeasuredHeight())));
+            mToggleAppVisibility.setOnClickListener(v -> {
+                if (mApp != null) {
+                    sendChangeAppsVisibilityBroadcast();
+                    toggleAppVisibility(mApp);
+                } else {
+                    Snackbar.make(mContainer, mContext.getString(R.string.error_app_not_found), Snackbar.LENGTH_LONG).show();
                 }
             });
 
-            mMenu.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    PopupMenu popupMenu = new PopupMenu(mContext, view);
-                    popupMenu.setOnMenuItemClickListener(AppViewHolder.this);
-                    popupMenu.inflate(R.menu.menu_app);
-                    popupMenu.show();
-                }
+            mMenu.setOnClickListener(view -> {
+                PopupMenu popupMenu = new PopupMenu(mContext, view);
+                popupMenu.setOnMenuItemClickListener(AppViewHolder.this);
+                popupMenu.inflate(R.menu.menu_app);
+                popupMenu.show();
             });
         }
 
@@ -209,8 +199,5 @@ public class AppRecyclerAdapter extends RecyclerView.Adapter {
             return false;
         }
 
-//        private void showPro() {
-//            if (mContext != null) Pro.showPro(mContext);
-//        }
     }
 }
