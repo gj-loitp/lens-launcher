@@ -3,7 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <shortcut
-        android:shortcutId="settings"
+        android:shortcutId="utilSettings"
         android:enabled="true"
         android:icon="@drawable/ic_shortcut_settings"
         android:shortcutShortLabel="@string/activity_title_settings"

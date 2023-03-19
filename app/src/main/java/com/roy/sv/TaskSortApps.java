@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 import com.roy.app.AppsSingleton;
 import com.roy.model.App;
 import com.roy.util.UtilAppSorter;
-import com.roy.util.Settings;
+import com.roy.util.UtilSettings;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -18,14 +18,14 @@ import java.util.Objects;
 public class TaskSortApps extends AsyncTask<Void, Void, Void> {
 
     private final Application mApplication;
-    private final Settings mSettings;
+    private final UtilSettings mUtilSettings;
 
     private ArrayList<App> mApps;
     private ArrayList<Bitmap> mAppIcons;
 
     public TaskSortApps(Context context, Application application) {
         mApplication = application;
-        mSettings = new Settings(context);
+        mUtilSettings = new UtilSettings(context);
     }
 
     @Override
@@ -36,7 +36,7 @@ public class TaskSortApps extends AsyncTask<Void, Void, Void> {
     @Override
     protected Void doInBackground(Void... params) {
         ArrayList<App> apps = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
-        UtilAppSorter.sort(apps, mSettings.getSortType());
+        UtilAppSorter.sort(apps, mUtilSettings.getSortType());
         mApps = new ArrayList<>();
         mAppIcons = new ArrayList<>();
         for (int i = 0; i < Objects.requireNonNull(apps).size(); i++) {

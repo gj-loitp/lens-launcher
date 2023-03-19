@@ -28,7 +28,7 @@ import com.roy.model.AppPersistent;
 import com.roy.model.Grid;
 import com.roy.util.UtilApp;
 import com.roy.util.UtilLensCalculator;
-import com.roy.util.Settings;
+import com.roy.util.UtilSettings;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -59,7 +59,7 @@ public class LensView extends View {
     private float mTouchSlop;
     private boolean mMoving;
 
-    private Settings mSettings;
+    private UtilSettings mUtilSettings;
 
     private NinePatchDrawable mWorkspaceBackgroundDrawable;
 
@@ -107,7 +107,7 @@ public class LensView extends View {
         mAppIcons = new ArrayList<>();
         mDrawType = DrawType.APPS;
         setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTransparent));
-        mSettings = new Settings(getContext());
+        mUtilSettings = new UtilSettings(getContext());
         setupPaints();
         mWorkspaceBackgroundDrawable = (NinePatchDrawable) ContextCompat.getDrawable(getContext(), R.drawable.workspace_bg);
         mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
@@ -134,7 +134,7 @@ public class LensView extends View {
         mPaintTouchSelection = new Paint();
         mPaintTouchSelection.setAntiAlias(true);
         mPaintTouchSelection.setStyle(Paint.Style.STROKE);
-        mPaintTouchSelection.setColor(Color.parseColor(mSettings.getString(Settings.KEY_HIGHLIGHT_COLOR)));
+        mPaintTouchSelection.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
         mPaintTouchSelection.setStrokeWidth(getResources().getDimension(R.dimen.stroke_width_touch_selection));
 
         mPaintText = new Paint();
@@ -148,7 +148,7 @@ public class LensView extends View {
         mPaintNewAppTag = new Paint();
         mPaintNewAppTag.setAntiAlias(true);
         mPaintNewAppTag.setStyle(Paint.Style.FILL);
-        mPaintNewAppTag.setColor(Color.parseColor(mSettings.getString(Settings.KEY_HIGHLIGHT_COLOR)));
+        mPaintNewAppTag.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
         mPaintNewAppTag.setDither(true);
         mPaintNewAppTag.setShadowLayer(getResources().getDimension(R.dimen.shadow_text),
                 getResources().getDimension(R.dimen.shadow_text),
@@ -160,15 +160,15 @@ public class LensView extends View {
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (mDrawType == DrawType.APPS) {
-            if (mSettings.getString(Settings.KEY_BACKGROUND).equals("Color")) {
-                canvas.drawColor(Color.parseColor(mSettings.getString(Settings.KEY_BACKGROUND_COLOR)));
+            if (mUtilSettings.getString(UtilSettings.KEY_BACKGROUND).equals("Color")) {
+                canvas.drawColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_BACKGROUND_COLOR)));
             }
-            mPaintNewAppTag.setColor(Color.parseColor(mSettings.getString(Settings.KEY_HIGHLIGHT_COLOR)));
+            mPaintNewAppTag.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
             drawWorkspaceBackground(canvas);
             if (mApps != null) {
                 drawGrid(canvas, mApps.size());
             }
-            if (mSettings.getBoolean(Settings.KEY_SHOW_TOUCH_SELECTION)) {
+            if (mUtilSettings.getBoolean(UtilSettings.KEY_SHOW_TOUCH_SELECTION)) {
                 drawTouchSelection(canvas);
             }
         } else if (mDrawType == DrawType.CIRCLES) {
@@ -290,9 +290,9 @@ public class LensView extends View {
                         float scaledCenterY = UtilLensCalculator.scalePoint(getContext(), mTouchY, rect.centerY(), rect.height(), getHeight(), animationMultiplier);
                         float newSize = UtilLensCalculator.calculateSquareScaledSize(scaledCenterX, shiftedCenterX, scaledCenterY, shiftedCenterY);
 
-                        if (mSettings.getFloat(Settings.KEY_DISTORTION_FACTOR) > 0.0f && mSettings.getFloat(Settings.KEY_SCALE_FACTOR) > 0.0f) {
+                        if (mUtilSettings.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) > 0.0f && mUtilSettings.getFloat(UtilSettings.KEY_SCALE_FACTOR) > 0.0f) {
                             rect = UtilLensCalculator.calculateRect(shiftedCenterX, shiftedCenterY, newSize);
-                        } else if (mSettings.getFloat(Settings.KEY_DISTORTION_FACTOR) > 0.0f && mSettings.getFloat(Settings.KEY_SCALE_FACTOR) == 0.0f) {
+                        } else if (mUtilSettings.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) > 0.0f && mUtilSettings.getFloat(UtilSettings.KEY_SCALE_FACTOR) == 0.0f) {
                             rect = UtilLensCalculator.calculateRect(shiftedCenterX, shiftedCenterY, rect.width());
                         }
 
@@ -337,7 +337,7 @@ public class LensView extends View {
             Rect src = new Rect(0, 0, appIcon.getWidth(), appIcon.getHeight());
             canvas.drawBitmap(appIcon, src, rect, mPaintIcons);
 
-            if ((mApps.get(index).getInstallDate() >= (System.currentTimeMillis() - Settings.SHOW_NEW_APP_TAG_DURATION)
+            if ((mApps.get(index).getInstallDate() >= (System.currentTimeMillis() - UtilSettings.SHOW_NEW_APP_TAG_DURATION)
                     && (AppPersistent.getAppOpenCount(
                     Objects.requireNonNull(mApps.get(index).getPackageName()).toString(), Objects.requireNonNull(mApps.get(index).getName()).toString()) == 0))) {
                 drawNewAppTag(canvas, rect);
@@ -350,7 +350,7 @@ public class LensView extends View {
     }
 
     private void drawAppName(Canvas canvas, RectF rect) {
-        if (mSettings.getBoolean(Settings.KEY_SHOW_NAME_APP_HOVER) && mMoving) {
+        if (mUtilSettings.getBoolean(UtilSettings.KEY_SHOW_NAME_APP_HOVER) && mMoving) {
             canvas.drawText((String) mApps.get(mSelectIndex).getLabel(),
                     rect.centerX(),
                     rect.top - getResources().getDimension(R.dimen.margin_lens_text),
@@ -359,7 +359,7 @@ public class LensView extends View {
     }
 
     private void drawNewAppTag(Canvas canvas, RectF rect) {
-        if (mSettings.getBoolean(Settings.KEY_SHOW_NEW_APP_TAG)) {
+        if (mUtilSettings.getBoolean(UtilSettings.KEY_SHOW_NEW_APP_TAG)) {
             canvas.drawCircle(rect.centerX(),
                     rect.bottom + getResources().getDimension(R.dimen.margin_new_app_tag),
                     getResources().getDimension(R.dimen.radius_new_app_tag),
@@ -370,7 +370,7 @@ public class LensView extends View {
     private void performHoverVibration() {
         if (mInsideRect) {
             if (mMustVibrate) {
-                if (mSettings.getBoolean(Settings.KEY_VIBRATE_APP_HOVER) && !mAnimationHiding) {
+                if (mUtilSettings.getBoolean(UtilSettings.KEY_VIBRATE_APP_HOVER) && !mAnimationHiding) {
                     performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
                 }
                 mMustVibrate = false;
@@ -382,7 +382,7 @@ public class LensView extends View {
 
     private void performLaunchVibration() {
         if (mInsideRect) {
-            if (mSettings.getBoolean(Settings.KEY_VIBRATE_APP_LAUNCH)) {
+            if (mUtilSettings.getBoolean(UtilSettings.KEY_VIBRATE_APP_LAUNCH)) {
                 performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
             }
         }
@@ -408,7 +408,7 @@ public class LensView extends View {
         public LensAnimation(boolean show) {
             mShow = show;
             setInterpolator(new AccelerateDecelerateInterpolator());
-            setDuration(mSettings.getLong(Settings.KEY_ANIMATION_TIME));
+            setDuration(mUtilSettings.getLong(UtilSettings.KEY_ANIMATION_TIME));
             setAnimationListener(new AnimationListener() {
                 @Override
                 public void onAnimationStart(Animation animation) {
@@ -447,12 +447,12 @@ public class LensView extends View {
             super.applyTransformation(interpolatedTime, t);
             if (mShow) {
                 mAnimationMultiplier = interpolatedTime;
-                mPaintTouchSelection.setColor(Color.parseColor(mSettings.getString(Settings.KEY_HIGHLIGHT_COLOR)));
+                mPaintTouchSelection.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
                 mPaintTouchSelection.setAlpha((int) (255.0f * interpolatedTime));
                 mPaintText.setAlpha((int) (255.0f * interpolatedTime));
             } else {
                 mAnimationMultiplier = 1.0f - interpolatedTime;
-                mPaintTouchSelection.setColor(Color.parseColor(mSettings.getString(Settings.KEY_HIGHLIGHT_COLOR)));
+                mPaintTouchSelection.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
                 mPaintTouchSelection.setAlpha((int) (255.0f * (1.0f - interpolatedTime)));
                 mPaintText.setAlpha((int) (255.0f * (1.0f - interpolatedTime)));
             }

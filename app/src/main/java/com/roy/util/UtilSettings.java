@@ -3,12 +3,10 @@ package com.roy.util;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
 import androidx.appcompat.app.AppCompatDelegate;
 
-/**
- * Created by nicholasrout on 2016/04/02.
- */
-public class Settings {
+public class UtilSettings {
 
     public static final float DEFAULT_ICON_SIZE = 18.0f;
     public static final float DEFAULT_DISTORTION_FACTOR = 2.5f;
@@ -60,10 +58,10 @@ public class Settings {
     public static final String KEY_SORT_TYPE = "sort_type";
     public static final String KEY_NIGHT_MODE = "night_mode";
 
-    private Context mContext;
+    private final Context mContext;
     private SharedPreferences mPrefs;
 
-    public Settings(Context context) {
+    public UtilSettings(Context context) {
         mContext = context;
     }
 
@@ -75,7 +73,8 @@ public class Settings {
     }
 
     public void save(String name, int value) {
-        sharedPreferences().edit().putInt(name, value).commit();
+//        sharedPreferences().edit().putInt(name, value).commit();
+        sharedPreferences().edit().putInt(name, value).apply();
     }
 
     public @AppCompatDelegate.NightMode int getNightMode() {
@@ -92,38 +91,41 @@ public class Settings {
     }
 
     public void save(String name, float value) {
-        sharedPreferences().edit().putFloat(name, value).commit();
+//        sharedPreferences().edit().putFloat(name, value).commit();
+        sharedPreferences().edit().putFloat(name, value).apply();
     }
 
     public float getFloat(String name) {
-        if (name.equals(KEY_ICON_SIZE)) {
-            if (sharedPreferences().getFloat(name, DEFAULT_ICON_SIZE) < MIN_ICON_SIZE) {
-                save(name, MIN_ICON_SIZE);
-            } else if (sharedPreferences().getFloat(name, DEFAULT_ICON_SIZE) > getMaxFloatValue(name)) {
-                save(name, getMaxFloatValue(name));
-            }
-            return sharedPreferences().getFloat(name, DEFAULT_ICON_SIZE);
-        } else if (name.equals(KEY_DISTORTION_FACTOR)) {
-            if (sharedPreferences().getFloat(name, DEFAULT_DISTORTION_FACTOR) < MIN_DISTORTION_FACTOR) {
-                save(name, MIN_DISTORTION_FACTOR);
-            } else if (sharedPreferences().getFloat(name, DEFAULT_DISTORTION_FACTOR) > getMaxFloatValue(name)) {
-                save(name, getMaxFloatValue(name));
-            }
-            return sharedPreferences().getFloat(name, DEFAULT_DISTORTION_FACTOR);
-        } else if (name.equals(KEY_SCALE_FACTOR)) {
-            if (sharedPreferences().getFloat(name, DEFAULT_SCALE_FACTOR) < MIN_SCALE_FACTOR) {
-                save(name, MIN_SCALE_FACTOR);
-            } else if (sharedPreferences().getFloat(name, DEFAULT_SCALE_FACTOR) > getMaxFloatValue(name)) {
-                save(name, getMaxFloatValue(name));
-            }
-            return sharedPreferences().getFloat(name, DEFAULT_SCALE_FACTOR);
-        } else {
-            return sharedPreferences().getFloat(name, DEFAULT_FLOAT);
+        switch (name) {
+            case KEY_ICON_SIZE:
+                if (sharedPreferences().getFloat(name, DEFAULT_ICON_SIZE) < MIN_ICON_SIZE) {
+                    save(name, MIN_ICON_SIZE);
+                } else if (sharedPreferences().getFloat(name, DEFAULT_ICON_SIZE) > getMaxFloatValue(name)) {
+                    save(name, getMaxFloatValue(name));
+                }
+                return sharedPreferences().getFloat(name, DEFAULT_ICON_SIZE);
+            case KEY_DISTORTION_FACTOR:
+                if (sharedPreferences().getFloat(name, DEFAULT_DISTORTION_FACTOR) < MIN_DISTORTION_FACTOR) {
+                    save(name, MIN_DISTORTION_FACTOR);
+                } else if (sharedPreferences().getFloat(name, DEFAULT_DISTORTION_FACTOR) > getMaxFloatValue(name)) {
+                    save(name, getMaxFloatValue(name));
+                }
+                return sharedPreferences().getFloat(name, DEFAULT_DISTORTION_FACTOR);
+            case KEY_SCALE_FACTOR:
+                if (sharedPreferences().getFloat(name, DEFAULT_SCALE_FACTOR) < MIN_SCALE_FACTOR) {
+                    save(name, MIN_SCALE_FACTOR);
+                } else if (sharedPreferences().getFloat(name, DEFAULT_SCALE_FACTOR) > getMaxFloatValue(name)) {
+                    save(name, getMaxFloatValue(name));
+                }
+                return sharedPreferences().getFloat(name, DEFAULT_SCALE_FACTOR);
+            default:
+                return sharedPreferences().getFloat(name, DEFAULT_FLOAT);
         }
     }
 
     public void save(String name, long value) {
-        sharedPreferences().edit().putLong(name, value).commit();
+//        sharedPreferences().edit().putLong(name, value).commit();
+        sharedPreferences().edit().putLong(name, value).apply();
     }
 
     public long getLong(String name) {
@@ -140,41 +142,45 @@ public class Settings {
     }
 
     public void save(String name, String value) {
-        sharedPreferences().edit().putString(name, value).commit();
+//        sharedPreferences().edit().putString(name, value).commit();
+        sharedPreferences().edit().putString(name, value).apply();
     }
 
     public String getString(String name) {
-        if (name.equals(KEY_BACKGROUND)) {
-            return sharedPreferences().getString(name, DEFAULT_BACKGROUND);
-        } else if (name.equals(KEY_BACKGROUND_COLOR)) {
-            return sharedPreferences().getString(name, DEFAULT_BACKGROUND_COLOR);
-        } else if (name.equals(KEY_HIGHLIGHT_COLOR)) {
-            return sharedPreferences().getString(name, DEFAULT_HIGHLIGHT_COLOR);
-        } else if (name.equals(KEY_ICON_PACK_LABEL_NAME)) {
-            return sharedPreferences().getString(name, DEFAULT_ICON_PACK_LABEL_NAME);
-        } else {
-            return sharedPreferences().getString(name, DEFAULT_STRING);
+        switch (name) {
+            case KEY_BACKGROUND:
+                return sharedPreferences().getString(name, DEFAULT_BACKGROUND);
+            case KEY_BACKGROUND_COLOR:
+                return sharedPreferences().getString(name, DEFAULT_BACKGROUND_COLOR);
+            case KEY_HIGHLIGHT_COLOR:
+                return sharedPreferences().getString(name, DEFAULT_HIGHLIGHT_COLOR);
+            case KEY_ICON_PACK_LABEL_NAME:
+                return sharedPreferences().getString(name, DEFAULT_ICON_PACK_LABEL_NAME);
+            default:
+                return sharedPreferences().getString(name, DEFAULT_STRING);
         }
     }
 
 
     public void save(String name, boolean value) {
-        sharedPreferences().edit().putBoolean(name, value).commit();
+//        sharedPreferences().edit().putBoolean(name, value).commit();
+        sharedPreferences().edit().putBoolean(name, value).apply();
     }
 
     public boolean getBoolean(String name) {
-        if (name.equals(KEY_VIBRATE_APP_HOVER)) {
-            return sharedPreferences().getBoolean(name, DEFAULT_VIBRATE_APP_HOVER);
-        } else if (name.equals(KEY_VIBRATE_APP_LAUNCH)) {
-            return sharedPreferences().getBoolean(name, DEFAULT_VIBRATE_APP_LAUNCH);
-        } else if (name.equals(KEY_SHOW_NAME_APP_HOVER)) {
-            return sharedPreferences().getBoolean(name, DEFAULT_SHOW_NAME_APP_HOVER);
-        } else if (name.equals(KEY_SHOW_TOUCH_SELECTION)) {
-            return sharedPreferences().getBoolean(name, DEFAULT_SHOW_TOUCH_SELECTION);
-        } else if (name.equals(KEY_SHOW_NEW_APP_TAG)) {
-            return sharedPreferences().getBoolean(name, DEFAULT_SHOW_NEW_APP_TAG);
-        } else {
-            return sharedPreferences().getBoolean(name, DEFAULT_BOOLEAN);
+        switch (name) {
+            case KEY_VIBRATE_APP_HOVER:
+                return sharedPreferences().getBoolean(name, DEFAULT_VIBRATE_APP_HOVER);
+            case KEY_VIBRATE_APP_LAUNCH:
+                return sharedPreferences().getBoolean(name, DEFAULT_VIBRATE_APP_LAUNCH);
+            case KEY_SHOW_NAME_APP_HOVER:
+                return sharedPreferences().getBoolean(name, DEFAULT_SHOW_NAME_APP_HOVER);
+            case KEY_SHOW_TOUCH_SELECTION:
+                return sharedPreferences().getBoolean(name, DEFAULT_SHOW_TOUCH_SELECTION);
+            case KEY_SHOW_NEW_APP_TAG:
+                return sharedPreferences().getBoolean(name, DEFAULT_SHOW_NEW_APP_TAG);
+            default:
+                return sharedPreferences().getBoolean(name, DEFAULT_BOOLEAN);
         }
     }
 
@@ -188,14 +194,15 @@ public class Settings {
     }
 
     public float getMaxFloatValue(String name) {
-        if (name.equals(KEY_ICON_SIZE)) {
-            return (float) MAX_ICON_SIZE + MIN_ICON_SIZE;
-        } else if (name.equals(KEY_DISTORTION_FACTOR)) {
-            return (float) MAX_DISTORTION_FACTOR / 2 + MIN_DISTORTION_FACTOR;
-        } else if (name.equals(KEY_SCALE_FACTOR)) {
-            return (float) MAX_SCALE_FACTOR / 2 + MIN_SCALE_FACTOR;
-        } else {
-            return DEFAULT_FLOAT;
+        switch (name) {
+            case KEY_ICON_SIZE:
+                return (float) MAX_ICON_SIZE + MIN_ICON_SIZE;
+            case KEY_DISTORTION_FACTOR:
+                return (float) MAX_DISTORTION_FACTOR / 2 + MIN_DISTORTION_FACTOR;
+            case KEY_SCALE_FACTOR:
+                return (float) MAX_SCALE_FACTOR / 2 + MIN_SCALE_FACTOR;
+            default:
+                return DEFAULT_FLOAT;
         }
     }
 

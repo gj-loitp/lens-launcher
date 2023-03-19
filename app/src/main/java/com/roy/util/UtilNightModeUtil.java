@@ -2,11 +2,7 @@ package com.roy.util;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
-/**
- * Created by nicholasrout on 2017/01/15.
- */
-
-public class NightModeUtil {
+public class UtilNightModeUtil {
 
     public static String getNightModeDisplayName(@AppCompatDelegate.NightMode int nightMode) {
         switch (nightMode) {

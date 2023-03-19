@@ -21,7 +21,7 @@ import com.roy.app.AppsSingleton;
 import com.roy.model.App;
 import com.roy.sv.BroadcastReceivers;
 import com.roy.util.UtilAppSorter;
-import com.roy.util.Settings;
+import com.roy.util.UtilSettings;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -38,7 +38,7 @@ public class FApps extends Fragment implements ASettings.AppsInterface {
     @BindView(R.id.progress_apps)
     MaterialProgressBar mProgress;
 
-    private Settings mSettings;
+    private UtilSettings mUtilSettings;
     private int mScrolledItemIndex;
 
     public FApps() {
@@ -53,7 +53,7 @@ public class FApps extends Fragment implements ASettings.AppsInterface {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.f_apps, container, false);
         ButterKnife.bind(this, view);
-        mSettings = new Settings(getActivity());
+        mUtilSettings = new UtilSettings(getActivity());
         setupRecycler(Objects.requireNonNull(AppsSingleton.getInstance()).getApps());
         return view;
     }
@@ -93,8 +93,8 @@ public class FApps extends Fragment implements ASettings.AppsInterface {
 
     @Override
     public void onDefaultsReset() {
-        if (mSettings.getSortType() != UtilAppSorter.SortType.values()[Settings.DEFAULT_SORT_TYPE]) {
-            mSettings.save(Settings.KEY_SORT_TYPE, Settings.DEFAULT_SORT_TYPE);
+        if (mUtilSettings.getSortType() != UtilAppSorter.SortType.values()[UtilSettings.DEFAULT_SORT_TYPE]) {
+            mUtilSettings.save(UtilSettings.KEY_SORT_TYPE, UtilSettings.DEFAULT_SORT_TYPE);
             sendEditAppsBroadcast();
         }
     }

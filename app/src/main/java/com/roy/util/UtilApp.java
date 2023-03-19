@@ -89,8 +89,8 @@ public class UtilApp {
                 // Increment app open count
                 AppPersistent.incrementAppCount(packageName, name);
                 // Resort apps (if open count selected)
-                Settings settings = new Settings(context);
-                if (settings.getSortType() == UtilAppSorter.SortType.OPEN_COUNT_ASCENDING || settings.getSortType() == UtilAppSorter.SortType.OPEN_COUNT_DESCENDING) {
+                UtilSettings utilSettings = new UtilSettings(context);
+                if (utilSettings.getSortType() == UtilAppSorter.SortType.OPEN_COUNT_ASCENDING || utilSettings.getSortType() == UtilAppSorter.SortType.OPEN_COUNT_DESCENDING) {
                     Intent editAppsIntent = new Intent(context, BroadcastReceivers.AppsEditedReceiver.class);
                     context.sendBroadcast(editAppsIntent);
                 }

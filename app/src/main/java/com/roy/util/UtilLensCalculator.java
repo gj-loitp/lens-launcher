@@ -24,8 +24,8 @@ public class UtilLensCalculator {
         }
         grid.setItemCountHorizontal(itemCountHorizontal);
         grid.setItemCountVertical(itemCountVertical);
-        Settings settings = new Settings(context);
-        float itemSize = UtilLensCalculator.convertDpToPixel(settings.getFloat(Settings.KEY_ICON_SIZE), context);
+        UtilSettings utilSettings = new UtilSettings(context);
+        float itemSize = UtilLensCalculator.convertDpToPixel(utilSettings.getFloat(UtilSettings.KEY_ICON_SIZE), context);
         grid.setItemSize(itemSize);
         float spacingHorizontal = (((float) screenWidth) - ((float) itemCountHorizontal * itemSize)) / ((float) (itemCountHorizontal + 1));
         grid.setSpacingHorizontal(spacingHorizontal);
@@ -71,12 +71,12 @@ public class UtilLensCalculator {
         if (lensPosition < 0) {
             return itemPosition;
         }
-        Settings settings = new Settings(context);
+        UtilSettings utilSettings = new UtilSettings(context);
         float shiftedPosition;
         float a = Math.abs(lensPosition - itemPosition);
         float b = Math.max(lensPosition, boundary - lensPosition);
         float x = a / b;
-        float d = multiplier * settings.getFloat(Settings.KEY_DISTORTION_FACTOR);
+        float d = multiplier * utilSettings.getFloat(UtilSettings.KEY_DISTORTION_FACTOR);
         float y = ((1.0f + d) * x) / (1.0f + (d * x));
         float newDistanceFromCenter = b * y;
         if (lensPosition >= itemPosition) {
@@ -92,9 +92,9 @@ public class UtilLensCalculator {
         if (lensPosition < 0) {
             return itemSize;
         }
-        Settings settings = new Settings(context);
-        float scaleDifference = settings.getFloat(Settings.KEY_SCALE_FACTOR) - Settings.MIN_SCALE_FACTOR;
-        float d = Settings.MIN_SCALE_FACTOR + scaleDifference * multiplier;
+        UtilSettings utilSettings = new UtilSettings(context);
+        float scaleDifference = utilSettings.getFloat(UtilSettings.KEY_SCALE_FACTOR) - UtilSettings.MIN_SCALE_FACTOR;
+        float d = UtilSettings.MIN_SCALE_FACTOR + scaleDifference * multiplier;
         if (lensPosition >= itemPosition) {
             itemPosition = itemPosition - d * (itemSize / 2.0f);
         } else {

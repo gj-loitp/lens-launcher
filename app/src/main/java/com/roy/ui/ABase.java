@@ -11,15 +11,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
 
 import com.roy.R;
-import com.roy.util.Settings;
+import com.roy.util.UtilSettings;
 
 public class ABase extends AppCompatActivity {
 
-    protected Settings mSettings;
+    protected UtilSettings mUtilSettings;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        mSettings = new Settings(this);
+        mUtilSettings = new UtilSettings(this);
         if (savedInstanceState == null) {
             updateNightMode();
         }
@@ -42,9 +42,9 @@ public class ABase extends AppCompatActivity {
     }
 
     protected void updateNightMode() {
-        if (mSettings == null) {
-            mSettings = new Settings(this);
+        if (mUtilSettings == null) {
+            mUtilSettings = new UtilSettings(this);
         }
-        getDelegate().setLocalNightMode(mSettings.getNightMode());
+        getDelegate().setLocalNightMode(mUtilSettings.getNightMode());
     }
 }

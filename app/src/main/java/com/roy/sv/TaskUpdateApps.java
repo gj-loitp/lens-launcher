@@ -10,7 +10,7 @@ import android.os.AsyncTask;
 import com.roy.app.AppsSingleton;
 import com.roy.model.App;
 import com.roy.util.UtilApp;
-import com.roy.util.Settings;
+import com.roy.util.UtilSettings;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -21,7 +21,7 @@ public class TaskUpdateApps extends AsyncTask<Void, Void, Void> {
     private final PackageManager mPackageManager;
     private final Context mContext;
     private final Application mApplication;
-    private final Settings mSettings;
+    private final UtilSettings mUtilSettings;
 
     private ArrayList<App> mApps;
     private ArrayList<Bitmap> mAppIcons;
@@ -32,7 +32,7 @@ public class TaskUpdateApps extends AsyncTask<Void, Void, Void> {
         this.mPackageManager = packageManager;
         this.mContext = context;
         this.mApplication = application;
-        this.mSettings = new Settings(context);
+        this.mUtilSettings = new UtilSettings(context);
     }
 
     @Override
@@ -46,8 +46,8 @@ public class TaskUpdateApps extends AsyncTask<Void, Void, Void> {
                 mPackageManager,
                 mContext,
                 mApplication,
-                mSettings.getString(Settings.KEY_ICON_PACK_LABEL_NAME),
-                mSettings.getSortType());
+                mUtilSettings.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME),
+                mUtilSettings.getSortType());
         mApps = new ArrayList<>();
         mAppIcons = new ArrayList<>();
         for (int i = 0; i < apps.size(); i++) {

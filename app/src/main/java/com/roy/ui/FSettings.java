@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment;
 
 import com.roy.R;
 import com.roy.util.UtilLauncher;
-import com.roy.util.NightModeUtil;
-import com.roy.util.Settings;
+import com.roy.util.UtilNightModeUtil;
+import com.roy.util.UtilSettings;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -119,7 +119,7 @@ public class FSettings extends Fragment implements ASettings.SettingsInterface {
     @BindView(R.id.switch_show_touch_selection)
     SwitchCompat mShowTouchSelection;
 
-    private Settings mSettings;
+    private UtilSettings mUtilSettings;
 
     public FSettings() {
     }
@@ -133,7 +133,7 @@ public class FSettings extends Fragment implements ASettings.SettingsInterface {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_settings, container, false);
         ButterKnife.bind(this, view);
-        mSettings = new Settings(getActivity());
+        mUtilSettings = new UtilSettings(getActivity());
         setupViews();
         assignValues();
         return view;
@@ -148,11 +148,11 @@ public class FSettings extends Fragment implements ASettings.SettingsInterface {
     }
 
     private void setupViews() {
-        mVibrateAppHover.setOnCheckedChangeListener((buttonView, isChecked) -> mSettings.save(Settings.KEY_VIBRATE_APP_HOVER, isChecked));
-        mVibrateAppLaunch.setOnCheckedChangeListener((buttonView, isChecked) -> mSettings.save(Settings.KEY_VIBRATE_APP_LAUNCH, isChecked));
-        mShowNameAppHover.setOnCheckedChangeListener((buttonView, isChecked) -> mSettings.save(Settings.KEY_SHOW_NAME_APP_HOVER, isChecked));
-        mShowNewAppTag.setOnCheckedChangeListener((buttonView, isChecked) -> mSettings.save(Settings.KEY_SHOW_NEW_APP_TAG, isChecked));
-        mShowTouchSelection.setOnCheckedChangeListener((buttonView, isChecked) -> mSettings.save(Settings.KEY_SHOW_TOUCH_SELECTION, isChecked));
+        mVibrateAppHover.setOnCheckedChangeListener((buttonView, isChecked) -> mUtilSettings.save(UtilSettings.KEY_VIBRATE_APP_HOVER, isChecked));
+        mVibrateAppLaunch.setOnCheckedChangeListener((buttonView, isChecked) -> mUtilSettings.save(UtilSettings.KEY_VIBRATE_APP_LAUNCH, isChecked));
+        mShowNameAppHover.setOnCheckedChangeListener((buttonView, isChecked) -> mUtilSettings.save(UtilSettings.KEY_SHOW_NAME_APP_HOVER, isChecked));
+        mShowNewAppTag.setOnCheckedChangeListener((buttonView, isChecked) -> mUtilSettings.save(UtilSettings.KEY_SHOW_NEW_APP_TAG, isChecked));
+        mShowTouchSelection.setOnCheckedChangeListener((buttonView, isChecked) -> mUtilSettings.save(UtilSettings.KEY_SHOW_TOUCH_SELECTION, isChecked));
         mProIconPack.setVisibility(View.GONE);
         mProNightMode.setVisibility(View.GONE);
         mProBackground.setVisibility(View.GONE);
@@ -160,36 +160,36 @@ public class FSettings extends Fragment implements ASettings.SettingsInterface {
     }
 
     private void assignValues() {
-        mIconPackTextView.setText(mSettings.getString(Settings.KEY_ICON_PACK_LABEL_NAME));
-        String highlightColor = "#" + mSettings.getString(Settings.KEY_HIGHLIGHT_COLOR).substring(3);
+        mIconPackTextView.setText(mUtilSettings.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME));
+        String highlightColor = "#" + mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR).substring(3);
         String homeLauncher = "";
         if (getActivity() != null) {
             homeLauncher = UtilLauncher.getHomeLauncherName(getActivity().getApplication());
         }
         mHomeLauncherTextView.setText(homeLauncher);
-        mNightModeTextView.setText(NightModeUtil.getNightModeDisplayName(mSettings.getNightMode()));
-        if (mSettings.getString(Settings.KEY_BACKGROUND).equals("Color")) {
-            String backgroundColor = "#" + mSettings.getString(Settings.KEY_BACKGROUND_COLOR).substring(3);
+        mNightModeTextView.setText(UtilNightModeUtil.getNightModeDisplayName(mUtilSettings.getNightMode()));
+        if (mUtilSettings.getString(UtilSettings.KEY_BACKGROUND).equals("Color")) {
+            String backgroundColor = "#" + mUtilSettings.getString(UtilSettings.KEY_BACKGROUND_COLOR).substring(3);
             mBackgroundTextView.setText(backgroundColor);
             mBackgroundColorImageView.setVisibility(View.VISIBLE);
             GradientDrawable backgroundColorDrawable = new GradientDrawable();
-            backgroundColorDrawable.setColor(Color.parseColor(mSettings.getString(Settings.KEY_BACKGROUND_COLOR)));
+            backgroundColorDrawable.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_BACKGROUND_COLOR)));
             backgroundColorDrawable.setCornerRadius(getResources().getDimension(R.dimen.radius_highlight_color_switch));
             mBackgroundColorImageView.setImageDrawable(backgroundColorDrawable);
         } else {
-            mBackgroundTextView.setText(mSettings.getString(Settings.KEY_BACKGROUND));
+            mBackgroundTextView.setText(mUtilSettings.getString(UtilSettings.KEY_BACKGROUND));
             mBackgroundColorImageView.setVisibility(View.GONE);
         }
         mHighlightColorTextView.setText(highlightColor);
         GradientDrawable highlightColorDrawable = new GradientDrawable();
-        highlightColorDrawable.setColor(Color.parseColor(mSettings.getString(Settings.KEY_HIGHLIGHT_COLOR)));
+        highlightColorDrawable.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
         highlightColorDrawable.setCornerRadius(getResources().getDimension(R.dimen.radius_highlight_color_switch));
         mHighlightColorImageView.setImageDrawable(highlightColorDrawable);
-        mVibrateAppHover.setChecked(mSettings.getBoolean(Settings.KEY_VIBRATE_APP_HOVER));
-        mVibrateAppLaunch.setChecked(mSettings.getBoolean(Settings.KEY_VIBRATE_APP_LAUNCH));
-        mShowNameAppHover.setChecked(mSettings.getBoolean(Settings.KEY_SHOW_NAME_APP_HOVER));
-        mShowNewAppTag.setChecked(mSettings.getBoolean(Settings.KEY_SHOW_NEW_APP_TAG));
-        mShowTouchSelection.setChecked(mSettings.getBoolean(Settings.KEY_SHOW_TOUCH_SELECTION));
+        mVibrateAppHover.setChecked(mUtilSettings.getBoolean(UtilSettings.KEY_VIBRATE_APP_HOVER));
+        mVibrateAppLaunch.setChecked(mUtilSettings.getBoolean(UtilSettings.KEY_VIBRATE_APP_LAUNCH));
+        mShowNameAppHover.setChecked(mUtilSettings.getBoolean(UtilSettings.KEY_SHOW_NAME_APP_HOVER));
+        mShowNewAppTag.setChecked(mUtilSettings.getBoolean(UtilSettings.KEY_SHOW_NEW_APP_TAG));
+        mShowTouchSelection.setChecked(mUtilSettings.getBoolean(UtilSettings.KEY_SHOW_TOUCH_SELECTION));
     }
 
     private void showIconPackDialog() {
@@ -234,16 +234,16 @@ public class FSettings extends Fragment implements ASettings.SettingsInterface {
     }
 
     private void resetToDefault() {
-        mSettings.save(Settings.KEY_VIBRATE_APP_HOVER, Settings.DEFAULT_VIBRATE_APP_HOVER);
-        mSettings.save(Settings.KEY_VIBRATE_APP_LAUNCH, Settings.DEFAULT_VIBRATE_APP_LAUNCH);
-        mSettings.save(Settings.KEY_SHOW_NAME_APP_HOVER, Settings.DEFAULT_SHOW_NAME_APP_HOVER);
-        mSettings.save(Settings.KEY_SHOW_TOUCH_SELECTION, Settings.DEFAULT_SHOW_TOUCH_SELECTION);
-        mSettings.save(Settings.KEY_SHOW_NEW_APP_TAG, Settings.DEFAULT_SHOW_NEW_APP_TAG);
-        mSettings.save(Settings.KEY_BACKGROUND, Settings.DEFAULT_BACKGROUND);
-        mSettings.save(Settings.KEY_BACKGROUND_COLOR, Settings.DEFAULT_BACKGROUND_COLOR);
-        mSettings.save(Settings.KEY_HIGHLIGHT_COLOR, Settings.DEFAULT_HIGHLIGHT_COLOR);
-        mSettings.save(Settings.KEY_ICON_PACK_LABEL_NAME, Settings.DEFAULT_ICON_PACK_LABEL_NAME);
-        mSettings.save(Settings.KEY_NIGHT_MODE, Settings.DEFAULT_NIGHT_MODE);
+        mUtilSettings.save(UtilSettings.KEY_VIBRATE_APP_HOVER, UtilSettings.DEFAULT_VIBRATE_APP_HOVER);
+        mUtilSettings.save(UtilSettings.KEY_VIBRATE_APP_LAUNCH, UtilSettings.DEFAULT_VIBRATE_APP_LAUNCH);
+        mUtilSettings.save(UtilSettings.KEY_SHOW_NAME_APP_HOVER, UtilSettings.DEFAULT_SHOW_NAME_APP_HOVER);
+        mUtilSettings.save(UtilSettings.KEY_SHOW_TOUCH_SELECTION, UtilSettings.DEFAULT_SHOW_TOUCH_SELECTION);
+        mUtilSettings.save(UtilSettings.KEY_SHOW_NEW_APP_TAG, UtilSettings.DEFAULT_SHOW_NEW_APP_TAG);
+        mUtilSettings.save(UtilSettings.KEY_BACKGROUND, UtilSettings.DEFAULT_BACKGROUND);
+        mUtilSettings.save(UtilSettings.KEY_BACKGROUND_COLOR, UtilSettings.DEFAULT_BACKGROUND_COLOR);
+        mUtilSettings.save(UtilSettings.KEY_HIGHLIGHT_COLOR, UtilSettings.DEFAULT_HIGHLIGHT_COLOR);
+        mUtilSettings.save(UtilSettings.KEY_ICON_PACK_LABEL_NAME, UtilSettings.DEFAULT_ICON_PACK_LABEL_NAME);
+        mUtilSettings.save(UtilSettings.KEY_NIGHT_MODE, UtilSettings.DEFAULT_NIGHT_MODE);
         if (getActivity() != null && getActivity() instanceof ASettings) {
             ((ASettings) getActivity()).sendNightModeBroadcast();
         }
