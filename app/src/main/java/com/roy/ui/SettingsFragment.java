@@ -27,7 +27,7 @@ import butterknife.OnClick;
 /**
  * Created by nicholasrout on 2016/06/08.
  */
-public class SettingsFragment extends Fragment implements SettingsA.SettingsInterface {
+public class SettingsFragment extends Fragment implements ASettings.SettingsInterface {
 
     private static final String TAG = "SettingsFragment";
 
@@ -149,8 +149,8 @@ public class SettingsFragment extends Fragment implements SettingsA.SettingsInte
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (getActivity() != null && getActivity() instanceof SettingsA) {
-            ((SettingsA) getActivity()).setSettingsInterface(this);
+        if (getActivity() != null && getActivity() instanceof ASettings) {
+            ((ASettings) getActivity()).setSettingsInterface(this);
         }
     }
 
@@ -225,32 +225,32 @@ public class SettingsFragment extends Fragment implements SettingsA.SettingsInte
     }
 
     private void showIconPackDialog() {
-        if (getActivity() != null && getActivity() instanceof SettingsA) {
-            ((SettingsA) getActivity()).showIconPackDialog();
+        if (getActivity() != null && getActivity() instanceof ASettings) {
+            ((ASettings) getActivity()).showIconPackDialog();
         }
     }
 
     private void showHomeLauncherChooser() {
-        if (getActivity() != null && getActivity() instanceof SettingsA) {
-            ((SettingsA) getActivity()).showHomeLauncherChooser();
+        if (getActivity() != null && getActivity() instanceof ASettings) {
+            ((ASettings) getActivity()).showHomeLauncherChooser();
         }
     }
 
     private void showNightModeChooser() {
-        if (getActivity() != null && getActivity() instanceof SettingsA) {
-            ((SettingsA) getActivity()).showNightModeChooser();
+        if (getActivity() != null && getActivity() instanceof ASettings) {
+            ((ASettings) getActivity()).showNightModeChooser();
         }
     }
 
     private void showBackgroundDialog() {
-        if (getActivity() != null && getActivity() instanceof SettingsA) {
-            ((SettingsA) getActivity()).showBackgroundDialog();
+        if (getActivity() != null && getActivity() instanceof ASettings) {
+            ((ASettings) getActivity()).showBackgroundDialog();
         }
     }
 
     private void showHighlightColorDialog() {
-        if (getActivity() != null && getActivity() instanceof SettingsA) {
-            ((SettingsA) getActivity()).showHighlightColorDialog();
+        if (getActivity() != null && getActivity() instanceof ASettings) {
+            ((ASettings) getActivity()).showHighlightColorDialog();
         }
     }
 
@@ -276,8 +276,8 @@ public class SettingsFragment extends Fragment implements SettingsA.SettingsInte
         mSettings.save(Settings.KEY_HIGHLIGHT_COLOR, Settings.DEFAULT_HIGHLIGHT_COLOR);
         mSettings.save(Settings.KEY_ICON_PACK_LABEL_NAME, Settings.DEFAULT_ICON_PACK_LABEL_NAME);
         mSettings.save(Settings.KEY_NIGHT_MODE, Settings.DEFAULT_NIGHT_MODE);
-        if (getActivity() != null && getActivity() instanceof SettingsA) {
-            ((SettingsA) getActivity()).sendNightModeBroadcast();
+        if (getActivity() != null && getActivity() instanceof ASettings) {
+            ((ASettings) getActivity()).sendNightModeBroadcast();
         }
     }
 }

@@ -23,12 +23,12 @@ import com.afollestad.materialdialogs.color.ColorChooserDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
-import com.roy.app.AppsSingleton;
 import com.roy.R;
+import com.roy.app.AppsSingleton;
+import com.roy.model.App;
 import com.roy.sv.BroadcastReceivers;
 import com.roy.sv.LoadedObservable;
 import com.roy.sv.NightModeObservable;
-import com.roy.model.App;
 import com.roy.util.AppSorter;
 import com.roy.util.IconPackManager;
 import com.roy.util.LauncherUtil;
@@ -38,6 +38,7 @@ import com.roy.util.Settings;
 import java.util.ArrayList;
 import java.util.EnumSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
@@ -45,13 +46,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by nicholasrout on 2016/06/07.
- */
-public class SettingsA extends ABase
+public class ASettings extends ABase
         implements Observer, ColorChooserDialog.ColorCallback {
-
-    private static final String TAG = "SettingsActivity";
 
     private static final String COLOR_TAG_BACKGROUND = "BackgroundColor";
     private static final String COLOR_TAG_HIGHLIGHT = "HighlightColor";
@@ -74,15 +70,11 @@ public class SettingsA extends ABase
         showSortTypeDialog();
     }
 
-    private FragmentPagerAdapter mPagerAdapter;
-
     private ArrayList<App> mApps;
     private MaterialDialog mSortTypeDialog;
     private MaterialDialog mIconPackDialog;
     private MaterialDialog mNightModeDialog;
     private MaterialDialog mBackgroundDialog;
-    private ColorChooserDialog mBackgroundColorDialog;
-    private ColorChooserDialog mHighlightColorDialog;
 
     public interface LensInterface {
         void onDefaultsReset();
@@ -125,7 +117,7 @@ public class SettingsA extends ABase
         ButterKnife.bind(this);
         mSortFab.hide();
         setSupportActionBar(mToolbar);
-        mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), SettingsA.this);
+        FragmentPagerAdapter mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), ASettings.this);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -135,13 +127,10 @@ public class SettingsA extends ABase
 
             @Override
             public void onPageSelected(int position) {
-                switch (position) {
-                    case 1:
-                        mSortFab.show();
-                        break;
-                    default:
-                        mSortFab.hide();
-                        break;
+                if (position == 1) {
+                    mSortFab.show();
+                } else {
+                    mSortFab.hide();
                 }
             }
 
@@ -149,7 +138,7 @@ public class SettingsA extends ABase
             public void onPageScrollStateChanged(int state) {
             }
         });
-        mApps = AppsSingleton.getInstance().getApps();
+        mApps = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
         LoadedObservable.getInstance().addObserver(this);
         NightModeObservable.getInstance().addObserver(this);
     }
@@ -170,13 +159,13 @@ public class SettingsA extends ABase
                     homeIntent.addCategory(Intent.CATEGORY_HOME);
                     startActivity(homeIntent);
                 } else {
-                    Intent homeIntent = new Intent(SettingsA.this, AHome.class);
+                    Intent homeIntent = new Intent(ASettings.this, AHome.class);
                     startActivity(homeIntent);
                 }
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
             case R.id.menu_item_about:
-                Intent aboutIntent = new Intent(SettingsA.this, AAbout.class);
+                Intent aboutIntent = new Intent(ASettings.this, AAbout.class);
                 startActivity(aboutIntent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 return true;
@@ -218,22 +207,22 @@ public class SettingsA extends ABase
     }
 
     private void sendUpdateAppsBroadcast() {
-        Intent refreshAppsIntent = new Intent(SettingsA.this, BroadcastReceivers.AppsUpdatedReceiver.class);
+        Intent refreshAppsIntent = new Intent(ASettings.this, BroadcastReceivers.AppsUpdatedReceiver.class);
         sendBroadcast(refreshAppsIntent);
     }
 
     private void sendEditAppsBroadcast() {
-        Intent editAppsIntent = new Intent(SettingsA.this, BroadcastReceivers.AppsEditedReceiver.class);
+        Intent editAppsIntent = new Intent(ASettings.this, BroadcastReceivers.AppsEditedReceiver.class);
         sendBroadcast(editAppsIntent);
     }
 
     private void sendBackgroundChangedBroadcast() {
-        Intent changeBackgroundIntent = new Intent(SettingsA.this, BroadcastReceivers.BackgroundChangedReceiver.class);
+        Intent changeBackgroundIntent = new Intent(ASettings.this, BroadcastReceivers.BackgroundChangedReceiver.class);
         sendBroadcast(changeBackgroundIntent);
     }
 
     public void sendNightModeBroadcast() {
-        Intent nightModeIntent = new Intent(SettingsA.this, BroadcastReceivers.NightModeReceiver.class);
+        Intent nightModeIntent = new Intent(ASettings.this, BroadcastReceivers.NightModeReceiver.class);
         sendBroadcast(nightModeIntent);
     }
 
@@ -245,17 +234,14 @@ public class SettingsA extends ABase
         }
         AppSorter.SortType selectedSortType = mSettings.getSortType();
         int selectedIndex = sortTypes.indexOf(selectedSortType);
-        mSortTypeDialog = new MaterialDialog.Builder(SettingsA.this)
+        mSortTypeDialog = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_sort_apps)
                 .items(sortTypeStrings)
                 .alwaysCallSingleChoiceCallback()
-                .itemsCallbackSingleChoice(selectedIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        mSettings.save(sortTypes.get(which));
-                        sendEditAppsBroadcast();
-                        return true;
-                    }
+                .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+                    mSettings.save(sortTypes.get(which));
+                    sendEditAppsBroadcast();
+                    return true;
                 })
                 .show();
     }
@@ -272,20 +258,17 @@ public class SettingsA extends ABase
         }
         String selectedPackageName = mSettings.getString(Settings.KEY_ICON_PACK_LABEL_NAME);
         int selectedIndex = iconPackNames.indexOf(selectedPackageName);
-        mIconPackDialog = new MaterialDialog.Builder(SettingsA.this)
+        mIconPackDialog = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_icon_pack)
                 .items(iconPackNames)
                 .alwaysCallSingleChoiceCallback()
-                .itemsCallbackSingleChoice(selectedIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        mSettings.save(Settings.KEY_ICON_PACK_LABEL_NAME, iconPackNames.get(which));
-                        if (mSettingsInterface != null) {
-                            mSettingsInterface.onValuesUpdated();
-                        }
-                        sendUpdateAppsBroadcast();
-                        return true;
+                .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+                    mSettings.save(Settings.KEY_ICON_PACK_LABEL_NAME, iconPackNames.get(which));
+                    if (mSettingsInterface != null) {
+                        mSettingsInterface.onValuesUpdated();
                     }
+                    sendUpdateAppsBroadcast();
+                    return true;
                 })
                 .show();
     }
@@ -302,7 +285,7 @@ public class SettingsA extends ABase
         }
         String selectedNightMode = NightModeUtil.getNightModeDisplayName(mSettings.getNightMode());
         int selectedIndex = nightModes.indexOf(selectedNightMode);
-        mNightModeDialog = new MaterialDialog.Builder(SettingsA.this)
+        mNightModeDialog = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_night_mode)
                 .items(R.array.night_modes)
                 .alwaysCallSingleChoiceCallback()
@@ -330,7 +313,7 @@ public class SettingsA extends ABase
         }
         String selectedBackground = mSettings.getString(Settings.KEY_BACKGROUND);
         int selectedIndex = backgroundNames.indexOf(selectedBackground);
-        mBackgroundDialog = new MaterialDialog.Builder(SettingsA.this)
+        mBackgroundDialog = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_background)
                 .items(R.array.backgrounds)
                 .alwaysCallSingleChoiceCallback()
@@ -362,7 +345,7 @@ public class SettingsA extends ABase
     }
 
     public void showBackgroundColorDialog() {
-        mBackgroundColorDialog = new ColorChooserDialog.Builder(this, R.string.setting_background_color)
+        ColorChooserDialog mBackgroundColorDialog = new ColorChooserDialog.Builder(this, R.string.setting_background_color)
                 .titleSub(R.string.setting_background_color)
                 .accentMode(false)
                 .doneButton(R.string.md_done_label)
@@ -376,7 +359,7 @@ public class SettingsA extends ABase
     }
 
     public void showHighlightColorDialog() {
-        mHighlightColorDialog = new ColorChooserDialog.Builder(this, R.string.setting_highlight_color)
+        ColorChooserDialog mHighlightColorDialog = new ColorChooserDialog.Builder(this, R.string.setting_highlight_color)
                 .titleSub(R.string.setting_highlight_color)
                 .accentMode(true)
                 .doneButton(R.string.md_done_label)
@@ -458,17 +441,18 @@ public class SettingsA extends ABase
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    private class FragmentPagerAdapter extends FragmentStatePagerAdapter {
+    private static class FragmentPagerAdapter extends FragmentStatePagerAdapter {
 
         private static final int NUM_PAGES = 3;
 
-        private Context mContext;
+        private final Context mContext;
 
         public FragmentPagerAdapter(FragmentManager fragmentManager, Context context) {
             super(fragmentManager);
             mContext = context;
         }
 
+        @NonNull
         @Override
         public Fragment getItem(int position) {
             switch (position) {

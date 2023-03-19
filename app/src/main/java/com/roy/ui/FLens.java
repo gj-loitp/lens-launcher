@@ -21,7 +21,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FLens extends Fragment implements SettingsA.LensInterface {
+public class FLens extends Fragment implements ASettings.LensInterface {
 
     @BindView(R.id.lens_view_settings)
     LensView mLensView;
@@ -89,8 +89,8 @@ public class FLens extends Fragment implements SettingsA.LensInterface {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (getActivity() != null && getActivity() instanceof SettingsA) {
-            ((SettingsA) getActivity()).setLensInterface(this);
+        if (getActivity() != null && getActivity() instanceof ASettings) {
+            ((ASettings) getActivity()).setLensInterface(this);
         }
     }
 

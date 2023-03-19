@@ -30,7 +30,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
-public class FApps extends Fragment implements SettingsA.AppsInterface {
+public class FApps extends Fragment implements ASettings.AppsInterface {
 
     @BindView(R.id.recycler_apps)
     RecyclerView mRecycler;
@@ -61,8 +61,8 @@ public class FApps extends Fragment implements SettingsA.AppsInterface {
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
-        if (getActivity() != null && getActivity() instanceof SettingsA) {
-            ((SettingsA) getActivity()).setAppsInterface(this);
+        if (getActivity() != null && getActivity() instanceof ASettings) {
+            ((ASettings) getActivity()).setAppsInterface(this);
         }
     }
 

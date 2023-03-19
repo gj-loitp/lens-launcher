@@ -49,7 +49,7 @@
         </activity>
 
         <activity
-            android:name=".ui.SettingsA"
+            android:name=".ui.ASettings"
             android:exported="true"
             android:launchMode="singleTask"
             android:stateNotNeeded="true"

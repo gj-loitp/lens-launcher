@@ -24,7 +24,7 @@ import com.roy.R;
 import com.roy.sv.BroadcastReceivers;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
-import com.roy.ui.SettingsA;
+import com.roy.ui.ASettings;
 import com.roy.util.AppUtil;
 
 import java.util.List;
@@ -145,12 +145,12 @@ public class AppAdapter extends RecyclerView.Adapter {
             if (mContext == null) {
                 return;
             }
-            if (!(mContext instanceof SettingsA)) {
+            if (!(mContext instanceof ASettings)) {
                 return;
             }
-            SettingsA settingsActivity = (SettingsA) mContext;
-            Intent changeAppsVisibilityIntent = new Intent(settingsActivity, BroadcastReceivers.AppsVisibilityChangedReceiver.class);
-            settingsActivity.sendBroadcast(changeAppsVisibilityIntent);
+            ASettings activitySettings = (ASettings) mContext;
+            Intent changeAppsVisibilityIntent = new Intent(activitySettings, BroadcastReceivers.AppsVisibilityChangedReceiver.class);
+            activitySettings.sendBroadcast(changeAppsVisibilityIntent);
         }
 
         public void setOnClickListeners() {
