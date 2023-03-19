@@ -25,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.roy.R;
 import com.roy.app.AppsSingleton;
+import com.roy.itf.AppsInterface;
 import com.roy.itf.LensInterface;
 import com.roy.model.App;
 import com.roy.sv.BroadcastReceivers;
@@ -62,12 +63,6 @@ public class ASettings extends ABase
 
     public void setLensInterface(LensInterface lensInterface) {
         this.lensInterface = lensInterface;
-    }
-
-    public interface AppsInterface {
-        void onDefaultsReset();
-
-        void onAppsUpdated(ArrayList<App> apps);
     }
 
     private AppsInterface mAppsInterface;

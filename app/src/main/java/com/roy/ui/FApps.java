@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.roy.R;
 import com.roy.a.AppAdapter;
 import com.roy.app.AppsSingleton;
+import com.roy.itf.AppsInterface;
 import com.roy.model.App;
 import com.roy.sv.BroadcastReceivers;
 import com.roy.util.UtilAppSorter;
@@ -30,7 +31,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
-public class FApps extends Fragment implements ASettings.AppsInterface {
+public class FApps extends Fragment implements AppsInterface {
 
     @BindView(R.id.rvApps)
     RecyclerView mRecycler;
