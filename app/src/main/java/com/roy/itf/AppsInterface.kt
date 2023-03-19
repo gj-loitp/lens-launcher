@@ -1,11 +1,9 @@
-package com.roy.itf;
+package com.roy.itf
 
-import com.roy.model.App;
+import com.roy.model.App
 
-import java.util.ArrayList;
+interface AppsInterface {
+    fun onDefaultsReset()
 
-public interface AppsInterface {
-    void onDefaultsReset();
-
-    void onAppsUpdated(ArrayList<App> apps);
+    fun onAppsUpdated(apps: ArrayList<App?>?)
 }
