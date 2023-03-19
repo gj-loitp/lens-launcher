@@ -1,50 +1,61 @@
-package com.roy.bkg;
+package com.roy.bkg
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Intent
 
-public class BroadcastReceivers {
-
-    public static class AppsUpdatedReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            UpdatedObservable.getInstance().update();
+class BroadcastReceivers {
+    class AppsUpdatedReceiver : BroadcastReceiver() {
+        override fun onReceive(
+            context: Context,
+            intent: Intent
+        ) {
+            UpdatedObservable.getInstance().update()
         }
     }
 
-    public static class AppsEditedReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            EditedObservable.getInstance().update();
+    class AppsEditedReceiver : BroadcastReceiver() {
+        override fun onReceive(
+            context: Context,
+            intent: Intent
+        ) {
+            EditedObservable.getInstance().update()
         }
     }
 
-    public static class AppsVisibilityChangedReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            VisibilityChangedObservable.getInstance().update();
+    class AppsVisibilityChangedReceiver : BroadcastReceiver() {
+        override fun onReceive(
+            context: Context,
+            intent: Intent
+        ) {
+            VisibilityChangedObservable.getInstance().update()
         }
     }
 
-    public static class AppsLoadedReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            LoadedObservable.getInstance().update();
+    class AppsLoadedReceiver : BroadcastReceiver() {
+        override fun onReceive(
+            context: Context,
+            intent: Intent
+        ) {
+            LoadedObservable.getInstance().update()
         }
     }
 
-    public static class BackgroundChangedReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            BackgroundChangedObservable.getInstance().update();
+    class BackgroundChangedReceiver : BroadcastReceiver() {
+        override fun onReceive(
+            context: Context,
+            intent: Intent
+        ) {
+            BackgroundChangedObservable.getInstance().update()
         }
     }
 
-    public static class NightModeReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            NightModeObservable.getInstance().update();
+    class NightModeReceiver : BroadcastReceiver() {
+        override fun onReceive(
+            context: Context,
+            intent: Intent
+        ) {
+            NightModeObservable.getInstance().update()
         }
     }
 }
