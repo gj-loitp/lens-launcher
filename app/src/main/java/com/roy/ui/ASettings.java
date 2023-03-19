@@ -27,6 +27,7 @@ import com.roy.R;
 import com.roy.app.AppsSingleton;
 import com.roy.itf.AppsInterface;
 import com.roy.itf.LensInterface;
+import com.roy.itf.SettingsInterface;
 import com.roy.model.App;
 import com.roy.sv.BroadcastReceivers;
 import com.roy.sv.LoadedObservable;
@@ -65,16 +66,10 @@ public class ASettings extends ABase
         this.lensInterface = lensInterface;
     }
 
-    private AppsInterface mAppsInterface;
+    private AppsInterface appsInterface;
 
     public void setAppsInterface(AppsInterface appsInterface) {
-        mAppsInterface = appsInterface;
-    }
-
-    public interface SettingsInterface {
-        void onDefaultsReset();
-
-        void onValuesUpdated();
+        this.appsInterface = appsInterface;
     }
 
     private SettingsInterface mSettingsInterface;
@@ -163,8 +158,8 @@ public class ASettings extends ABase
                         }
                         break;
                     case 1:
-                        if (mAppsInterface != null) {
-                            mAppsInterface.onDefaultsReset();
+                        if (appsInterface != null) {
+                            appsInterface.onDefaultsReset();
                         }
                         break;
                     case 2:
@@ -184,8 +179,8 @@ public class ASettings extends ABase
     public void update(Observable observable, Object data) {
         if (observable instanceof LoadedObservable) {
             listApp = AppsSingleton.getInstance().getApps();
-            if (mAppsInterface != null) {
-                mAppsInterface.onAppsUpdated(listApp);
+            if (appsInterface != null) {
+                appsInterface.onAppsUpdated(listApp);
             }
         } else if (observable instanceof NightModeObservable) {
             updateNightMode();

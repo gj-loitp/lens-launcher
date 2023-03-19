@@ -16,6 +16,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.roy.R;
+import com.roy.itf.SettingsInterface;
 import com.roy.util.UtilLauncher;
 import com.roy.util.UtilNightModeUtil;
 import com.roy.util.UtilSettings;
@@ -24,7 +25,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FSettings extends Fragment implements ASettings.SettingsInterface {
+public class FSettings extends Fragment implements SettingsInterface {
 
     @OnClick(R.id.llHomeLauncher)
     public void onHomeLauncherClick() {
