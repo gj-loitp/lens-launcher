@@ -475,7 +475,7 @@ public class SettingsActivity extends BaseActivity
                 case 0:
                     return LensFragment.newInstance();
                 case 1:
-                    return AppsFragment.newInstance();
+                    return FApps.newInstance();
                 case 2:
                     return SettingsFragment.newInstance();
             }
