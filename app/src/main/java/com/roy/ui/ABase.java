@@ -3,20 +3,17 @@ package com.roy.ui;
 import android.app.ActivityManager;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.os.Build;
 import android.os.Bundle;
+
 import androidx.annotation.LayoutRes;
 import androidx.annotation.Nullable;
-import androidx.core.content.ContextCompat;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.content.ContextCompat;
 
 import com.roy.R;
 import com.roy.util.Settings;
 
-/**
- * Created by nickrout on 2016/04/05.
- */
-public class BaseActivity extends AppCompatActivity {
+public class ABase extends AppCompatActivity {
 
     protected Settings mSettings;
 
@@ -36,14 +33,12 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private void setTaskDescription() {
-        if (android.os.Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            Bitmap appIconBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-            ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(
-                    getString(R.string.app_name),
-                    appIconBitmap,
-                    ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark));
-            setTaskDescription(taskDescription);
-        }
+        Bitmap appIconBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(
+                getString(R.string.app_name),
+                appIconBitmap,
+                ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark));
+        setTaskDescription(taskDescription);
     }
 
     protected void updateNightMode() {

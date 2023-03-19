@@ -29,7 +29,7 @@ import com.roy.sv.LoadedObservable;
 /**
  * Created by nickrout on 2016/04/02.
  */
-public class HomeActivity extends BaseActivity implements Observer {
+public class HomeA extends ABase implements Observer {
 
     private final static String TAG = "HomeActivity";
 

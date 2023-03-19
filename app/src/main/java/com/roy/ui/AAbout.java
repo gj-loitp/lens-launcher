@@ -25,7 +25,7 @@ import java.util.Observer;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class AAbout extends BaseActivity implements Observer {
+public class AAbout extends ABase implements Observer {
 
     @BindView(R.id.text_view_about)
     TextView mTextViewAbout;

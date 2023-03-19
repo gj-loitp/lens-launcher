@@ -48,7 +48,7 @@ import butterknife.OnClick;
 /**
  * Created by nicholasrout on 2016/06/07.
  */
-public class SettingsActivity extends BaseActivity
+public class SettingsA extends ABase
         implements Observer, ColorChooserDialog.ColorCallback {
 
     private static final String TAG = "SettingsActivity";
@@ -125,7 +125,7 @@ public class SettingsActivity extends BaseActivity
         ButterKnife.bind(this);
         mSortFab.hide();
         setSupportActionBar(mToolbar);
-        mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), SettingsActivity.this);
+        mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), SettingsA.this);
         mViewPager.setAdapter(mPagerAdapter);
         mTabLayout.setupWithViewPager(mViewPager);
         mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -170,13 +170,13 @@ public class SettingsActivity extends BaseActivity
                     homeIntent.addCategory(Intent.CATEGORY_HOME);
                     startActivity(homeIntent);
                 } else {
-                    Intent homeIntent = new Intent(SettingsActivity.this, HomeActivity.class);
+                    Intent homeIntent = new Intent(SettingsA.this, HomeA.class);
                     startActivity(homeIntent);
                 }
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
             case R.id.menu_item_about:
-                Intent aboutIntent = new Intent(SettingsActivity.this, AAbout.class);
+                Intent aboutIntent = new Intent(SettingsA.this, AAbout.class);
                 startActivity(aboutIntent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 return true;
@@ -218,22 +218,22 @@ public class SettingsActivity extends BaseActivity
     }
 
     private void sendUpdateAppsBroadcast() {
-        Intent refreshAppsIntent = new Intent(SettingsActivity.this, BroadcastReceivers.AppsUpdatedReceiver.class);
+        Intent refreshAppsIntent = new Intent(SettingsA.this, BroadcastReceivers.AppsUpdatedReceiver.class);
         sendBroadcast(refreshAppsIntent);
     }
 
     private void sendEditAppsBroadcast() {
-        Intent editAppsIntent = new Intent(SettingsActivity.this, BroadcastReceivers.AppsEditedReceiver.class);
+        Intent editAppsIntent = new Intent(SettingsA.this, BroadcastReceivers.AppsEditedReceiver.class);
         sendBroadcast(editAppsIntent);
     }
 
     private void sendBackgroundChangedBroadcast() {
-        Intent changeBackgroundIntent = new Intent(SettingsActivity.this, BroadcastReceivers.BackgroundChangedReceiver.class);
+        Intent changeBackgroundIntent = new Intent(SettingsA.this, BroadcastReceivers.BackgroundChangedReceiver.class);
         sendBroadcast(changeBackgroundIntent);
     }
 
     public void sendNightModeBroadcast() {
-        Intent nightModeIntent = new Intent(SettingsActivity.this, BroadcastReceivers.NightModeReceiver.class);
+        Intent nightModeIntent = new Intent(SettingsA.this, BroadcastReceivers.NightModeReceiver.class);
         sendBroadcast(nightModeIntent);
     }
 
@@ -245,7 +245,7 @@ public class SettingsActivity extends BaseActivity
         }
         AppSorter.SortType selectedSortType = mSettings.getSortType();
         int selectedIndex = sortTypes.indexOf(selectedSortType);
-        mSortTypeDialog = new MaterialDialog.Builder(SettingsActivity.this)
+        mSortTypeDialog = new MaterialDialog.Builder(SettingsA.this)
                 .title(R.string.setting_sort_apps)
                 .items(sortTypeStrings)
                 .alwaysCallSingleChoiceCallback()
@@ -272,7 +272,7 @@ public class SettingsActivity extends BaseActivity
         }
         String selectedPackageName = mSettings.getString(Settings.KEY_ICON_PACK_LABEL_NAME);
         int selectedIndex = iconPackNames.indexOf(selectedPackageName);
-        mIconPackDialog = new MaterialDialog.Builder(SettingsActivity.this)
+        mIconPackDialog = new MaterialDialog.Builder(SettingsA.this)
                 .title(R.string.setting_icon_pack)
                 .items(iconPackNames)
                 .alwaysCallSingleChoiceCallback()
@@ -302,7 +302,7 @@ public class SettingsActivity extends BaseActivity
         }
         String selectedNightMode = NightModeUtil.getNightModeDisplayName(mSettings.getNightMode());
         int selectedIndex = nightModes.indexOf(selectedNightMode);
-        mNightModeDialog = new MaterialDialog.Builder(SettingsActivity.this)
+        mNightModeDialog = new MaterialDialog.Builder(SettingsA.this)
                 .title(R.string.setting_night_mode)
                 .items(R.array.night_modes)
                 .alwaysCallSingleChoiceCallback()
@@ -330,7 +330,7 @@ public class SettingsActivity extends BaseActivity
         }
         String selectedBackground = mSettings.getString(Settings.KEY_BACKGROUND);
         int selectedIndex = backgroundNames.indexOf(selectedBackground);
-        mBackgroundDialog = new MaterialDialog.Builder(SettingsActivity.this)
+        mBackgroundDialog = new MaterialDialog.Builder(SettingsA.this)
                 .title(R.string.setting_background)
                 .items(R.array.backgrounds)
                 .alwaysCallSingleChoiceCallback()

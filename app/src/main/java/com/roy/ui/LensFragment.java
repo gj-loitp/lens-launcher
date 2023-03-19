@@ -22,7 +22,7 @@ import butterknife.OnClick;
 /**
  * Created by nicholasrout on 2016/06/08.
  */
-public class LensFragment extends Fragment implements SettingsActivity.LensInterface {
+public class LensFragment extends Fragment implements SettingsA.LensInterface {
 
     private static final String TAG = "LensFragment";
 
@@ -94,8 +94,8 @@ public class LensFragment extends Fragment implements SettingsActivity.LensInter
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (getActivity() != null && getActivity() instanceof SettingsActivity) {
-            ((SettingsActivity) getActivity()).setLensInterface(this);
+        if (getActivity() != null && getActivity() instanceof SettingsA) {
+            ((SettingsA) getActivity()).setLensInterface(this);
         }
     }
 
