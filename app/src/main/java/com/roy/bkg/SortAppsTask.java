@@ -1,4 +1,4 @@
-package com.roy.background;
+package com.roy.bkg;
 
 import android.app.Application;
 import android.content.Context;

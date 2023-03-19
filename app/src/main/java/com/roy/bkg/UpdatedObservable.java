@@ -1,18 +1,18 @@
-package com.roy.background;
+package com.roy.bkg;
 
 import java.util.Observable;
 
 /**
- * Created by nicholasrout on 2016/06/23.
+ * Created by nickrout on 2016/04/08.
  */
-public class EditedObservable extends Observable {
-    private static EditedObservable instance = new EditedObservable();
+public class UpdatedObservable extends Observable {
+    private static UpdatedObservable instance = new UpdatedObservable();
 
-    public static EditedObservable getInstance() {
+    public static UpdatedObservable getInstance() {
         return instance;
     }
 
-    private EditedObservable() {
+    private UpdatedObservable() {
     }
 
     public void updateValue(Object data) {

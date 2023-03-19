@@ -18,7 +18,7 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 
 import com.roy.R;
-import com.roy.background.BroadcastReceivers;
+import com.roy.bkg.BroadcastReceivers;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
 

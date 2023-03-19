@@ -83,7 +83,7 @@
         </activity>
 
         <receiver
-            android:name=".background.BroadcastReceivers$AppsUpdatedReceiver"
+            android:name=".bkg.BroadcastReceivers$AppsUpdatedReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
@@ -95,15 +95,15 @@
             </intent-filter>
         </receiver>
 
-        <receiver android:name=".background.BroadcastReceivers$AppsEditedReceiver" />
+        <receiver android:name=".bkg.BroadcastReceivers$AppsEditedReceiver" />
 
-        <receiver android:name=".background.BroadcastReceivers$AppsVisibilityChangedReceiver" />
+        <receiver android:name=".bkg.BroadcastReceivers$AppsVisibilityChangedReceiver" />
 
-        <receiver android:name=".background.BroadcastReceivers$AppsLoadedReceiver" />
+        <receiver android:name=".bkg.BroadcastReceivers$AppsLoadedReceiver" />
 
-        <receiver android:name=".background.BroadcastReceivers$BackgroundChangedReceiver" />
+        <receiver android:name=".bkg.BroadcastReceivers$BackgroundChangedReceiver" />
 
-        <receiver android:name=".background.BroadcastReceivers$NightModeReceiver" />
+        <receiver android:name=".bkg.BroadcastReceivers$NightModeReceiver" />
 
     </application>
 

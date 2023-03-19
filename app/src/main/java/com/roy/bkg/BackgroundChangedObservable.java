@@ -1,4 +1,4 @@
-package com.roy.background;
+package com.roy.bkg;
 
 import java.util.Observable;
 

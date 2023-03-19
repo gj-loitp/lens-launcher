@@ -1,18 +1,19 @@
-package com.roy.background;
+package com.roy.bkg;
 
 import java.util.Observable;
 
 /**
- * Created by nickrout on 2016/04/08.
+ * Created by nicholasrout on 2017/01/15.
  */
-public class UpdatedObservable extends Observable {
-    private static UpdatedObservable instance = new UpdatedObservable();
 
-    public static UpdatedObservable getInstance() {
+public class NightModeObservable extends Observable {
+    private static NightModeObservable instance = new NightModeObservable();
+
+    public static NightModeObservable getInstance() {
         return instance;
     }
 
-    private UpdatedObservable() {
+    private NightModeObservable() {
     }
 
     public void updateValue(Object data) {
