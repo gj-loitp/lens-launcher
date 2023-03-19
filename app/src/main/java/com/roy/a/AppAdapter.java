@@ -81,19 +81,19 @@ public class AppAdapter extends RecyclerView.Adapter {
 
     public static class AppViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener {
 
-        @BindView(R.id.element_app_container)
+        @BindView(R.id.cvAppContainer)
         CardView mContainer;
 
-        @BindView(R.id.element_app_label)
+        @BindView(R.id.tvAppLabel)
         TextView mLabel;
 
-        @BindView(R.id.element_app_icon)
+        @BindView(R.id.ivAppIcon)
         ImageView mIcon;
 
-        @BindView(R.id.element_app_hide)
+        @BindView(R.id.ivAppHide)
         ImageView mToggleAppVisibility;
 
-        @BindView(R.id.element_app_menu)
+        @BindView(R.id.ivAppMenu)
         ImageView mMenu;
 
         private App mApp;
