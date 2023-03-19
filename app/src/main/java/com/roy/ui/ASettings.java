@@ -177,7 +177,9 @@ public class ASettings extends ABase
     @Override
     public void update(Observable observable, Object data) {
         if (observable instanceof LoadedObservable) {
-            listApp = AppsSingleton.getInstance().getApps();
+            if (AppsSingleton.getInstance() != null) {
+                listApp = AppsSingleton.getInstance().getApps();
+            }
             if (appsInterface != null) {
                 appsInterface.onAppsUpdated(listApp);
             }
@@ -207,19 +209,20 @@ public class ASettings extends ABase
     }
 
     private void showSortTypeDialog() {
-        final List<UtilAppSorter.SortType> sortTypes = new ArrayList<>(EnumSet.allOf(UtilAppSorter.SortType.class));
-        final List<String> sortTypeStrings = new ArrayList<>();
-        for (int i = 0; i < sortTypes.size(); i++) {
-            sortTypeStrings.add(getApplicationContext().getString(sortTypes.get(i).getDisplayNameResId()));
+        final List<UtilAppSorter.SortType> lSortType = new ArrayList<>(EnumSet.allOf(UtilAppSorter.SortType.class));
+        final List<String> lSortTypeString = new ArrayList<>();
+        for (int i = 0; i < lSortType.size(); i++) {
+            lSortTypeString.add(getApplicationContext().getString(lSortType.get(i).getDisplayNameResId()));
         }
+        assert utilSettings != null;
         UtilAppSorter.SortType selectedSortType = utilSettings.getSortType();
-        int selectedIndex = sortTypes.indexOf(selectedSortType);
+        int selectedIndex = lSortType.indexOf(selectedSortType);
         dlgSortType = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_sort_apps)
-                .items(sortTypeStrings)
+                .items(lSortTypeString)
                 .alwaysCallSingleChoiceCallback()
                 .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
-                    utilSettings.save(sortTypes.get(which));
+                    utilSettings.save(lSortType.get(which));
                     sendEditAppsBroadcast();
                     return true;
                 })
