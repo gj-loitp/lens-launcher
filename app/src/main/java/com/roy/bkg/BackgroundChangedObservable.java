@@ -2,8 +2,9 @@ package com.roy.bkg;
 
 import java.util.Observable;
 
+//2023.03.19 tried to convert kotlin but failed
 public class BackgroundChangedObservable extends Observable {
-    private static BackgroundChangedObservable instance = new BackgroundChangedObservable();
+    private static final BackgroundChangedObservable instance = new BackgroundChangedObservable();
 
     public static BackgroundChangedObservable getInstance() {
         return instance;

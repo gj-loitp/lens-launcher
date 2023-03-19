@@ -4,9 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-/**
- * Created by nicholasrout on 2016/06/12.
- */
 public class BroadcastReceivers {
 
     public static class AppsUpdatedReceiver extends BroadcastReceiver {
