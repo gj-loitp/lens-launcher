@@ -2,11 +2,8 @@ package com.roy.bkg;
 
 import java.util.Observable;
 
-/**
- * Created by nicholasrout on 2016/06/23.
- */
 public class EditedObservable extends Observable {
-    private static EditedObservable instance = new EditedObservable();
+    private static final EditedObservable instance = new EditedObservable();
 
     public static EditedObservable getInstance() {
         return instance;
