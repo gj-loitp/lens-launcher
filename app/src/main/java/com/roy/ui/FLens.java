@@ -25,49 +25,49 @@ import butterknife.OnClick;
 public class FLens extends Fragment implements LensInterface {
 
     @BindView(R.id.lensViewsSettings)
-    LensView mLensView;
+    LensView lensViewsSettings;
 
     @OnClick(R.id.sbMinIconSizeParent)
     public void onMinIconSizeParentClick() {
     }
 
     @BindView(R.id.sbMinIconSize)
-    AppCompatSeekBar mMinIconSize;
+    AppCompatSeekBar sbMinIconSize;
 
     @BindView(R.id.tvValueMinIconSize)
-    TextView mValueMinIconSize;
+    TextView tvValueMinIconSize;
 
     @OnClick(R.id.rlSbDistortionFactorParent)
     public void onDistortionFactorParentClick() {
     }
 
     @BindView(R.id.sbDistortionFactor)
-    AppCompatSeekBar mDistortionFactor;
+    AppCompatSeekBar sbDistortionFactor;
 
     @BindView(R.id.tvValueDistortionFactor)
-    TextView mValueDistortionFactor;
+    TextView tvValueDistortionFactor;
 
     @OnClick(R.id.rlSbScaleFactorParent)
     public void onScaleFactorParentClick() {
     }
 
     @BindView(R.id.sbScaleFactor)
-    AppCompatSeekBar mScaleFactor;
+    AppCompatSeekBar sbScaleFactor;
 
     @BindView(R.id.tvValueScaleFactor)
-    TextView mValueScaleFactor;
+    TextView tvValueScaleFactor;
 
     @OnClick(R.id.rlSbAnimationTimeParent)
     public void onAnimationTimeParentClick() {
     }
 
     @BindView(R.id.sbAnimationTime)
-    AppCompatSeekBar mAnimationTime;
+    AppCompatSeekBar sbAnimationTime;
 
     @BindView(R.id.tvValueAnimationTime)
-    TextView mValueAnimationTime;
+    TextView tvValueAnimationTime;
 
-    private UtilSettings mUtilSettings;
+    private UtilSettings utilSettings;
 
     public FLens() {
     }
@@ -81,7 +81,7 @@ public class FLens extends Fragment implements LensInterface {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.f_lens, container, false);
         ButterKnife.bind(this, view);
-        mUtilSettings = new UtilSettings(getActivity());
+        utilSettings = new UtilSettings(getActivity());
         setupViews();
         assignValues();
         return view;
@@ -96,16 +96,16 @@ public class FLens extends Fragment implements LensInterface {
     }
 
     private void setupViews() {
-        mLensView.setDrawType(LensView.DrawType.CIRCLES);
-        mMinIconSize.setMax(UtilSettings.MAX_ICON_SIZE);
-        mMinIconSize.setOnSeekBarChangeListener(new AppCompatSeekBar.OnSeekBarChangeListener() {
+        lensViewsSettings.setDrawType(LensView.DrawType.CIRCLES);
+        sbMinIconSize.setMax(UtilSettings.MAX_ICON_SIZE);
+        sbMinIconSize.setOnSeekBarChangeListener(new AppCompatSeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 int appropriateProgress = progress + (int) UtilSettings.MIN_ICON_SIZE;
                 String minIconSize = appropriateProgress + "dp";
-                mValueMinIconSize.setText(minIconSize);
-                mUtilSettings.save(UtilSettings.KEY_ICON_SIZE, (float) appropriateProgress);
-                mLensView.invalidate();
+                tvValueMinIconSize.setText(minIconSize);
+                utilSettings.save(UtilSettings.KEY_ICON_SIZE, (float) appropriateProgress);
+                lensViewsSettings.invalidate();
             }
 
             @Override
@@ -116,15 +116,15 @@ public class FLens extends Fragment implements LensInterface {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        mDistortionFactor.setMax(UtilSettings.MAX_DISTORTION_FACTOR);
-        mDistortionFactor.setOnSeekBarChangeListener(new AppCompatSeekBar.OnSeekBarChangeListener() {
+        sbDistortionFactor.setMax(UtilSettings.MAX_DISTORTION_FACTOR);
+        sbDistortionFactor.setOnSeekBarChangeListener(new AppCompatSeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float appropriateProgress = (float) progress / 2.0f + UtilSettings.MIN_DISTORTION_FACTOR;
                 String distortionFactor = appropriateProgress + "";
-                mValueDistortionFactor.setText(distortionFactor);
-                mUtilSettings.save(UtilSettings.KEY_DISTORTION_FACTOR, appropriateProgress);
-                mLensView.invalidate();
+                tvValueDistortionFactor.setText(distortionFactor);
+                utilSettings.save(UtilSettings.KEY_DISTORTION_FACTOR, appropriateProgress);
+                lensViewsSettings.invalidate();
             }
 
             @Override
@@ -135,15 +135,15 @@ public class FLens extends Fragment implements LensInterface {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        mScaleFactor.setMax(UtilSettings.MAX_SCALE_FACTOR);
-        mScaleFactor.setOnSeekBarChangeListener(new AppCompatSeekBar.OnSeekBarChangeListener() {
+        sbScaleFactor.setMax(UtilSettings.MAX_SCALE_FACTOR);
+        sbScaleFactor.setOnSeekBarChangeListener(new AppCompatSeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 float appropriateProgress = (float) progress / 5.0f + UtilSettings.MIN_SCALE_FACTOR;
                 String scaleFactor = appropriateProgress + "";
-                mValueScaleFactor.setText(scaleFactor);
-                mUtilSettings.save(UtilSettings.KEY_SCALE_FACTOR, appropriateProgress);
-                mLensView.invalidate();
+                tvValueScaleFactor.setText(scaleFactor);
+                utilSettings.save(UtilSettings.KEY_SCALE_FACTOR, appropriateProgress);
+                lensViewsSettings.invalidate();
             }
 
             @Override
@@ -154,14 +154,14 @@ public class FLens extends Fragment implements LensInterface {
             public void onStopTrackingTouch(SeekBar seekBar) {
             }
         });
-        mAnimationTime.setMax(UtilSettings.MAX_ANIMATION_TIME);
-        mAnimationTime.setOnSeekBarChangeListener(new AppCompatSeekBar.OnSeekBarChangeListener() {
+        sbAnimationTime.setMax(UtilSettings.MAX_ANIMATION_TIME);
+        sbAnimationTime.setOnSeekBarChangeListener(new AppCompatSeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
                 long appropriateProgress = (long) progress / 2 + UtilSettings.MIN_ANIMATION_TIME;
                 String animationTime = appropriateProgress + "ms";
-                mValueAnimationTime.setText(animationTime);
-                mUtilSettings.save(UtilSettings.KEY_ANIMATION_TIME, appropriateProgress);
+                tvValueAnimationTime.setText(animationTime);
+                utilSettings.save(UtilSettings.KEY_ANIMATION_TIME, appropriateProgress);
             }
 
             @Override
@@ -175,18 +175,18 @@ public class FLens extends Fragment implements LensInterface {
     }
 
     private void assignValues() {
-        mMinIconSize.setProgress((int) mUtilSettings.getFloat(UtilSettings.KEY_ICON_SIZE) - (int) UtilSettings.MIN_ICON_SIZE);
-        String minIconSize = (int) mUtilSettings.getFloat(UtilSettings.KEY_ICON_SIZE) + "dp";
-        mValueMinIconSize.setText(minIconSize);
-        mDistortionFactor.setProgress((int) (2.0f * (mUtilSettings.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) - UtilSettings.MIN_DISTORTION_FACTOR)));
-        String distortionFactor = mUtilSettings.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) + "";
-        mValueDistortionFactor.setText(distortionFactor);
-        mScaleFactor.setProgress((int) (5.0f * (mUtilSettings.getFloat(UtilSettings.KEY_SCALE_FACTOR) - UtilSettings.MIN_SCALE_FACTOR)));
-        String scaleFactor = mUtilSettings.getFloat(UtilSettings.KEY_SCALE_FACTOR) + "";
-        mValueScaleFactor.setText(scaleFactor);
-        mAnimationTime.setProgress((int) (2 * (mUtilSettings.getLong(UtilSettings.KEY_ANIMATION_TIME) - UtilSettings.MIN_ANIMATION_TIME)));
-        String animationTime = mUtilSettings.getLong(UtilSettings.KEY_ANIMATION_TIME) + "ms";
-        mValueAnimationTime.setText(animationTime);
+        sbMinIconSize.setProgress((int) utilSettings.getFloat(UtilSettings.KEY_ICON_SIZE) - (int) UtilSettings.MIN_ICON_SIZE);
+        String minIconSize = (int) utilSettings.getFloat(UtilSettings.KEY_ICON_SIZE) + "dp";
+        tvValueMinIconSize.setText(minIconSize);
+        sbDistortionFactor.setProgress((int) (2.0f * (utilSettings.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) - UtilSettings.MIN_DISTORTION_FACTOR)));
+        String distortionFactor = utilSettings.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) + "";
+        tvValueDistortionFactor.setText(distortionFactor);
+        sbScaleFactor.setProgress((int) (5.0f * (utilSettings.getFloat(UtilSettings.KEY_SCALE_FACTOR) - UtilSettings.MIN_SCALE_FACTOR)));
+        String scaleFactor = utilSettings.getFloat(UtilSettings.KEY_SCALE_FACTOR) + "";
+        tvValueScaleFactor.setText(scaleFactor);
+        sbAnimationTime.setProgress((int) (2 * (utilSettings.getLong(UtilSettings.KEY_ANIMATION_TIME) - UtilSettings.MIN_ANIMATION_TIME)));
+        String animationTime = utilSettings.getLong(UtilSettings.KEY_ANIMATION_TIME) + "ms";
+        tvValueAnimationTime.setText(animationTime);
     }
 
     @Override
@@ -196,9 +196,9 @@ public class FLens extends Fragment implements LensInterface {
     }
 
     private void resetToDefault() {
-        mUtilSettings.save(UtilSettings.KEY_ICON_SIZE, UtilSettings.DEFAULT_ICON_SIZE);
-        mUtilSettings.save(UtilSettings.KEY_DISTORTION_FACTOR, UtilSettings.DEFAULT_DISTORTION_FACTOR);
-        mUtilSettings.save(UtilSettings.KEY_SCALE_FACTOR, UtilSettings.DEFAULT_SCALE_FACTOR);
-        mUtilSettings.save(UtilSettings.KEY_ANIMATION_TIME, UtilSettings.DEFAULT_ANIMATION_TIME);
+        utilSettings.save(UtilSettings.KEY_ICON_SIZE, UtilSettings.DEFAULT_ICON_SIZE);
+        utilSettings.save(UtilSettings.KEY_DISTORTION_FACTOR, UtilSettings.DEFAULT_DISTORTION_FACTOR);
+        utilSettings.save(UtilSettings.KEY_SCALE_FACTOR, UtilSettings.DEFAULT_SCALE_FACTOR);
+        utilSettings.save(UtilSettings.KEY_ANIMATION_TIME, UtilSettings.DEFAULT_ANIMATION_TIME);
     }
 }
