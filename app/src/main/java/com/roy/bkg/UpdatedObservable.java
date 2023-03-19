@@ -2,11 +2,9 @@ package com.roy.bkg;
 
 import java.util.Observable;
 
-/**
- * Created by nickrout on 2016/04/08.
- */
+//2023.03.19 tried to convert kotlin but failed
 public class UpdatedObservable extends Observable {
-    private static UpdatedObservable instance = new UpdatedObservable();
+    private static final UpdatedObservable instance = new UpdatedObservable();
 
     public static UpdatedObservable getInstance() {
         return instance;

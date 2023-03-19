@@ -15,6 +15,7 @@ import com.roy.util.Settings;
 import java.util.ArrayList;
 import java.util.Objects;
 
+//2023.03.19 tried to convert kotlin but failed
 public class TaskUpdateApps extends AsyncTask<Void, Void, Void> {
 
     private final PackageManager mPackageManager;
