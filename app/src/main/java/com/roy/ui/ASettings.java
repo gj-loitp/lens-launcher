@@ -461,7 +461,7 @@ public class ASettings extends ABase
                 case 1:
                     return FApps.newInstance();
                 case 2:
-                    return SettingsFragment.newInstance();
+                    return FSettings.newInstance();
             }
             return new Fragment();
         }

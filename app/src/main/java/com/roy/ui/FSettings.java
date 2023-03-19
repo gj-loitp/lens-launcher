@@ -7,10 +7,10 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
@@ -24,12 +24,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by nicholasrout on 2016/06/08.
- */
-public class SettingsFragment extends Fragment implements ASettings.SettingsInterface {
-
-    private static final String TAG = "SettingsFragment";
+public class FSettings extends Fragment implements ASettings.SettingsInterface {
 
     @OnClick(R.id.layout_home_launcher)
     public void onHomeLauncherClick() {
@@ -126,13 +121,11 @@ public class SettingsFragment extends Fragment implements ASettings.SettingsInte
 
     private Settings mSettings;
 
-    public SettingsFragment() {
+    public FSettings() {
     }
 
-    public static SettingsFragment newInstance() {
-        SettingsFragment settingsFragment = new SettingsFragment();
-        // Include potential bundle extras here
-        return settingsFragment;
+    public static FSettings newInstance() {
+        return new FSettings();
     }
 
     @Nullable
@@ -147,7 +140,7 @@ public class SettingsFragment extends Fragment implements ASettings.SettingsInte
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (getActivity() != null && getActivity() instanceof ASettings) {
             ((ASettings) getActivity()).setSettingsInterface(this);
@@ -155,36 +148,11 @@ public class SettingsFragment extends Fragment implements ASettings.SettingsInte
     }
 
     private void setupViews() {
-        mVibrateAppHover.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mSettings.save(Settings.KEY_VIBRATE_APP_HOVER, isChecked);
-            }
-        });
-        mVibrateAppLaunch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mSettings.save(Settings.KEY_VIBRATE_APP_LAUNCH, isChecked);
-            }
-        });
-        mShowNameAppHover.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mSettings.save(Settings.KEY_SHOW_NAME_APP_HOVER, isChecked);
-            }
-        });
-        mShowNewAppTag.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mSettings.save(Settings.KEY_SHOW_NEW_APP_TAG, isChecked);
-            }
-        });
-        mShowTouchSelection.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                mSettings.save(Settings.KEY_SHOW_TOUCH_SELECTION, isChecked);
-            }
-        });
+        mVibrateAppHover.setOnCheckedChangeListener((buttonView, isChecked) -> mSettings.save(Settings.KEY_VIBRATE_APP_HOVER, isChecked));
+        mVibrateAppLaunch.setOnCheckedChangeListener((buttonView, isChecked) -> mSettings.save(Settings.KEY_VIBRATE_APP_LAUNCH, isChecked));
+        mShowNameAppHover.setOnCheckedChangeListener((buttonView, isChecked) -> mSettings.save(Settings.KEY_SHOW_NAME_APP_HOVER, isChecked));
+        mShowNewAppTag.setOnCheckedChangeListener((buttonView, isChecked) -> mSettings.save(Settings.KEY_SHOW_NEW_APP_TAG, isChecked));
+        mShowTouchSelection.setOnCheckedChangeListener((buttonView, isChecked) -> mSettings.save(Settings.KEY_SHOW_TOUCH_SELECTION, isChecked));
         mProIconPack.setVisibility(View.GONE);
         mProNightMode.setVisibility(View.GONE);
         mProBackground.setVisibility(View.GONE);
