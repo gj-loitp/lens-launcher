@@ -162,12 +162,12 @@ public class ASettings extends ABase
                     Intent homeIntent = new Intent(ASettings.this, AHome.class);
                     startActivity(homeIntent);
                 }
-                overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
                 return true;
             case R.id.menu_item_about:
                 Intent aboutIntent = new Intent(ASettings.this, AAbout.class);
                 startActivity(aboutIntent);
-                overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                overridePendingTransition(R.anim.a_slide_in_left, R.anim.a_slide_out_right);
                 return true;
             case R.id.menu_item_reset_default_settings:
                 switch (mViewPager.getCurrentItem()) {
@@ -438,7 +438,7 @@ public class ASettings extends ABase
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
     }
 
     private static class FragmentPagerAdapter extends FragmentStatePagerAdapter {

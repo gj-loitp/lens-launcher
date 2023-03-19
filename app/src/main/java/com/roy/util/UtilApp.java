@@ -111,7 +111,7 @@ public class UtilApp {
                 options = ActivityOptionsCompat.makeClipRevealAnimation(source, bounds.left, bounds.top, bounds.width(), bounds.height());
             } else {
                 // Fade animation otherwise
-                options = ActivityOptionsCompat.makeCustomAnimation(context, R.anim.fade_in, R.anim.fade_out);
+                options = ActivityOptionsCompat.makeCustomAnimation(context, R.anim.a_fade_in, R.anim.a_fade_out);
             }
             optionsBundle = options.toBundle();
         }

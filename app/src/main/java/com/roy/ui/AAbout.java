@@ -81,7 +81,7 @@ public class AAbout extends ABase implements Observer {
     @Override
     public void finish() {
         super.finish();
-        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+        overridePendingTransition(R.anim.a_slide_in_right, R.anim.a_slide_out_left);
     }
 
     @Override
