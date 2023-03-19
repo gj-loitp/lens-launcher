@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.fragment.app.Fragment;
@@ -19,12 +20,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-/**
- * Created by nicholasrout on 2016/06/08.
- */
-public class LensFragment extends Fragment implements SettingsA.LensInterface {
-
-    private static final String TAG = "LensFragment";
+public class FLens extends Fragment implements SettingsA.LensInterface {
 
     @BindView(R.id.lens_view_settings)
     LensView mLensView;
@@ -71,13 +67,11 @@ public class LensFragment extends Fragment implements SettingsA.LensInterface {
 
     private Settings mSettings;
 
-    public LensFragment() {
+    public FLens() {
     }
 
-    public static LensFragment newInstance() {
-        LensFragment lensFragment = new LensFragment();
-        // Include potential bundle extras here
-        return lensFragment;
+    public static FLens newInstance() {
+        return new FLens();
     }
 
     @Nullable
@@ -92,7 +86,7 @@ public class LensFragment extends Fragment implements SettingsA.LensInterface {
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(@NonNull Context context) {
         super.onAttach(context);
         if (getActivity() != null && getActivity() instanceof SettingsA) {
             ((SettingsA) getActivity()).setLensInterface(this);

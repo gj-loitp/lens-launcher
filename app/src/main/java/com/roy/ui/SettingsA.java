@@ -473,7 +473,7 @@ public class SettingsA extends ABase
         public Fragment getItem(int position) {
             switch (position) {
                 case 0:
-                    return LensFragment.newInstance();
+                    return FLens.newInstance();
                 case 1:
                     return FApps.newInstance();
                 case 2:
