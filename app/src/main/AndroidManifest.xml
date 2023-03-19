@@ -71,7 +71,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
-            android:name=".ui.FakeLauncherActivity"
+            android:name=".ui.AFakeLauncher"
             android:enabled="false"
             android:exported="true">
             <intent-filter>
