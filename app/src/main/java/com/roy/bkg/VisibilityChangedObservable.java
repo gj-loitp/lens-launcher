@@ -2,8 +2,9 @@ package com.roy.bkg;
 
 import java.util.Observable;
 
+//2023.03.19 tried to convert kotlin but failed
 public class VisibilityChangedObservable extends Observable {
-    private static VisibilityChangedObservable instance = new VisibilityChangedObservable();
+    private static final VisibilityChangedObservable instance = new VisibilityChangedObservable();
 
     public static VisibilityChangedObservable getInstance() {
         return instance;
