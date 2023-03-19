@@ -170,7 +170,7 @@ public class SettingsA extends ABase
                     homeIntent.addCategory(Intent.CATEGORY_HOME);
                     startActivity(homeIntent);
                 } else {
-                    Intent homeIntent = new Intent(SettingsA.this, HomeA.class);
+                    Intent homeIntent = new Intent(SettingsA.this, AHome.class);
                     startActivity(homeIntent);
                 }
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

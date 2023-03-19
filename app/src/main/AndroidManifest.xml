@@ -34,7 +34,7 @@
             android:value="com.roy.model" />
 
         <activity
-            android:name=".ui.HomeA"
+            android:name=".ui.AHome"
             android:exported="true"
             android:launchMode="singleTask"
             android:stateNotNeeded="true"
