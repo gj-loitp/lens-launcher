@@ -9,6 +9,11 @@ import com.roy.sv.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
+//TODO ic_launcher
+//TODO keystore
+//TODO admob
+//TODO remove butter knife
+
 //2023.03.18 tried to convert to kotlin but failed
 public class MyApplication extends SugarApp implements Observer {
 
