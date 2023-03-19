@@ -10,7 +10,7 @@ import com.roy.model.App;
 /**
  * Created by nicholasrout on 2016/05/28.
  */
-public class ColorUtil {
+public class UtilColor {
 
     public static @ColorInt int getPaletteColorFromApp(App app) {
         return getPaletteColorFromBitmap(app.getIcon());

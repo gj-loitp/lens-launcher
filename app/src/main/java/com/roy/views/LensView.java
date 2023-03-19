@@ -26,7 +26,7 @@ import com.roy.R;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
 import com.roy.model.Grid;
-import com.roy.util.AppUtil;
+import com.roy.util.UtilApp;
 import com.roy.util.LensCalculator;
 import com.roy.util.Settings;
 
@@ -390,7 +390,7 @@ public class LensView extends View {
 
     private void launchApp() {
         if (mPackageManager != null && mApps != null && mSelectIndex >= 0) {
-            AppUtil.launchComponent(
+            UtilApp.launchComponent(
                     getContext(),
                     (String) mApps.get(mSelectIndex).getPackageName(),
                     (String) mApps.get(mSelectIndex).getName(),

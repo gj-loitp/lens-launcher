@@ -25,7 +25,7 @@ import com.roy.sv.BroadcastReceivers;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
 import com.roy.ui.ASettings;
-import com.roy.util.AppUtil;
+import com.roy.util.UtilApp;
 
 import java.util.List;
 import java.util.Objects;
@@ -154,7 +154,7 @@ public class AppAdapter extends RecyclerView.Adapter {
         }
 
         public void setOnClickListeners() {
-            itemView.setOnClickListener(view -> AppUtil.launchComponent(
+            itemView.setOnClickListener(view -> UtilApp.launchComponent(
                     mContext,
                     Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString(),
                     itemView, new Rect(0, 0, itemView.getMeasuredWidth(), itemView.getMeasuredHeight())));

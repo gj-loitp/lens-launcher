@@ -18,24 +18,18 @@ import androidx.core.app.ActivityOptionsCompat;
 import androidx.core.content.ContextCompat;
 
 import com.roy.R;
-import com.roy.sv.BroadcastReceivers;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
+import com.roy.sv.BroadcastReceivers;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-/**
- * Created by nickrout on 2016/04/02.
- */
-public class AppUtil {
-
-    private static final String TAG = AppUtil.class.getSimpleName();
+public class UtilApp {
 
     // Get all available apps for launcher
-    public static ArrayList<App> getApps(
-            PackageManager packageManager, Context context, Application application,
-            String iconPackLabelName, UtilAppSorter.SortType sortType) {
+    public static ArrayList<App> getApps(PackageManager packageManager, Context context, Application application, String iconPackLabelName, UtilAppSorter.SortType sortType) {
         ArrayList<App> apps = new ArrayList<>();
         Intent intent = new Intent(Intent.ACTION_MAIN, null);
         intent.addCategory(Intent.CATEGORY_LAUNCHER);
@@ -51,8 +45,7 @@ public class AppUtil {
             ArrayList<IconPackManager.IconPack> iconPacks = new IconPackManager().getAvailableIconPacksWithIcons(true, application);
 
             for (IconPackManager.IconPack iconPack : iconPacks) {
-                if (iconPack.mName.equals(iconPackLabelName))
-                    selectedIconPack = iconPack;
+                if (iconPack.mName.equals(iconPackLabelName)) selectedIconPack = iconPack;
             }
 
             for (int i = 0; i < availableActivities.size(); i++) {
@@ -68,13 +61,11 @@ public class AppUtil {
                 app.setPackageName(resolveInfo.activityInfo.packageName);
                 app.setName(resolveInfo.activityInfo.name);
                 app.setIconResId(resolveInfo.activityInfo.getIconResource());
-                Bitmap defaultBitmap = BitmapUtil.packageNameToBitmap(
-                        context, packageManager, resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.getIconResource());
+                Bitmap defaultBitmap = UtilBitmap.packageNameToBitmap(packageManager, resolveInfo.activityInfo.packageName, resolveInfo.activityInfo.getIconResource());
                 if (selectedIconPack != null)
-                    app.setIcon(selectedIconPack.getIconForPackage(app.getPackageName().toString(), defaultBitmap));
-                else
-                    app.setIcon(defaultBitmap);
-                app.setPaletteColor(ColorUtil.getPaletteColorFromApp(app));
+                    app.setIcon(selectedIconPack.getIconForPackage(Objects.requireNonNull(app.getPackageName()).toString(), defaultBitmap));
+                else app.setIcon(defaultBitmap);
+                app.setPaletteColor(UtilColor.getPaletteColorFromApp(app));
                 apps.add(app);
             }
         }
@@ -99,8 +90,7 @@ public class AppUtil {
                 AppPersistent.incrementAppCount(packageName, name);
                 // Resort apps (if open count selected)
                 Settings settings = new Settings(context);
-                if (settings.getSortType() == UtilAppSorter.SortType.OPEN_COUNT_ASCENDING ||
-                        settings.getSortType() == UtilAppSorter.SortType.OPEN_COUNT_DESCENDING) {
+                if (settings.getSortType() == UtilAppSorter.SortType.OPEN_COUNT_ASCENDING || settings.getSortType() == UtilAppSorter.SortType.OPEN_COUNT_DESCENDING) {
                     Intent editAppsIntent = new Intent(context, BroadcastReceivers.AppsEditedReceiver.class);
                     context.sendBroadcast(editAppsIntent);
                 }

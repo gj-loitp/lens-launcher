@@ -1,8 +1,5 @@
 package com.roy.util;
 
-/**
- * Created by rish on 22/5/16.
- */
 
 import android.app.Application;
 import android.content.Intent;
@@ -19,8 +16,11 @@ import android.graphics.Rect;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
-import androidx.annotation.ColorInt;
 import android.util.Log;
+
+import androidx.annotation.ColorInt;
+
+import com.roy.R;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -32,8 +32,6 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
-
-import com.roy.R;
 
 public class IconPackManager {
 
@@ -55,14 +53,14 @@ public class IconPackManager {
         public String mName;
 
         private boolean mLoaded = false;
-        private HashMap<String, String> mPackagesDrawables = new HashMap<String, String>();
+        private final HashMap<String, String> mPackagesDrawables = new HashMap<>();
 
-        private List<Bitmap> mBackImages = new ArrayList<Bitmap>();
+        private final List<Bitmap> mBackImages = new ArrayList<>();
         private Bitmap mMaskImage = null;
         private Bitmap mFrontImage = null;
         private float mFactor = 1.0f;
 
-        private Paint mPaint;
+        private final Paint mPaint;
 
         Resources mIconPackRes = null;
 
@@ -72,20 +70,20 @@ public class IconPackManager {
             try {
                 XmlPullParser xpp = null;
                 mIconPackRes = pm.getResourcesForApplication(mPackageName);
-                int appfilterid = mIconPackRes.getIdentifier("appfilter", "xml", mPackageName);
-                if (appfilterid > 0) {
-                    xpp = mIconPackRes.getXml(appfilterid);
+                int appfilterId = mIconPackRes.getIdentifier("appfilter", "xml", mPackageName);
+                if (appfilterId > 0) {
+                    xpp = mIconPackRes.getXml(appfilterId);
                 } else {
                     // No resource found, try to open it from assets folder
                     try {
-                        InputStream appfilterstream = mIconPackRes.getAssets().open("appfilter.xml");
+                        InputStream appFilterStream = mIconPackRes.getAssets().open("appfilter.xml");
 
                         XmlPullParserFactory factory = XmlPullParserFactory.newInstance();
                         factory.setNamespaceAware(true);
                         xpp = factory.newPullParser();
-                        xpp.setInput(appfilterstream, "utf-8");
+                        xpp.setInput(appFilterStream, "utf-8");
                     } catch (IOException e1) {
-                        Log.d(TAG, "No appfilter.xml file");
+                        e1.printStackTrace();
                     }
                 }
 
@@ -97,9 +95,8 @@ public class IconPackManager {
                                 for (int i = 0; i < xpp.getAttributeCount(); i++) {
                                     if (xpp.getAttributeName(i).startsWith("img")) {
                                         String drawableName = xpp.getAttributeValue(i);
-                                        Bitmap iconback = loadBitmap(drawableName);
-                                        if (iconback != null)
-                                            mBackImages.add(iconback);
+                                        Bitmap iconBack = loadBitmap(drawableName);
+                                        if (iconBack != null) mBackImages.add(iconBack);
                                     }
                                 }
                             } else if (xpp.getName().equals("iconmask")) {
@@ -153,8 +150,7 @@ public class IconPackManager {
             int id = mIconPackRes.getIdentifier(drawableName, "drawable", mPackageName);
             if (id > 0) {
                 Drawable bitmap = mIconPackRes.getDrawable(id);
-                if (bitmap instanceof BitmapDrawable)
-                    return ((BitmapDrawable) bitmap).getBitmap();
+                if (bitmap instanceof BitmapDrawable) return ((BitmapDrawable) bitmap).getBitmap();
             }
             return null;
         }
@@ -217,20 +213,10 @@ public class IconPackManager {
             // Draw the background first
             canvas.drawBitmap(backImage, 0, 0, null);
             // Create rects for scaling the default bitmap
-            Rect srcRect = new Rect(
-                    0,
-                    0,
-                    defaultBitmap.getWidth(),
-                    defaultBitmap.getHeight()
-            );
+            Rect srcRect = new Rect(0, 0, defaultBitmap.getWidth(), defaultBitmap.getHeight());
             float scaledWidth = mFactor * ((float) backImageWidth);
             float scaledHeight = mFactor * ((float) backImageHeight);
-            RectF destRect = new RectF(
-                    ((float) backImageWidth) / 2.0f - scaledWidth / 2.0f,
-                    ((float) backImageHeight) / 2.0f - scaledHeight / 2.0f,
-                    ((float) backImageWidth) / 2.0f + scaledWidth / 2.0f,
-                    ((float) backImageHeight) / 2.0f + scaledHeight / 2.0f
-            );
+            RectF destRect = new RectF(((float) backImageWidth) / 2.0f - scaledWidth / 2.0f, ((float) backImageHeight) / 2.0f - scaledHeight / 2.0f, ((float) backImageWidth) / 2.0f + scaledWidth / 2.0f, ((float) backImageHeight) / 2.0f + scaledHeight / 2.0f);
             // Handle mask image
             if (mMaskImage != null) {
                 // First get mask bitmap
@@ -244,18 +230,14 @@ public class IconPackManager {
                 // Make a temp mask canvas
                 Canvas maskCanvas = new Canvas(mask);
                 // Draw the bitmap with mask into the result
-                maskCanvas.drawBitmap(
-                        defaultBitmap, srcRect, destRect, mPaint
-                );
+                maskCanvas.drawBitmap(defaultBitmap, srcRect, destRect, mPaint);
                 mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.DST_OUT));
                 maskCanvas.drawBitmap(mMaskImage, 0, 0, mPaint);
                 mPaint.setXfermode(null);
                 canvas.drawBitmap(mask, 0, 0, mPaint);
             } else {
                 // Draw the scaled bitmap without mask
-                canvas.drawBitmap(
-                        defaultBitmap, srcRect, destRect, mPaint
-                );
+                canvas.drawBitmap(defaultBitmap, srcRect, destRect, mPaint);
             }
             // Draw the front image
             if (mFrontImage != null) {
@@ -269,13 +251,13 @@ public class IconPackManager {
             if (mBackImages.size() == 1) {
                 return mBackImages.get(0);
             }
-            @ColorInt int defaultPaletteColor = ColorUtil.getPaletteColorFromBitmap(defaultBitmap);
-            float defaultHueColor = ColorUtil.getHueColorFromColor(defaultPaletteColor);
+            @ColorInt int defaultPaletteColor = UtilColor.getPaletteColorFromBitmap(defaultBitmap);
+            float defaultHueColor = UtilColor.getHueColorFromColor(defaultPaletteColor);
             float difference = Float.MAX_VALUE;
             int index = 0;
             for (int i = 0; i < mBackImages.size(); i++) {
-                @ColorInt int backPaletteColor = ColorUtil.getPaletteColorFromBitmap(mBackImages.get(i));
-                float backHueColor = ColorUtil.getHueColorFromColor(backPaletteColor);
+                @ColorInt int backPaletteColor = UtilColor.getPaletteColorFromBitmap(mBackImages.get(i));
+                float backHueColor = UtilColor.getHueColorFromColor(backPaletteColor);
                 if (Math.abs(defaultHueColor - backHueColor) < difference) {
                     difference = Math.abs(defaultHueColor - backHueColor);
                     index = i;
@@ -294,21 +276,16 @@ public class IconPackManager {
             mIconPacks = new ArrayList<>();
 
             PackageManager pm = mApplication.getPackageManager();
-
-            /**
-             * Currently Lens Launcher supports all icon packs supported by GoLauncher / EX
-             * Create a set by filter the list to contain unique icon packs only
-             */
-            List<ResolveInfo> rinfo = new ArrayList<>();
+            List<ResolveInfo> rInfo = new ArrayList<>();
             for (String launcher : mApplication.getResources().getStringArray(R.array.icon_pack_launchers)) {
-                rinfo.addAll(pm.queryIntentActivities(new Intent(launcher), PackageManager.GET_META_DATA));
+                rInfo.addAll(pm.queryIntentActivities(new Intent(launcher), PackageManager.GET_META_DATA));
             }
 
-            for (ResolveInfo ri : rinfo) {
+            for (ResolveInfo ri : rInfo) {
                 IconPack ip = new IconPack();
                 ip.mPackageName = ri.activityInfo.packageName;
 
-                ApplicationInfo ai = null;
+                ApplicationInfo ai;
                 try {
                     ai = pm.getApplicationInfo(ip.mPackageName, PackageManager.GET_META_DATA);
                     ip.mName = mApplication.getPackageManager().getApplicationLabel(ai).toString();

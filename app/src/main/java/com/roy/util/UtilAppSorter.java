@@ -110,8 +110,8 @@ public class UtilAppSorter {
 
     private static void sortByIconColorAscending(ArrayList<App> apps) {
         Collections.sort(apps, (a1, a2) -> {
-            float a1HSVColor = ColorUtil.getHueColorFromApp(a1);
-            float a2HSVColor = ColorUtil.getHueColorFromApp(a2);
+            float a1HSVColor = UtilColor.getHueColorFromApp(a1);
+            float a2HSVColor = UtilColor.getHueColorFromApp(a2);
 
             if (a1HSVColor > a2HSVColor) {
                 return -1;

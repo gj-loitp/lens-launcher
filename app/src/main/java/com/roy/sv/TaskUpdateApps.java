@@ -9,7 +9,7 @@ import android.os.AsyncTask;
 
 import com.roy.app.AppsSingleton;
 import com.roy.model.App;
-import com.roy.util.AppUtil;
+import com.roy.util.UtilApp;
 import com.roy.util.Settings;
 
 import java.util.ArrayList;
@@ -42,7 +42,7 @@ public class TaskUpdateApps extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        ArrayList<App> apps = AppUtil.getApps(
+        ArrayList<App> apps = UtilApp.getApps(
                 mPackageManager,
                 mContext,
                 mApplication,

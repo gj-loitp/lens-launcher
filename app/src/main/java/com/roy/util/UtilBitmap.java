@@ -1,6 +1,5 @@
 package com.roy.util;
 
-import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -10,27 +9,24 @@ import android.graphics.Canvas;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
-/**
- * Created by nickrout on 2016/04/02.
- */
-public class BitmapUtil {
+public class UtilBitmap {
 
     // Old method - does not allow for adding options i.e. lower quality
     // Source: http://stackoverflow.com/questions/3035692/how-to-convert-a-drawable-to-a-bitmap
-    public static Bitmap drawableToBitmap (Drawable drawable) {
-        Bitmap bitmap = null;
+    public static Bitmap drawableToBitmap(Drawable drawable) {
+        Bitmap bitmap;
 
         if (drawable instanceof BitmapDrawable) {
             BitmapDrawable bitmapDrawable = (BitmapDrawable) drawable;
             bitmapDrawable.setAntiAlias(true);
             bitmapDrawable.setDither(true);
             bitmapDrawable.setTargetDensity(Integer.MAX_VALUE);
-            if(bitmapDrawable.getBitmap() != null) {
+            if (bitmapDrawable.getBitmap() != null) {
                 return bitmapDrawable.getBitmap();
             }
         }
 
-        if(drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
+        if (drawable.getIntrinsicWidth() <= 0 || drawable.getIntrinsicHeight() <= 0) {
             bitmap = Bitmap.createBitmap(1, 1, Bitmap.Config.ARGB_8888); // Single color bitmap will be created of 1x1 pixel
         } else {
             bitmap = Bitmap.createBitmap(drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
@@ -82,7 +78,7 @@ public class BitmapUtil {
     }
 
     // Get bitmap from app package name (with res id)
-    public static Bitmap packageNameToBitmap(Context context, PackageManager packageManager, String packageName, int resId) {
+    public static Bitmap packageNameToBitmap(PackageManager packageManager, String packageName, int resId) {
         try {
             ApplicationInfo applicationInfo = packageManager.getApplicationInfo(packageName, PackageManager.GET_META_DATA);
             Resources resources = packageManager.getResourcesForApplication(applicationInfo);
