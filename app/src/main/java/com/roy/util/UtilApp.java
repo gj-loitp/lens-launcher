@@ -41,10 +41,10 @@ public class UtilApp {
             Toast.makeText(context, R.string.error_too_many_apps, Toast.LENGTH_SHORT).show();
         }
         if (availableActivities != null) {
-            IconPackManager.IconPack selectedIconPack = null;
-            ArrayList<IconPackManager.IconPack> iconPacks = new IconPackManager().getAvailableIconPacksWithIcons(true, application);
+            UtilIconPackManager.IconPack selectedIconPack = null;
+            ArrayList<UtilIconPackManager.IconPack> iconPacks = new UtilIconPackManager().getAvailableIconPacksWithIcons(true, application);
 
-            for (IconPackManager.IconPack iconPack : iconPacks) {
+            for (UtilIconPackManager.IconPack iconPack : iconPacks) {
                 if (iconPack.mName.equals(iconPackLabelName)) selectedIconPack = iconPack;
             }
 

@@ -27,7 +27,7 @@ import com.roy.model.App;
 import com.roy.model.AppPersistent;
 import com.roy.model.Grid;
 import com.roy.util.UtilApp;
-import com.roy.util.LensCalculator;
+import com.roy.util.UtilLensCalculator;
 import com.roy.util.Settings;
 
 import java.util.ArrayList;
@@ -254,7 +254,7 @@ public class LensView extends View {
     }
 
     private void drawGrid(Canvas canvas, int itemCount) {
-        Grid grid = LensCalculator.calculateGrid(
+        Grid grid = UtilLensCalculator.calculateGrid(
                 getContext(),
                 getWidth() - (mInsets.left + mInsets.right),
                 getHeight() - (mInsets.top + mInsets.bottom),
@@ -284,19 +284,19 @@ public class LensView extends View {
                     }
 
                     if (mTouchX >= 0 && mTouchY >= 0) {
-                        float shiftedCenterX = LensCalculator.shiftPoint(getContext(), mTouchX, rect.centerX(), getWidth(), animationMultiplier);
-                        float shiftedCenterY = LensCalculator.shiftPoint(getContext(), mTouchY, rect.centerY(), getHeight(), animationMultiplier);
-                        float scaledCenterX = LensCalculator.scalePoint(getContext(), mTouchX, rect.centerX(), rect.width(), getWidth(), animationMultiplier);
-                        float scaledCenterY = LensCalculator.scalePoint(getContext(), mTouchY, rect.centerY(), rect.height(), getHeight(), animationMultiplier);
-                        float newSize = LensCalculator.calculateSquareScaledSize(scaledCenterX, shiftedCenterX, scaledCenterY, shiftedCenterY);
+                        float shiftedCenterX = UtilLensCalculator.shiftPoint(getContext(), mTouchX, rect.centerX(), getWidth(), animationMultiplier);
+                        float shiftedCenterY = UtilLensCalculator.shiftPoint(getContext(), mTouchY, rect.centerY(), getHeight(), animationMultiplier);
+                        float scaledCenterX = UtilLensCalculator.scalePoint(getContext(), mTouchX, rect.centerX(), rect.width(), getWidth(), animationMultiplier);
+                        float scaledCenterY = UtilLensCalculator.scalePoint(getContext(), mTouchY, rect.centerY(), rect.height(), getHeight(), animationMultiplier);
+                        float newSize = UtilLensCalculator.calculateSquareScaledSize(scaledCenterX, shiftedCenterX, scaledCenterY, shiftedCenterY);
 
                         if (mSettings.getFloat(Settings.KEY_DISTORTION_FACTOR) > 0.0f && mSettings.getFloat(Settings.KEY_SCALE_FACTOR) > 0.0f) {
-                            rect = LensCalculator.calculateRect(shiftedCenterX, shiftedCenterY, newSize);
+                            rect = UtilLensCalculator.calculateRect(shiftedCenterX, shiftedCenterY, newSize);
                         } else if (mSettings.getFloat(Settings.KEY_DISTORTION_FACTOR) > 0.0f && mSettings.getFloat(Settings.KEY_SCALE_FACTOR) == 0.0f) {
-                            rect = LensCalculator.calculateRect(shiftedCenterX, shiftedCenterY, rect.width());
+                            rect = UtilLensCalculator.calculateRect(shiftedCenterX, shiftedCenterY, rect.width());
                         }
 
-                        if (LensCalculator.isInsideRect(mTouchX, mTouchY, rect)) {
+                        if (UtilLensCalculator.isInsideRect(mTouchX, mTouchY, rect)) {
                             mInsideRect = true;
                             selectIndex = currentIndex;
                             mRectToSelect = rect;

@@ -16,7 +16,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
 import com.roy.R;
-import com.roy.util.LauncherUtil;
+import com.roy.util.UtilLauncher;
 import com.roy.util.NightModeUtil;
 import com.roy.util.Settings;
 
@@ -164,7 +164,7 @@ public class FSettings extends Fragment implements ASettings.SettingsInterface {
         String highlightColor = "#" + mSettings.getString(Settings.KEY_HIGHLIGHT_COLOR).substring(3);
         String homeLauncher = "";
         if (getActivity() != null) {
-            homeLauncher = LauncherUtil.getHomeLauncherName(getActivity().getApplication());
+            homeLauncher = UtilLauncher.getHomeLauncherName(getActivity().getApplication());
         }
         mHomeLauncherTextView.setText(homeLauncher);
         mNightModeTextView.setText(NightModeUtil.getNightModeDisplayName(mSettings.getNightMode()));

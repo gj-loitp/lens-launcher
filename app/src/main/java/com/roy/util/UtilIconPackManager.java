@@ -33,7 +33,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-public class IconPackManager {
+public class UtilIconPackManager {
 
     private static final String TAG = "IconPackManager";
 

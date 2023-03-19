@@ -30,8 +30,8 @@ import com.roy.sv.BroadcastReceivers;
 import com.roy.sv.LoadedObservable;
 import com.roy.sv.NightModeObservable;
 import com.roy.util.UtilAppSorter;
-import com.roy.util.IconPackManager;
-import com.roy.util.LauncherUtil;
+import com.roy.util.UtilIconPackManager;
+import com.roy.util.UtilLauncher;
 import com.roy.util.NightModeUtil;
 import com.roy.util.Settings;
 
@@ -154,7 +154,7 @@ public class ASettings extends ABase
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_item_show_apps:
-                if (LauncherUtil.isLauncherDefault(getApplication())) {
+                if (UtilLauncher.isLauncherDefault(getApplication())) {
                     Intent homeIntent = new Intent(Intent.ACTION_MAIN);
                     homeIntent.addCategory(Intent.CATEGORY_HOME);
                     startActivity(homeIntent);
@@ -247,8 +247,8 @@ public class ASettings extends ABase
     }
 
     public void showIconPackDialog() {
-        final ArrayList<IconPackManager.IconPack> availableIconPacks =
-                new IconPackManager().getAvailableIconPacksWithIcons(true, getApplication());
+        final ArrayList<UtilIconPackManager.IconPack> availableIconPacks =
+                new UtilIconPackManager().getAvailableIconPacksWithIcons(true, getApplication());
         final ArrayList<String> iconPackNames = new ArrayList<>();
         iconPackNames.add(getString(R.string.setting_default_icon_pack));
         for (int i = 0; i < availableIconPacks.size(); i++) {
@@ -274,7 +274,7 @@ public class ASettings extends ABase
     }
 
     public void showHomeLauncherChooser() {
-        LauncherUtil.resetPreferredLauncherAndOpenChooser(getApplicationContext());
+        UtilLauncher.resetPreferredLauncherAndOpenChooser(getApplicationContext());
     }
 
     public void showNightModeChooser() {

@@ -7,10 +7,7 @@ import android.util.DisplayMetrics;
 
 import com.roy.model.Grid;
 
-/**
- * Created by nickrout on 2016/04/02.
- */
-public class LensCalculator {
+public class UtilLensCalculator {
 
     // Algorithm for calculating equispaced grid
     public static Grid calculateGrid(Context context, int screenWidth, int screenHeight, int itemCount) {
@@ -28,7 +25,7 @@ public class LensCalculator {
         grid.setItemCountHorizontal(itemCountHorizontal);
         grid.setItemCountVertical(itemCountVertical);
         Settings settings = new Settings(context);
-        float itemSize = LensCalculator.convertDpToPixel(settings.getFloat(Settings.KEY_ICON_SIZE), context);
+        float itemSize = UtilLensCalculator.convertDpToPixel(settings.getFloat(Settings.KEY_ICON_SIZE), context);
         grid.setItemSize(itemSize);
         float spacingHorizontal = (((float) screenWidth) - ((float) itemCountHorizontal * itemSize)) / ((float) (itemCountHorizontal + 1));
         grid.setSpacingHorizontal(spacingHorizontal);
@@ -40,19 +37,18 @@ public class LensCalculator {
     // Algorithm for calculating optimal square side length given width, height and number of items
     public static double calculateOptimalSquareSize(int screenWidth, int screenHeight, int itemCount) {
         // Source: http://math.stackexchange.com/questions/466198/algorithm-to-get-the-maximum-size-of-n-squares-that-fit-into-a-rectangle-with-a
-        double x = (double) screenWidth, y = (double) screenHeight, n = (double) itemCount;
-        double px = Math.ceil(Math.sqrt(n * x / y));
+        double px = Math.ceil(Math.sqrt((double) itemCount * (double) screenWidth / (double) screenHeight));
         double sx, sy;
-        if(Math.floor(px * y / x) * px < n) {
-            sx = y / Math.ceil(px * y / x);
+        if (Math.floor(px * (double) screenHeight / (double) screenWidth) * px < (double) itemCount) {
+            sx = (double) screenHeight / Math.ceil(px * (double) screenHeight / (double) screenWidth);
         } else {
-            sx = x / px;
+            sx = (double) screenWidth / px;
         }
-        double py = Math.ceil(Math.sqrt(n * y / x));
-        if(Math.floor(py * x / y) * py < n) {
-            sy = x / Math.ceil(x * py / y);
+        double py = Math.ceil(Math.sqrt((double) itemCount * (double) screenHeight / (double) screenWidth));
+        if (Math.floor(py * (double) screenWidth / (double) screenHeight) * py < (double) itemCount) {
+            sy = (double) screenWidth / Math.ceil((double) screenWidth * py / (double) screenHeight);
         } else {
-            sy = y / py;
+            sy = (double) screenHeight / py;
         }
         return Math.max(sx, sy);
     }
@@ -64,14 +60,10 @@ public class LensCalculator {
 
     // Algorithm for determining whether a rect is within a given lens (centered at touchX, touchY)
     public static boolean isRectWithinLens(RectF rect, float touchX, float touchY, float lensDiameter) {
-        if (rect.left >= touchX - lensDiameter / 2.0f &&
+        return rect.left >= touchX - lensDiameter / 2.0f &&
                 rect.right <= touchX + lensDiameter / 2.0f &&
                 rect.top >= touchY - lensDiameter / 2.0f &&
-                rect.bottom <= touchY + lensDiameter / 2.0f) {
-            return true;
-        } else {
-            return false;
-        }
+                rect.bottom <= touchY + lensDiameter / 2.0f;
     }
 
     // Graphical Fisheye Lens algorithm for shifting
@@ -108,7 +100,7 @@ public class LensCalculator {
         } else {
             itemPosition = itemPosition + d * (itemSize / 2.0f);
         }
-        return LensCalculator.shiftPoint(context, lensPosition, itemPosition, boundary, multiplier);
+        return UtilLensCalculator.shiftPoint(context, lensPosition, itemPosition, boundary, multiplier);
     }
 
     // Graphical Fisheye Lens algorithm for determining final scaled size
@@ -118,36 +110,29 @@ public class LensCalculator {
 
     // Algorithm for calculating new rect
     public static RectF calculateRect(float newCenterX, float newCenterY, float newSize) {
-        RectF newRect = new RectF(
+        return new RectF(
                 newCenterX - newSize / 2.0f,
                 newCenterY - newSize / 2.0f,
                 newCenterX + newSize / 2.0f,
                 newCenterY + newSize / 2.0f);
-        return newRect;
     }
 
     // Algorithm for determining if touch point is within rect
     public static boolean isInsideRect(float x, float y, RectF rect) {
-        if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-            return true;
-        } else {
-            return false;
-        }
+        return x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom;
     }
 
     // Algorithm for converting dp measurements to pixels
     public static float convertDpToPixel(float dp, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float px = dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return px;
+        return dp * ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 
     // Algorithm for converting pixels to dp measurements
     public static float convertPixelsToDp(float px, Context context) {
         Resources resources = context.getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
-        float dp = px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-        return dp;
+        return px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
     }
 }

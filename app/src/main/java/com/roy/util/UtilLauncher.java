@@ -9,10 +9,7 @@ import android.content.pm.ResolveInfo;
 
 import com.roy.ui.AFakeLauncher;
 
-/**
- * Created by rish on 5/6/16.
- */
-public class LauncherUtil {
+public class UtilLauncher {
 
     public static boolean isLauncherDefault(Application application) {
         final Intent intent = new Intent(Intent.ACTION_MAIN);
@@ -23,9 +20,7 @@ public class LauncherUtil {
         } else if ("android".equals(res.activityInfo.packageName)) {
             return false;
         } else {
-            if (res.activityInfo.packageName.equals(application.getPackageName())) return true;
-            else
-                return false;
+            return res.activityInfo.packageName.equals(application.getPackageName());
         }
     }
 
