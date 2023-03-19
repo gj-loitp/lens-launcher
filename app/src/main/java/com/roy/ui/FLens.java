@@ -78,7 +78,7 @@ public class FLens extends Fragment implements ASettings.LensInterface {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_lens, container, false);
+        View view = inflater.inflate(R.layout.f_lens, container, false);
         ButterKnife.bind(this, view);
         mUtilSettings = new UtilSettings(getActivity());
         setupViews();

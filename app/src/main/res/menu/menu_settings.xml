@@ -3,22 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_item_about"
+        android:id="@+id/menuItemAbout"
         android:title="@string/menu_title_about"
-        app:showAsAction="never">
-    </item>
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_item_reset_default_settings"
+        android:id="@+id/menuItemResetDefaultSettings"
         android:title="@string/menu_title_reset_defaults"
-        app:showAsAction="never">
-    </item>
+        app:showAsAction="never" />
 
     <item
-        android:id="@+id/menu_item_show_apps"
+        android:id="@+id/menuItemShowApps"
         android:icon="@drawable/ic_apps_white_24dp"
         android:title="@string/menu_title_show_apps"
-        app:showAsAction="ifRoom">
-    </item>
+        app:showAsAction="ifRoom" />
 
 </menu>

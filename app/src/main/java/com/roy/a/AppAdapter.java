@@ -178,7 +178,7 @@ public class AppAdapter extends RecyclerView.Adapter {
         @Override
         public boolean onMenuItemClick(MenuItem item) {
             switch (item.getItemId()) {
-                case R.id.menu_item_element_app_info:
+                case R.id.menuItemElementAppInfo:
                     try {
                         Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
                         intent.setData(Uri.parse("package:" + mApp.getPackageName()));
@@ -188,7 +188,7 @@ public class AppAdapter extends RecyclerView.Adapter {
                         Toast.makeText(mContext, R.string.error_app_not_found, Toast.LENGTH_SHORT).show();
                     }
                     return true;
-                case R.id.menu_item_element_uninstall:
+                case R.id.menuItemElementUninstall:
                     try {
                         Intent intent = new Intent(Intent.ACTION_DELETE);
                         intent.setData(Uri.parse("package:" + mApp.getPackageName()));

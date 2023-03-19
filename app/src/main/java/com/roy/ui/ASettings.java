@@ -113,7 +113,7 @@ public class ASettings extends ABase
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_settings);
+        setContentView(R.layout.a_settings);
         ButterKnife.bind(this);
         mSortFab.hide();
         setSupportActionBar(mToolbar);
@@ -153,7 +153,7 @@ public class ASettings extends ABase
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_item_show_apps:
+            case R.id.menuItemShowApps:
                 if (UtilLauncher.isLauncherDefault(getApplication())) {
                     Intent homeIntent = new Intent(Intent.ACTION_MAIN);
                     homeIntent.addCategory(Intent.CATEGORY_HOME);
@@ -164,12 +164,12 @@ public class ASettings extends ABase
                 }
                 overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
                 return true;
-            case R.id.menu_item_about:
+            case R.id.menuItemAbout:
                 Intent aboutIntent = new Intent(ASettings.this, AAbout.class);
                 startActivity(aboutIntent);
                 overridePendingTransition(R.anim.a_slide_in_left, R.anim.a_slide_out_right);
                 return true;
-            case R.id.menu_item_reset_default_settings:
+            case R.id.menuItemResetDefaultSettings:
                 switch (mViewPager.getCurrentItem()) {
                     case 0:
                         if (mLensInterface != null) {

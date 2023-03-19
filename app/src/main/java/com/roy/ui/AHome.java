@@ -41,7 +41,7 @@ public class AHome extends ABase implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.a_home);
         ButterKnife.bind(this);
         PackageManager mPackageManager = getPackageManager();
         mLensView.setPackageManager(mPackageManager);

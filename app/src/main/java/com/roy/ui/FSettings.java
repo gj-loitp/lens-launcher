@@ -131,7 +131,7 @@ public class FSettings extends Fragment implements ASettings.SettingsInterface {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_settings, container, false);
+        View view = inflater.inflate(R.layout.f_settings, container, false);
         ButterKnife.bind(this, view);
         mUtilSettings = new UtilSettings(getActivity());
         setupViews();

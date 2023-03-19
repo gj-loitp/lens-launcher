@@ -2,12 +2,12 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menu_item_element_app_info"
+        android:id="@+id/menuItemElementAppInfo"
         android:title="@string/menu_app_info"
         android:visible="true" />
 
     <item
-        android:id="@+id/menu_item_element_uninstall"
+        android:id="@+id/menuItemElementUninstall"
         android:title="@string/menu_app_uninstall"
         android:visible="true" />
 
