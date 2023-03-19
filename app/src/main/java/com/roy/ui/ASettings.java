@@ -72,10 +72,10 @@ public class ASettings extends ABase
         this.appsInterface = appsInterface;
     }
 
-    private SettingsInterface mSettingsInterface;
+    private SettingsInterface settingsInterface;
 
     public void setSettingsInterface(SettingsInterface settingsInterface) {
-        mSettingsInterface = settingsInterface;
+        this.settingsInterface = settingsInterface;
     }
 
     @Override
@@ -84,6 +84,18 @@ public class ASettings extends ABase
         setContentView(R.layout.a_settings);
 
         setupViews();
+
+        LoadedObservable.getInstance().addObserver(this);
+        NightModeObservable.getInstance().addObserver(this);
+    }
+
+    private void setupViews() {
+        toolbar = findViewById(R.id.toolbar);
+        tabs = findViewById(R.id.tabs);
+        viewpager = findViewById(R.id.viewpager);
+        fabSort = findViewById(R.id.fabSort);
+
+        fabSort.setOnClickListener(view -> showSortTypeDialog());
 
         fabSort.hide();
         setSupportActionBar(toolbar);
@@ -109,19 +121,6 @@ public class ASettings extends ABase
             }
         });
         listApp = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
-        LoadedObservable.getInstance().addObserver(this);
-        NightModeObservable.getInstance().addObserver(this);
-    }
-
-    private void setupViews() {
-        toolbar = findViewById(R.id.toolbar);
-        tabs = findViewById(R.id.tabs);
-        viewpager = findViewById(R.id.viewpager);
-        fabSort = findViewById(R.id.fabSort);
-
-        fabSort.setOnClickListener(view -> {
-            showSortTypeDialog();
-        });
     }
 
     @Override
@@ -163,8 +162,8 @@ public class ASettings extends ABase
                         }
                         break;
                     case 2:
-                        if (mSettingsInterface != null) {
-                            mSettingsInterface.onDefaultsReset();
+                        if (settingsInterface != null) {
+                            settingsInterface.onDefaultsReset();
                         }
                         break;
                 }
@@ -245,8 +244,8 @@ public class ASettings extends ABase
                 .alwaysCallSingleChoiceCallback()
                 .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
                     utilSettings.save(UtilSettings.KEY_ICON_PACK_LABEL_NAME, iconPackNames.get(which));
-                    if (mSettingsInterface != null) {
-                        mSettingsInterface.onValuesUpdated();
+                    if (settingsInterface != null) {
+                        settingsInterface.onValuesUpdated();
                     }
                     sendUpdateAppsBroadcast();
                     return true;
@@ -276,8 +275,8 @@ public class ASettings extends ABase
                         String selection = nightModes.get(which);
                         utilSettings.save(UtilSettings.KEY_NIGHT_MODE, UtilNightModeUtil.getNightModeFromDisplayName(selection));
                         sendNightModeBroadcast();
-                        if (mSettingsInterface != null) {
-                            mSettingsInterface.onValuesUpdated();
+                        if (settingsInterface != null) {
+                            settingsInterface.onValuesUpdated();
                         }
                         dismissBackgroundDialog();
                         return true;
@@ -305,8 +304,8 @@ public class ASettings extends ABase
                         if (selection.equals("Wallpaper")) {
                             utilSettings.save(UtilSettings.KEY_BACKGROUND, selection);
                             sendBackgroundChangedBroadcast();
-                            if (mSettingsInterface != null) {
-                                mSettingsInterface.onValuesUpdated();
+                            if (settingsInterface != null) {
+                                settingsInterface.onValuesUpdated();
                             }
                             dismissBackgroundDialog();
                             showWallpaperPicker();
@@ -363,8 +362,8 @@ public class ASettings extends ABase
         } else if (dialog.tag().equals(TAG_COLOR_HIGHLIGHT)) {
             utilSettings.save(UtilSettings.KEY_HIGHLIGHT_COLOR, hexColor);
         }
-        if (mSettingsInterface != null) {
-            mSettingsInterface.onValuesUpdated();
+        if (settingsInterface != null) {
+            settingsInterface.onValuesUpdated();
         }
     }
 
