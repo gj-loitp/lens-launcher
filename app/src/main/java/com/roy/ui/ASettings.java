@@ -42,33 +42,15 @@ import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class ASettings extends ABase
         implements Observer, ColorChooserDialog.ColorCallback {
 
     private static final String COLOR_TAG_BACKGROUND = "BackgroundColor";
     private static final String COLOR_TAG_HIGHLIGHT = "HighlightColor";
-
-
-    @BindView(R.id.toolbar)
-    Toolbar mToolbar;
-
-    @BindView(R.id.tabs)
-    TabLayout mTabLayout;
-
-    @BindView(R.id.viewpager)
-    ViewPager mViewPager;
-
-    @BindView(R.id.fabSort)
-    FloatingActionButton mSortFab;
-
-    @OnClick(R.id.fabSort)
-    public void onSortClicked() {
-        showSortTypeDialog();
-    }
+    Toolbar toolbar;
+    TabLayout tabs;
+    ViewPager viewpager;
+    FloatingActionButton fabSort;
 
     private ArrayList<App> mApps;
     private MaterialDialog mSortTypeDialog;
@@ -114,13 +96,15 @@ public class ASettings extends ABase
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_settings);
-        ButterKnife.bind(this);
-        mSortFab.hide();
-        setSupportActionBar(mToolbar);
+
+        setupViews();
+
+        fabSort.hide();
+        setSupportActionBar(toolbar);
         FragmentPagerAdapter mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), ASettings.this);
-        mViewPager.setAdapter(mPagerAdapter);
-        mTabLayout.setupWithViewPager(mViewPager);
-        mViewPager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+        viewpager.setAdapter(mPagerAdapter);
+        tabs.setupWithViewPager(viewpager);
+        viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
             }
@@ -128,9 +112,9 @@ public class ASettings extends ABase
             @Override
             public void onPageSelected(int position) {
                 if (position == 1) {
-                    mSortFab.show();
+                    fabSort.show();
                 } else {
-                    mSortFab.hide();
+                    fabSort.hide();
                 }
             }
 
@@ -141,6 +125,17 @@ public class ASettings extends ABase
         mApps = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
         LoadedObservable.getInstance().addObserver(this);
         NightModeObservable.getInstance().addObserver(this);
+    }
+
+    private void setupViews() {
+        toolbar = findViewById(R.id.toolbar);
+        tabs = findViewById(R.id.tabs);
+        viewpager = findViewById(R.id.viewpager);
+        fabSort = findViewById(R.id.fabSort);
+
+        fabSort.setOnClickListener(view -> {
+            showSortTypeDialog();
+        });
     }
 
     @Override
@@ -170,7 +165,7 @@ public class ASettings extends ABase
                 overridePendingTransition(R.anim.a_slide_in_left, R.anim.a_slide_out_right);
                 return true;
             case R.id.menuItemResetDefaultSettings:
-                switch (mViewPager.getCurrentItem()) {
+                switch (viewpager.getCurrentItem()) {
                     case 0:
                         if (mLensInterface != null) {
                             mLensInterface.onDefaultsReset();
@@ -187,7 +182,7 @@ public class ASettings extends ABase
                         }
                         break;
                 }
-                Snackbar.make(mToolbar, getString(R.string.snackbar_reset_successful), Snackbar.LENGTH_LONG).show();
+                Snackbar.make(toolbar, getString(R.string.snackbar_reset_successful), Snackbar.LENGTH_LONG).show();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
