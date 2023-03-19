@@ -33,12 +33,14 @@ import java.util.Objects;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+//2023.03.19 tried to convert to kotlin but failed
 public class AppAdapter extends RecyclerView.Adapter {
 
     private final Context mContext;
     private final List<App> mApps;
 
-    public AppAdapter(Context mContext, List<App> mApps) {
+    public AppAdapter(Context mContext,
+                      List<App> mApps) {
         this.mContext = mContext;
         this.mApps = mApps;
     }
@@ -61,7 +63,7 @@ public class AppAdapter extends RecyclerView.Adapter {
     @Override
     public AppViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        View view = inflater.inflate(R.layout.recycler_item_app, parent, false);
+        View view = inflater.inflate(R.layout.view_item_app, parent, false);
         final AppViewHolder holder = new AppViewHolder(view, mContext);
         holder.setOnClickListeners();
         return holder;
@@ -97,7 +99,8 @@ public class AppAdapter extends RecyclerView.Adapter {
         private App mApp;
         private final Context mContext;
 
-        public AppViewHolder(View itemView, Context context) {
+        public AppViewHolder(View itemView,
+                             Context context) {
             super(itemView);
             ButterKnife.bind(this, itemView);
             this.mContext = context;

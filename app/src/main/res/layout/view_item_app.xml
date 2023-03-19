@@ -1,70 +1,61 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/element_app_container"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/margin_app"
-    android:layout_marginStart="@dimen/margin_app"
-    android:layout_marginLeft="@dimen/margin_app"
-    android:layout_marginEnd="@dimen/margin_app"
-    android:layout_marginRight="@dimen/margin_app"
-    card_view:cardCornerRadius="@dimen/radius_corner_card"
     android:foreground="?attr/selectableItemBackground"
-    android:stateListAnimator="@animator/raise">
+    android:stateListAnimator="@animator/raise"
+    card_view:cardCornerRadius="@dimen/margin_app"
+    card_view:cardElevation="@dimen/margin_app"
+    card_view:cardUseCompatPadding="true">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/element_app_icon"
             android:layout_width="@dimen/width_app_icon"
             android:layout_height="@dimen/width_app_icon"
             android:layout_margin="8dp"
-            tools:ignore="contentDescription"/>
+            tools:ignore="contentDescription" />
 
-        <TextView
+        <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/element_app_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
-            android:layout_toEndOf="@+id/element_app_icon"
-            android:layout_toRightOf="@+id/element_app_icon"
             android:layout_toStartOf="@+id/element_app_hide"
-            android:layout_toLeftOf="@+id/element_app_hide"
-            android:maxLines="1"
+            android:layout_toEndOf="@+id/element_app_icon"
             android:ellipsize="end"
-            tools:text="AppName"
-            android:textStyle="bold" />
+            android:maxLines="1"
+            android:textStyle="bold"
+            tools:text="AppName" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/element_app_hide"
             android:layout_width="@dimen/width_app_icon"
             android:layout_height="@dimen/height_app_action_button"
-            android:scaleType="centerInside"
             android:layout_toStartOf="@+id/element_app_menu"
-            android:layout_toLeftOf="@+id/element_app_menu"
-            android:src="@drawable/ic_visibility_grey_24dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            tools:ignore="contentDescription"
-            android:tint="@color/colorAppTint"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_visibility_grey_24dp"
+            android:tint="@color/colorAppTint"
+            tools:ignore="contentDescription" />
 
-        <ImageView
+        <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/element_app_menu"
             android:layout_width="@dimen/width_app_icon"
             android:layout_height="@dimen/height_app_action_button"
-            android:scaleType="centerInside"
             android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:src="@drawable/ic_more_vert_grey_24dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            tools:ignore="contentDescription"
-            android:tint="@color/colorAppTint"/>
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_more_vert_grey_24dp"
+            android:tint="@color/colorAppTint"
+            tools:ignore="contentDescription" />
 
     </RelativeLayout>
 

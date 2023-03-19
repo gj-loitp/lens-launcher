@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "com.roy93group.lenslauncher"
-        minSdkVersion 15
+        minSdkVersion 21
         targetSdkVersion 33
         versionCode 20230318
         versionName "2023.03.18"
