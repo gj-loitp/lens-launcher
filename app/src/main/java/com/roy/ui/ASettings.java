@@ -25,6 +25,7 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.roy.R;
 import com.roy.app.AppsSingleton;
+import com.roy.itf.LensInterface;
 import com.roy.model.App;
 import com.roy.sv.BroadcastReceivers;
 import com.roy.sv.LoadedObservable;
@@ -57,15 +58,10 @@ public class ASettings extends ABase
     private MaterialDialog dlgIconPack;
     private MaterialDialog dlgNightMode;
     private MaterialDialog dlgBackground;
-
-    public interface LensInterface {
-        void onDefaultsReset();
-    }
-
-    private LensInterface mLensInterface;
+    private LensInterface lensInterface;
 
     public void setLensInterface(LensInterface lensInterface) {
-        mLensInterface = lensInterface;
+        this.lensInterface = lensInterface;
     }
 
     public interface AppsInterface {
@@ -167,8 +163,8 @@ public class ASettings extends ABase
             case R.id.menuItemResetDefaultSettings:
                 switch (viewpager.getCurrentItem()) {
                     case 0:
-                        if (mLensInterface != null) {
-                            mLensInterface.onDefaultsReset();
+                        if (lensInterface != null) {
+                            lensInterface.onDefaultsReset();
                         }
                         break;
                     case 1:

@@ -14,6 +14,7 @@ import androidx.appcompat.widget.AppCompatSeekBar;
 import androidx.fragment.app.Fragment;
 
 import com.roy.R;
+import com.roy.itf.LensInterface;
 import com.roy.util.UtilSettings;
 import com.roy.views.LensView;
 
@@ -21,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class FLens extends Fragment implements ASettings.LensInterface {
+public class FLens extends Fragment implements LensInterface {
 
     @BindView(R.id.lensViewsSettings)
     LensView mLensView;
