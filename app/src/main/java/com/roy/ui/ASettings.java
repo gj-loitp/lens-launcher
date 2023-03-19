@@ -45,8 +45,7 @@ import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
-public class ASettings extends ABase
-        implements Observer, ColorChooserDialog.ColorCallback {
+public class ASettings extends ABase implements Observer, ColorChooserDialog.ColorCallback {
 
     private static final String TAG_COLOR_BACKGROUND = "BackgroundColor";
     private static final String TAG_COLOR_HIGHLIGHT = "HighlightColor";
@@ -217,21 +216,15 @@ public class ASettings extends ABase
         assert utilSettings != null;
         UtilAppSorter.SortType selectedSortType = utilSettings.getSortType();
         int selectedIndex = lSortType.indexOf(selectedSortType);
-        dlgSortType = new MaterialDialog.Builder(ASettings.this)
-                .title(R.string.setting_sort_apps)
-                .items(lSortTypeString)
-                .alwaysCallSingleChoiceCallback()
-                .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
-                    utilSettings.save(lSortType.get(which));
-                    sendEditAppsBroadcast();
-                    return true;
-                })
-                .show();
+        dlgSortType = new MaterialDialog.Builder(ASettings.this).title(R.string.setting_sort_apps).items(lSortTypeString).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+            utilSettings.save(lSortType.get(which));
+            sendEditAppsBroadcast();
+            return true;
+        }).show();
     }
 
     public void showIconPackDialog() {
-        final ArrayList<UtilIconPackManager.IconPack> lAvailableIconPack =
-                new UtilIconPackManager().getAvailableIconPacksWithIcons(true, getApplication());
+        final ArrayList<UtilIconPackManager.IconPack> lAvailableIconPack = new UtilIconPackManager().getAvailableIconPacksWithIcons(true, getApplication());
         final ArrayList<String> lIconPackName = new ArrayList<>();
         lIconPackName.add(getString(R.string.setting_default_icon_pack));
         for (int i = 0; i < lAvailableIconPack.size(); i++) {
@@ -242,19 +235,14 @@ public class ASettings extends ABase
         assert utilSettings != null;
         String selectedPackageName = utilSettings.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME);
         int selectedIndex = lIconPackName.indexOf(selectedPackageName);
-        dlgIconPack = new MaterialDialog.Builder(ASettings.this)
-                .title(R.string.setting_icon_pack)
-                .items(lIconPackName)
-                .alwaysCallSingleChoiceCallback()
-                .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
-                    utilSettings.save(UtilSettings.KEY_ICON_PACK_LABEL_NAME, lIconPackName.get(which));
-                    if (settingsInterface != null) {
-                        settingsInterface.onValuesUpdated();
-                    }
-                    sendUpdateAppsBroadcast();
-                    return true;
-                })
-                .show();
+        dlgIconPack = new MaterialDialog.Builder(ASettings.this).title(R.string.setting_icon_pack).items(lIconPackName).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+            utilSettings.save(UtilSettings.KEY_ICON_PACK_LABEL_NAME, lIconPackName.get(which));
+            if (settingsInterface != null) {
+                settingsInterface.onValuesUpdated();
+            }
+            sendUpdateAppsBroadcast();
+            return true;
+        }).show();
     }
 
     public void showHomeLauncherChooser() {
@@ -268,21 +256,16 @@ public class ASettings extends ABase
         assert utilSettings != null;
         String selectedNightMode = UtilNightModeUtil.getNightModeDisplayName(utilSettings.getNightMode());
         int selectedIndex = nightModes.indexOf(selectedNightMode);
-        dlgNightMode = new MaterialDialog.Builder(ASettings.this)
-                .title(R.string.setting_night_mode)
-                .items(R.array.night_modes)
-                .alwaysCallSingleChoiceCallback()
-                .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
-                    String selection = nightModes.get(which);
-                    utilSettings.save(UtilSettings.KEY_NIGHT_MODE, UtilNightModeUtil.getNightModeFromDisplayName(selection));
-                    sendNightModeBroadcast();
-                    if (settingsInterface != null) {
-                        settingsInterface.onValuesUpdated();
-                    }
-                    dismissBackgroundDialog();
-                    return true;
-                })
-                .show();
+        dlgNightMode = new MaterialDialog.Builder(ASettings.this).title(R.string.setting_night_mode).items(R.array.night_modes).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+            String selection = nightModes.get(which);
+            utilSettings.save(UtilSettings.KEY_NIGHT_MODE, UtilNightModeUtil.getNightModeFromDisplayName(selection));
+            sendNightModeBroadcast();
+            if (settingsInterface != null) {
+                settingsInterface.onValuesUpdated();
+            }
+            dismissBackgroundDialog();
+            return true;
+        }).show();
     }
 
     public void showBackgroundDialog() {
@@ -292,27 +275,22 @@ public class ASettings extends ABase
         assert utilSettings != null;
         String selectedBackground = utilSettings.getString(UtilSettings.KEY_BACKGROUND);
         int selectedIndex = backgroundNames.indexOf(selectedBackground);
-        dlgBackground = new MaterialDialog.Builder(ASettings.this)
-                .title(R.string.setting_background)
-                .items(R.array.backgrounds)
-                .alwaysCallSingleChoiceCallback()
-                .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
-                    String selection = backgroundNames.get(which);
-                    if (selection.equals("Wallpaper")) {
-                        utilSettings.save(UtilSettings.KEY_BACKGROUND, selection);
-                        sendBackgroundChangedBroadcast();
-                        if (settingsInterface != null) {
-                            settingsInterface.onValuesUpdated();
-                        }
-                        dismissBackgroundDialog();
-                        showWallpaperPicker();
-                    } else if (selection.equals("Color")) {
-                        dismissBackgroundDialog();
-                        showBackgroundColorDialog();
-                    }
-                    return true;
-                })
-                .show();
+        dlgBackground = new MaterialDialog.Builder(ASettings.this).title(R.string.setting_background).items(R.array.backgrounds).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+            String selection = backgroundNames.get(which);
+            if (selection.equals("Wallpaper")) {
+                utilSettings.save(UtilSettings.KEY_BACKGROUND, selection);
+                sendBackgroundChangedBroadcast();
+                if (settingsInterface != null) {
+                    settingsInterface.onValuesUpdated();
+                }
+                dismissBackgroundDialog();
+                showWallpaperPicker();
+            } else if (selection.equals("Color")) {
+                dismissBackgroundDialog();
+                showBackgroundColorDialog();
+            }
+            return true;
+        }).show();
     }
 
     public void showWallpaperPicker() {
@@ -321,35 +299,24 @@ public class ASettings extends ABase
     }
 
     public void showBackgroundColorDialog() {
-        ColorChooserDialog mBackgroundColorDialog = new ColorChooserDialog.Builder(this, R.string.setting_background_color)
-                .titleSub(R.string.setting_background_color)
-                .accentMode(false)
-                .doneButton(R.string.md_done_label)
-                .cancelButton(R.string.md_cancel_label)
-                .backButton(R.string.md_back_label)
-                .preselect(Color.parseColor(utilSettings.getString(UtilSettings.KEY_BACKGROUND_COLOR)))
-                .dynamicButtonColor(false)
-                .allowUserColorInputAlpha(false)
-                .tag(TAG_COLOR_BACKGROUND)
-                .show(this);
+        if (utilSettings == null) {
+            return;
+        }
+        ColorChooserDialog mBackgroundColorDialog = new ColorChooserDialog.Builder(this, R.string.setting_background_color).titleSub(R.string.setting_background_color).accentMode(false).doneButton(R.string.done).cancelButton(R.string.cancel).backButton(R.string.back).preselect(Color.parseColor(utilSettings.getString(UtilSettings.KEY_BACKGROUND_COLOR))).dynamicButtonColor(false).allowUserColorInputAlpha(false).tag(TAG_COLOR_BACKGROUND).show(this);
     }
 
     public void showHighlightColorDialog() {
-        ColorChooserDialog mHighlightColorDialog = new ColorChooserDialog.Builder(this, R.string.setting_highlight_color)
-                .titleSub(R.string.setting_highlight_color)
-                .accentMode(true)
-                .doneButton(R.string.md_done_label)
-                .cancelButton(R.string.md_cancel_label)
-                .backButton(R.string.md_back_label)
-                .preselect(Color.parseColor(utilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)))
-                .dynamicButtonColor(false)
-                .allowUserColorInputAlpha(false)
-                .tag(TAG_COLOR_HIGHLIGHT)
-                .show(this);
+        if (utilSettings == null) {
+            return;
+        }
+        ColorChooserDialog mHighlightColorDialog = new ColorChooserDialog.Builder(this, R.string.setting_highlight_color).titleSub(R.string.setting_highlight_color).accentMode(true).doneButton(R.string.done).cancelButton(R.string.cancel).backButton(R.string.back).preselect(Color.parseColor(utilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR))).dynamicButtonColor(false).allowUserColorInputAlpha(false).tag(TAG_COLOR_HIGHLIGHT).show(this);
     }
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
+        if (utilSettings == null) {
+            return;
+        }
         String hexColor = String.format("#%06X", selectedColor);
         if (dialog.tag().equals(TAG_COLOR_BACKGROUND)) {
             utilSettings.save(UtilSettings.KEY_BACKGROUND, "Color");
