@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -39,6 +38,7 @@ import com.roy.util.UtilNightModeUtil;
 import com.roy.util.UtilSettings;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumSet;
 import java.util.List;
 import java.util.Objects;
@@ -230,23 +230,24 @@ public class ASettings extends ABase
     }
 
     public void showIconPackDialog() {
-        final ArrayList<UtilIconPackManager.IconPack> availableIconPacks =
+        final ArrayList<UtilIconPackManager.IconPack> lAvailableIconPack =
                 new UtilIconPackManager().getAvailableIconPacksWithIcons(true, getApplication());
-        final ArrayList<String> iconPackNames = new ArrayList<>();
-        iconPackNames.add(getString(R.string.setting_default_icon_pack));
-        for (int i = 0; i < availableIconPacks.size(); i++) {
-            if (iconPackNames.size() > 0 && !iconPackNames.contains(availableIconPacks.get(i).mName)) {
-                iconPackNames.add(availableIconPacks.get(i).mName);
+        final ArrayList<String> lIconPackName = new ArrayList<>();
+        lIconPackName.add(getString(R.string.setting_default_icon_pack));
+        for (int i = 0; i < lAvailableIconPack.size(); i++) {
+            if (lIconPackName.size() > 0 && !lIconPackName.contains(lAvailableIconPack.get(i).mName)) {
+                lIconPackName.add(lAvailableIconPack.get(i).mName);
             }
         }
+        assert utilSettings != null;
         String selectedPackageName = utilSettings.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME);
-        int selectedIndex = iconPackNames.indexOf(selectedPackageName);
+        int selectedIndex = lIconPackName.indexOf(selectedPackageName);
         dlgIconPack = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_icon_pack)
-                .items(iconPackNames)
+                .items(lIconPackName)
                 .alwaysCallSingleChoiceCallback()
                 .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
-                    utilSettings.save(UtilSettings.KEY_ICON_PACK_LABEL_NAME, iconPackNames.get(which));
+                    utilSettings.save(UtilSettings.KEY_ICON_PACK_LABEL_NAME, lIconPackName.get(which));
                     if (settingsInterface != null) {
                         settingsInterface.onValuesUpdated();
                     }
@@ -261,63 +262,55 @@ public class ASettings extends ABase
     }
 
     public void showNightModeChooser() {
-        String[] availableNightModes = getResources().getStringArray(R.array.night_modes);
+        String[] arrAvailableNightMode = getResources().getStringArray(R.array.night_modes);
         final ArrayList<String> nightModes = new ArrayList<>();
-        for (int i = 0; i < availableNightModes.length; i++) {
-            nightModes.add(availableNightModes[i]);
-        }
+        Collections.addAll(nightModes, arrAvailableNightMode);
+        assert utilSettings != null;
         String selectedNightMode = UtilNightModeUtil.getNightModeDisplayName(utilSettings.getNightMode());
         int selectedIndex = nightModes.indexOf(selectedNightMode);
         dlgNightMode = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_night_mode)
                 .items(R.array.night_modes)
                 .alwaysCallSingleChoiceCallback()
-                .itemsCallbackSingleChoice(selectedIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        String selection = nightModes.get(which);
-                        utilSettings.save(UtilSettings.KEY_NIGHT_MODE, UtilNightModeUtil.getNightModeFromDisplayName(selection));
-                        sendNightModeBroadcast();
-                        if (settingsInterface != null) {
-                            settingsInterface.onValuesUpdated();
-                        }
-                        dismissBackgroundDialog();
-                        return true;
+                .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+                    String selection = nightModes.get(which);
+                    utilSettings.save(UtilSettings.KEY_NIGHT_MODE, UtilNightModeUtil.getNightModeFromDisplayName(selection));
+                    sendNightModeBroadcast();
+                    if (settingsInterface != null) {
+                        settingsInterface.onValuesUpdated();
                     }
+                    dismissBackgroundDialog();
+                    return true;
                 })
                 .show();
     }
 
     public void showBackgroundDialog() {
-        String[] availableBackgrounds = getResources().getStringArray(R.array.backgrounds);
+        String[] arrAvailableBackground = getResources().getStringArray(R.array.backgrounds);
         final ArrayList<String> backgroundNames = new ArrayList<>();
-        for (int i = 0; i < availableBackgrounds.length; i++) {
-            backgroundNames.add(availableBackgrounds[i]);
-        }
+        Collections.addAll(backgroundNames, arrAvailableBackground);
+        assert utilSettings != null;
         String selectedBackground = utilSettings.getString(UtilSettings.KEY_BACKGROUND);
         int selectedIndex = backgroundNames.indexOf(selectedBackground);
         dlgBackground = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_background)
                 .items(R.array.backgrounds)
                 .alwaysCallSingleChoiceCallback()
-                .itemsCallbackSingleChoice(selectedIndex, new MaterialDialog.ListCallbackSingleChoice() {
-                    @Override
-                    public boolean onSelection(MaterialDialog dialog, View view, int which, CharSequence text) {
-                        String selection = backgroundNames.get(which);
-                        if (selection.equals("Wallpaper")) {
-                            utilSettings.save(UtilSettings.KEY_BACKGROUND, selection);
-                            sendBackgroundChangedBroadcast();
-                            if (settingsInterface != null) {
-                                settingsInterface.onValuesUpdated();
-                            }
-                            dismissBackgroundDialog();
-                            showWallpaperPicker();
-                        } else if (selection.equals("Color")) {
-                            dismissBackgroundDialog();
-                            showBackgroundColorDialog();
+                .itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+                    String selection = backgroundNames.get(which);
+                    if (selection.equals("Wallpaper")) {
+                        utilSettings.save(UtilSettings.KEY_BACKGROUND, selection);
+                        sendBackgroundChangedBroadcast();
+                        if (settingsInterface != null) {
+                            settingsInterface.onValuesUpdated();
                         }
-                        return true;
+                        dismissBackgroundDialog();
+                        showWallpaperPicker();
+                    } else if (selection.equals("Color")) {
+                        dismissBackgroundDialog();
+                        showBackgroundColorDialog();
                     }
+                    return true;
                 })
                 .show();
     }
