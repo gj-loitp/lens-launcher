@@ -1,10 +1,10 @@
 package com.roy.app;
 
 import com.orm.SugarApp;
-import com.roy.bkg.EditedObservable;
-import com.roy.bkg.TaskSortApps;
-import com.roy.bkg.TaskUpdateApps;
-import com.roy.bkg.UpdatedObservable;
+import com.roy.sv.EditedObservable;
+import com.roy.sv.TaskSortApps;
+import com.roy.sv.TaskUpdateApps;
+import com.roy.sv.UpdatedObservable;
 
 import java.util.Observable;
 import java.util.Observer;

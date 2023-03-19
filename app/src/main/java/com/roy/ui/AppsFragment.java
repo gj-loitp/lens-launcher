@@ -23,7 +23,7 @@ import com.roy.a.AppAdapter;
 import com.roy.model.App;
 import com.roy.util.AppSorter;
 import com.roy.app.AppsSingleton;
-import com.roy.bkg.BroadcastReceivers;
+import com.roy.sv.BroadcastReceivers;
 import com.roy.util.Settings;
 
 /**

@@ -18,13 +18,13 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 import com.roy.R;
-import com.roy.bkg.BackgroundChangedObservable;
-import com.roy.bkg.NightModeObservable;
-import com.roy.bkg.VisibilityChangedObservable;
+import com.roy.sv.BackgroundChangedObservable;
+import com.roy.sv.NightModeObservable;
+import com.roy.sv.VisibilityChangedObservable;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
 import com.roy.app.AppsSingleton;
-import com.roy.bkg.LoadedObservable;
+import com.roy.sv.LoadedObservable;
 
 /**
  * Created by nickrout on 2016/04/02.
