@@ -4,14 +4,14 @@
     android:layout_height="match_parent">
 
     <com.roy.views.LensView
-        android:id="@+id/lens_view_apps"
+        android:id="@+id/lensViews"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:hapticFeedbackEnabled="true"
         android:visibility="invisible" />
 
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-        android:id="@+id/progress_home"
+        android:id="@+id/progressBarHome"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center" />

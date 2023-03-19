@@ -62,10 +62,10 @@ public class ASettings extends ABase
     @BindView(R.id.viewpager)
     ViewPager mViewPager;
 
-    @BindView(R.id.fab_sort)
+    @BindView(R.id.fabSort)
     FloatingActionButton mSortFab;
 
-    @OnClick(R.id.fab_sort)
+    @OnClick(R.id.fabSort)
     public void onSortClicked() {
         showSortTypeDialog();
     }

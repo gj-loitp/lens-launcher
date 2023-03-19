@@ -29,10 +29,10 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class AHome extends ABase implements Observer {
 
-    @BindView(R.id.lens_view_apps)
+    @BindView(R.id.lensViews)
     LensView mLensView;
 
-    @BindView(R.id.progress_home)
+    @BindView(R.id.progressBarHome)
     MaterialProgressBar mProgress;
 
     private ArrayList<App> mApps;

@@ -1,27 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <androidx.recyclerview.widget.RecyclerView
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/recycler_apps"
+        android:id="@+id/rvApps"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="80dp"
+        android:clipToPadding="false"
         android:paddingStart="@dimen/activity_horizontal_margin_apps"
         android:paddingLeft="@dimen/activity_horizontal_margin_apps"
+        android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingEnd="@dimen/activity_horizontal_margin_apps"
         android:paddingRight="@dimen/activity_horizontal_margin_apps"
-        android:clipToPadding="false"
-        android:visibility="invisible"/>
+        android:paddingBottom="80dp"
+        android:visibility="invisible" />
 
     <me.zhanghai.android.materialprogressbar.MaterialProgressBar
-        android:id="@+id/progress_apps"
+        android:id="@+id/progressBarApps"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"/>
+        android:layout_gravity="center" />
 
 </FrameLayout>

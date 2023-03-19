@@ -32,10 +32,10 @@ import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class FApps extends Fragment implements ASettings.AppsInterface {
 
-    @BindView(R.id.recycler_apps)
+    @BindView(R.id.rvApps)
     RecyclerView mRecycler;
 
-    @BindView(R.id.progress_apps)
+    @BindView(R.id.progressBarApps)
     MaterialProgressBar mProgress;
 
     private UtilSettings mUtilSettings;
