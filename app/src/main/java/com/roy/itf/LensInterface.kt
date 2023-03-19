@@ -1,5 +1,5 @@
-package com.roy.itf;
+package com.roy.itf
 
-public interface LensInterface {
-    void onDefaultsReset();
+interface LensInterface {
+    fun onDefaultsReset()
 }
