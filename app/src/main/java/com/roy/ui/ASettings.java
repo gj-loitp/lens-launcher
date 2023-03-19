@@ -1,6 +1,5 @@
 package com.roy.ui;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -12,9 +11,6 @@ import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentStatePagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
@@ -23,6 +19,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.roy.R;
+import com.roy.a.FragmentPagerAdapter;
 import com.roy.app.AppsSingleton;
 import com.roy.itf.AppsInterface;
 import com.roy.itf.LensInterface;
@@ -382,49 +379,5 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
-    }
-
-    private static class FragmentPagerAdapter extends FragmentStatePagerAdapter {
-
-        private static final int NUM_PAGES = 3;
-
-        private final Context mContext;
-
-        public FragmentPagerAdapter(FragmentManager fragmentManager, Context context) {
-            super(fragmentManager);
-            mContext = context;
-        }
-
-        @NonNull
-        @Override
-        public Fragment getItem(int position) {
-            switch (position) {
-                case 0:
-                    return FLens.newInstance();
-                case 1:
-                    return FApps.newInstance();
-                case 2:
-                    return FSettings.newInstance();
-            }
-            return new Fragment();
-        }
-
-        @Override
-        public int getCount() {
-            return NUM_PAGES;
-        }
-
-        @Override
-        public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return mContext.getResources().getString(R.string.tab_lens);
-                case 1:
-                    return mContext.getResources().getString(R.string.tab_apps);
-                case 2:
-                    return mContext.getResources().getString(R.string.tab_settings);
-            }
-            return super.getPageTitle(position);
-        }
     }
 }
