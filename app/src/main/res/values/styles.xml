@@ -16,7 +16,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:navigationBarColor" tools:targetApi="21">@android:color/transparent</item>
+        <item name="android:navigationBarColor" >@android:color/transparent
+        </item>
         <item name="android:enforceNavigationBarContrast" tools:targetApi="29">false</item>
     </style>
 
@@ -28,6 +29,7 @@
 
     <!-- App Bar Themes -->
     <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
 </resources>

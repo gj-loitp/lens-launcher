@@ -1,29 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<shortcuts
-    xmlns:android="http://schemas.android.com/apk/res/android">
+<shortcuts xmlns:android="http://schemas.android.com/apk/res/android">
 
     <shortcut
-        android:shortcutId="utilSettings"
         android:enabled="true"
         android:icon="@drawable/ic_shortcut_settings"
-        android:shortcutShortLabel="@string/activity_title_settings"
-        android:shortcutLongLabel="@string/activity_title_settings">
+        android:shortcutId="utilSettings"
+        android:shortcutLongLabel="@string/activity_title_settings"
+        android:shortcutShortLabel="@string/activity_title_settings">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="com.roy"
-            android:targetClass="com.roy.ui.ASettings" />
+            android:targetClass="com.roy.ui.ASettings"
+            android:targetPackage="com.roy" />
     </shortcut>
 
     <shortcut
-        android:shortcutId="apps"
         android:enabled="true"
         android:icon="@drawable/ic_shortcut_apps"
-        android:shortcutShortLabel="@string/activity_title_apps"
-        android:shortcutLongLabel="@string/activity_title_apps">
+        android:shortcutId="apps"
+        android:shortcutLongLabel="@string/activity_title_apps"
+        android:shortcutShortLabel="@string/activity_title_apps">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetPackage="com.roy"
-            android:targetClass="com.roy.ui.AHome" />
+            android:targetClass="com.roy.ui.AHome"
+            android:targetPackage="com.roy" />
     </shortcut>
 
 </shortcuts>

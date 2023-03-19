@@ -75,7 +75,7 @@
                 android:id="@+id/pro_icon_pack"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                layout="@layout/view_layout_pro" />
+                layout="@layout/v_layout_pro" />
 
         </LinearLayout>
 
@@ -119,7 +119,7 @@
                 android:id="@+id/pro_night_mode"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                layout="@layout/view_layout_pro" />
+                layout="@layout/v_layout_pro" />
             
         </LinearLayout>
 
@@ -182,7 +182,7 @@
                 android:id="@+id/pro_background"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                layout="@layout/view_layout_pro" />
+                layout="@layout/v_layout_pro" />
                 
         </LinearLayout>
 
@@ -245,7 +245,7 @@
                 android:id="@+id/pro_highlight_color"
                 android:layout_width="80dp"
                 android:layout_height="match_parent"
-                layout="@layout/view_layout_pro" />
+                layout="@layout/v_layout_pro" />
             
         </LinearLayout>
 
