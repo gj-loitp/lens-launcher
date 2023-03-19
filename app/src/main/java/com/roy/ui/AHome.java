@@ -25,13 +25,13 @@ import java.util.Observer;
 
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
+//2023.03.19 tried to convert kotlin but failed
 public class AHome extends ABase implements Observer {
 
     LensView lensViews;
     MaterialProgressBar progressBarHome;
-
-    private ArrayList<App> mApps;
-    private ArrayList<Bitmap> mAppIcons;
+    private ArrayList<App> listApp;
+    private ArrayList<Bitmap> listAppIcon;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,10 +61,6 @@ public class AHome extends ABase implements Observer {
         setupTransparentSystemBarsForLollipop();
     }
 
-    /**
-     * Sets up transparent navigation and status bars in Lollipop.
-     * This method is a no-op for other platform versions.
-     */
     private void setupTransparentSystemBarsForLollipop() {
         Window window = getWindow();
         window.getAttributes().systemUiVisibility |= (View.SYSTEM_UI_FLAG_LAYOUT_STABLE | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
@@ -78,23 +74,23 @@ public class AHome extends ABase implements Observer {
         lensViews.invalidate();
     }
 
-    private void assignApps(ArrayList<App> apps, ArrayList<Bitmap> appIcons) {
-        if (apps.size() == 0 || appIcons.size() == 0) {
+    private void assignApps(ArrayList<App> lApp, ArrayList<Bitmap> lAppIcon) {
+        if (lApp.size() == 0 || lAppIcon.size() == 0) {
             return;
         }
         progressBarHome.setVisibility(View.INVISIBLE);
         lensViews.setVisibility(View.VISIBLE);
-        mApps = apps;
-        mAppIcons = appIcons;
+        listApp = lApp;
+        listAppIcon = lAppIcon;
         removeHiddenApps();
-        lensViews.setApps(mApps, mAppIcons);
+        lensViews.setApps(listApp, listAppIcon);
     }
 
     private void removeHiddenApps() {
-        for (int i = 0; i < mApps.size(); i++) {
-            if (!AppPersistent.getAppVisibility(Objects.requireNonNull(mApps.get(i).getPackageName()).toString(), Objects.requireNonNull(mApps.get(i).getName()).toString())) {
-                mApps.remove(i);
-                mAppIcons.remove(i);
+        for (int i = 0; i < listApp.size(); i++) {
+            if (!AppPersistent.getAppVisibility(Objects.requireNonNull(listApp.get(i).getPackageName()).toString(), Objects.requireNonNull(listApp.get(i).getName()).toString())) {
+                listApp.remove(i);
+                listAppIcon.remove(i);
                 i--;
             }
         }
@@ -102,7 +98,7 @@ public class AHome extends ABase implements Observer {
 
     @Override
     public void onBackPressed() {
-        // Do Nothing
+        //do nothing
     }
 
     @Override
@@ -114,7 +110,9 @@ public class AHome extends ABase implements Observer {
     @Override
     public void update(Observable observable, Object data) {
         if (observable instanceof LoadedObservable || observable instanceof VisibilityChangedObservable) {
-            assignApps(Objects.requireNonNull(Objects.requireNonNull(AppsSingleton.getInstance()).getApps()), AppsSingleton.getInstance().getAppIcons());
+            assignApps(Objects.requireNonNull(
+                            Objects.requireNonNull(AppsSingleton.getInstance()).getApps()),
+                    AppsSingleton.getInstance().getAppIcons());
         } else if (observable instanceof BackgroundChangedObservable) {
             setBackground();
         } else if (observable instanceof NightModeObservable) {
