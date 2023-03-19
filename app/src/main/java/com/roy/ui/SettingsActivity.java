@@ -176,7 +176,7 @@ public class SettingsActivity extends BaseActivity
                 overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 return true;
             case R.id.menu_item_about:
-                Intent aboutIntent = new Intent(SettingsActivity.this, AboutActivity.class);
+                Intent aboutIntent = new Intent(SettingsActivity.this, AAbout.class);
                 startActivity(aboutIntent);
                 overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
                 return true;
