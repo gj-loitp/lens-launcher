@@ -45,18 +45,18 @@ import java.util.Observer;
 public class ASettings extends ABase
         implements Observer, ColorChooserDialog.ColorCallback {
 
-    private static final String COLOR_TAG_BACKGROUND = "BackgroundColor";
-    private static final String COLOR_TAG_HIGHLIGHT = "HighlightColor";
+    private static final String TAG_COLOR_BACKGROUND = "BackgroundColor";
+    private static final String TAG_COLOR_HIGHLIGHT = "HighlightColor";
     Toolbar toolbar;
     TabLayout tabs;
     ViewPager viewpager;
     FloatingActionButton fabSort;
 
-    private ArrayList<App> mApps;
-    private MaterialDialog mSortTypeDialog;
-    private MaterialDialog mIconPackDialog;
-    private MaterialDialog mNightModeDialog;
-    private MaterialDialog mBackgroundDialog;
+    private ArrayList<App> listApp;
+    private MaterialDialog dlgSortType;
+    private MaterialDialog dlgIconPack;
+    private MaterialDialog dlgNightMode;
+    private MaterialDialog dlgBackground;
 
     public interface LensInterface {
         void onDefaultsReset();
@@ -122,7 +122,7 @@ public class ASettings extends ABase
             public void onPageScrollStateChanged(int state) {
             }
         });
-        mApps = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
+        listApp = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
         LoadedObservable.getInstance().addObserver(this);
         NightModeObservable.getInstance().addObserver(this);
     }
@@ -192,9 +192,9 @@ public class ASettings extends ABase
     @Override
     public void update(Observable observable, Object data) {
         if (observable instanceof LoadedObservable) {
-            mApps = AppsSingleton.getInstance().getApps();
+            listApp = AppsSingleton.getInstance().getApps();
             if (mAppsInterface != null) {
-                mAppsInterface.onAppsUpdated(mApps);
+                mAppsInterface.onAppsUpdated(listApp);
             }
         } else if (observable instanceof NightModeObservable) {
             updateNightMode();
@@ -229,7 +229,7 @@ public class ASettings extends ABase
         }
         UtilAppSorter.SortType selectedSortType = utilSettings.getSortType();
         int selectedIndex = sortTypes.indexOf(selectedSortType);
-        mSortTypeDialog = new MaterialDialog.Builder(ASettings.this)
+        dlgSortType = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_sort_apps)
                 .items(sortTypeStrings)
                 .alwaysCallSingleChoiceCallback()
@@ -253,7 +253,7 @@ public class ASettings extends ABase
         }
         String selectedPackageName = utilSettings.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME);
         int selectedIndex = iconPackNames.indexOf(selectedPackageName);
-        mIconPackDialog = new MaterialDialog.Builder(ASettings.this)
+        dlgIconPack = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_icon_pack)
                 .items(iconPackNames)
                 .alwaysCallSingleChoiceCallback()
@@ -280,7 +280,7 @@ public class ASettings extends ABase
         }
         String selectedNightMode = UtilNightModeUtil.getNightModeDisplayName(utilSettings.getNightMode());
         int selectedIndex = nightModes.indexOf(selectedNightMode);
-        mNightModeDialog = new MaterialDialog.Builder(ASettings.this)
+        dlgNightMode = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_night_mode)
                 .items(R.array.night_modes)
                 .alwaysCallSingleChoiceCallback()
@@ -308,7 +308,7 @@ public class ASettings extends ABase
         }
         String selectedBackground = utilSettings.getString(UtilSettings.KEY_BACKGROUND);
         int selectedIndex = backgroundNames.indexOf(selectedBackground);
-        mBackgroundDialog = new MaterialDialog.Builder(ASettings.this)
+        dlgBackground = new MaterialDialog.Builder(ASettings.this)
                 .title(R.string.setting_background)
                 .items(R.array.backgrounds)
                 .alwaysCallSingleChoiceCallback()
@@ -349,7 +349,7 @@ public class ASettings extends ABase
                 .preselect(Color.parseColor(utilSettings.getString(UtilSettings.KEY_BACKGROUND_COLOR)))
                 .dynamicButtonColor(false)
                 .allowUserColorInputAlpha(false)
-                .tag(COLOR_TAG_BACKGROUND)
+                .tag(TAG_COLOR_BACKGROUND)
                 .show(this);
     }
 
@@ -363,18 +363,18 @@ public class ASettings extends ABase
                 .preselect(Color.parseColor(utilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)))
                 .dynamicButtonColor(false)
                 .allowUserColorInputAlpha(false)
-                .tag(COLOR_TAG_HIGHLIGHT)
+                .tag(TAG_COLOR_HIGHLIGHT)
                 .show(this);
     }
 
     @Override
     public void onColorSelection(@NonNull ColorChooserDialog dialog, @ColorInt int selectedColor) {
         String hexColor = String.format("#%06X", selectedColor);
-        if (dialog.tag().equals(COLOR_TAG_BACKGROUND)) {
+        if (dialog.tag().equals(TAG_COLOR_BACKGROUND)) {
             utilSettings.save(UtilSettings.KEY_BACKGROUND, "Color");
             utilSettings.save(UtilSettings.KEY_BACKGROUND_COLOR, hexColor);
             sendBackgroundChangedBroadcast();
-        } else if (dialog.tag().equals(COLOR_TAG_HIGHLIGHT)) {
+        } else if (dialog.tag().equals(TAG_COLOR_HIGHLIGHT)) {
             utilSettings.save(UtilSettings.KEY_HIGHLIGHT_COLOR, hexColor);
         }
         if (mSettingsInterface != null) {
@@ -387,26 +387,26 @@ public class ASettings extends ABase
     }
 
     private void dismissSortTypeDialog() {
-        if (mSortTypeDialog != null && mSortTypeDialog.isShowing()) {
-            mSortTypeDialog.dismiss();
+        if (dlgSortType != null && dlgSortType.isShowing()) {
+            dlgSortType.dismiss();
         }
     }
 
     private void dismissIconPackDialog() {
-        if (mIconPackDialog != null && mIconPackDialog.isShowing()) {
-            mIconPackDialog.dismiss();
+        if (dlgIconPack != null && dlgIconPack.isShowing()) {
+            dlgIconPack.dismiss();
         }
     }
 
     private void dismissNightModeDialog() {
-        if (mNightModeDialog != null && mNightModeDialog.isShowing()) {
-            mNightModeDialog.dismiss();
+        if (dlgNightMode != null && dlgNightMode.isShowing()) {
+            dlgNightMode.dismiss();
         }
     }
 
     private void dismissBackgroundDialog() {
-        if (mBackgroundDialog != null && mBackgroundDialog.isShowing()) {
-            mBackgroundDialog.dismiss();
+        if (dlgBackground != null && dlgBackground.isShowing()) {
+            dlgBackground.dismiss();
         }
     }
 
