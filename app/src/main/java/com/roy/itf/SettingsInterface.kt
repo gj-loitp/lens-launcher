@@ -1,7 +1,7 @@
-package com.roy.itf;
+package com.roy.itf
 
-public interface SettingsInterface {
-    void onDefaultsReset();
+interface SettingsInterface {
+    fun onDefaultsReset()
 
-    void onValuesUpdated();
+    fun onValuesUpdated()
 }
