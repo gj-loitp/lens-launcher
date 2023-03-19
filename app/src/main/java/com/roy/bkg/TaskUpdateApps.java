@@ -13,23 +13,21 @@ import com.roy.util.AppUtil;
 import com.roy.util.Settings;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
-/**
- * Created by rish on 26/5/16.
- */
-public class UpdateAppsTask extends AsyncTask<Void, Void, Void> {
+public class TaskUpdateApps extends AsyncTask<Void, Void, Void> {
 
-    private PackageManager mPackageManager;
-    private Context mContext;
-    private Application mApplication;
-    private Settings mSettings;
+    private final PackageManager mPackageManager;
+    private final Context mContext;
+    private final Application mApplication;
+    private final Settings mSettings;
 
     private ArrayList<App> mApps;
     private ArrayList<Bitmap> mAppIcons;
 
-    public UpdateAppsTask(PackageManager packageManager,
-                           Context context,
-                           Application application) {
+    public TaskUpdateApps(PackageManager packageManager,
+                          Context context,
+                          Application application) {
         this.mPackageManager = packageManager;
         this.mContext = context;
         this.mApplication = application;
@@ -64,7 +62,7 @@ public class UpdateAppsTask extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        AppsSingleton.getInstance().setApps(mApps);
+        Objects.requireNonNull(AppsSingleton.getInstance()).setApps(mApps);
         AppsSingleton.getInstance().setAppIcons(mAppIcons);
         Intent appsLoadedIntent = new Intent(mApplication, BroadcastReceivers.AppsLoadedReceiver.class);
         mApplication.sendBroadcast(appsLoadedIntent);

@@ -3,7 +3,7 @@ package com.roy.app;
 import com.orm.SugarApp;
 import com.roy.bkg.EditedObservable;
 import com.roy.bkg.TaskSortApps;
-import com.roy.bkg.UpdateAppsTask;
+import com.roy.bkg.TaskUpdateApps;
 import com.roy.bkg.UpdatedObservable;
 
 import java.util.Observable;
@@ -31,7 +31,7 @@ public class MyApplication extends SugarApp implements Observer {
     }
 
     private void updateApps() {
-        new UpdateAppsTask(
+        new TaskUpdateApps(
                 getPackageManager(),
                 getApplicationContext(),
                 this)
