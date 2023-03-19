@@ -132,45 +132,45 @@ public class ASettings extends ABase
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.menuItemShowApps:
-                if (UtilLauncher.isLauncherDefault(getApplication())) {
-                    Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                    homeIntent.addCategory(Intent.CATEGORY_HOME);
-                    startActivity(homeIntent);
-                } else {
-                    Intent homeIntent = new Intent(ASettings.this, AHome.class);
-                    startActivity(homeIntent);
-                }
-                overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
-                return true;
-            case R.id.menuItemAbout:
-                Intent aboutIntent = new Intent(ASettings.this, AAbout.class);
-                startActivity(aboutIntent);
-                overridePendingTransition(R.anim.a_slide_in_left, R.anim.a_slide_out_right);
-                return true;
-            case R.id.menuItemResetDefaultSettings:
-                switch (viewpager.getCurrentItem()) {
-                    case 0:
-                        if (lensInterface != null) {
-                            lensInterface.onDefaultsReset();
-                        }
-                        break;
-                    case 1:
-                        if (appsInterface != null) {
-                            appsInterface.onDefaultsReset();
-                        }
-                        break;
-                    case 2:
-                        if (settingsInterface != null) {
-                            settingsInterface.onDefaultsReset();
-                        }
-                        break;
-                }
-                Snackbar.make(toolbar, getString(R.string.snackbar_reset_successful), Snackbar.LENGTH_LONG).show();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        if (id == R.id.menuItemShowApps) {
+            if (UtilLauncher.isLauncherDefault(getApplication())) {
+                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+                homeIntent.addCategory(Intent.CATEGORY_HOME);
+                startActivity(homeIntent);
+            } else {
+                Intent homeIntent = new Intent(ASettings.this, AHome.class);
+                startActivity(homeIntent);
+            }
+            overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
+            return true;
+        } else if (id == R.id.menuItemAbout) {
+            Intent aboutIntent = new Intent(ASettings.this, AAbout.class);
+            startActivity(aboutIntent);
+            overridePendingTransition(R.anim.a_slide_in_left, R.anim.a_slide_out_right);
+            return true;
+        } else if (id == R.id.menuItemResetDefaultSettings) {
+            switch (viewpager.getCurrentItem()) {
+                case 0:
+                    if (lensInterface != null) {
+                        lensInterface.onDefaultsReset();
+                    }
+                    break;
+                case 1:
+                    if (appsInterface != null) {
+                        appsInterface.onDefaultsReset();
+                    }
+                    break;
+                case 2:
+                    if (settingsInterface != null) {
+                        settingsInterface.onDefaultsReset();
+                    }
+                    break;
+            }
+            Snackbar.make(toolbar, getString(R.string.snackbar_reset_successful), Snackbar.LENGTH_LONG).show();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
