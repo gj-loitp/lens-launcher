@@ -27,20 +27,14 @@ import com.roy.util.UtilSettings;
 import java.util.ArrayList;
 import java.util.Objects;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class FApps extends Fragment implements AppsInterface {
+    RecyclerView rvApps;
+    MaterialProgressBar progressBarApps;
 
-    @BindView(R.id.rvApps)
-    RecyclerView mRecycler;
-
-    @BindView(R.id.progressBarApps)
-    MaterialProgressBar mProgress;
-
-    private UtilSettings mUtilSettings;
-    private int mScrolledItemIndex;
+    private UtilSettings utilSettings;
+    private int indexScrolledItem;
 
     public FApps() {
     }
@@ -53,10 +47,21 @@ public class FApps extends Fragment implements AppsInterface {
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.f_apps, container, false);
-        ButterKnife.bind(this, view);
-        mUtilSettings = new UtilSettings(getActivity());
+        utilSettings = new UtilSettings(getActivity());
         setupRecycler(Objects.requireNonNull(AppsSingleton.getInstance()).getApps());
         return view;
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        setupViews(view);
+    }
+
+    private void setupViews(View view) {
+        rvApps = view.findViewById(R.id.rvApps);
+        progressBarApps = view.findViewById(R.id.progressBarApps);
     }
 
     @Override
@@ -79,23 +84,23 @@ public class FApps extends Fragment implements AppsInterface {
         if (getActivity() == null || apps.size() == 0) {
             return;
         }
-        if (mRecycler.getLayoutManager() != null) {
-            mScrolledItemIndex = ((LinearLayoutManager) mRecycler.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
+        if (rvApps.getLayoutManager() != null) {
+            indexScrolledItem = ((LinearLayoutManager) rvApps.getLayoutManager()).findFirstCompletelyVisibleItemPosition();
         }
-        mProgress.setVisibility(View.INVISIBLE);
-        mRecycler.setVisibility(View.VISIBLE);
+        progressBarApps.setVisibility(View.INVISIBLE);
+        rvApps.setVisibility(View.VISIBLE);
         AppAdapter mAppAdapter = new AppAdapter(getActivity(), apps);
-        mRecycler.setAdapter(mAppAdapter);
-        mRecycler.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.columns_apps)));
-        mRecycler.setItemAnimator(new DefaultItemAnimator());
-        mRecycler.scrollToPosition(mScrolledItemIndex);
-        mScrolledItemIndex = 0;
+        rvApps.setAdapter(mAppAdapter);
+        rvApps.setLayoutManager(new GridLayoutManager(getActivity(), getResources().getInteger(R.integer.columns_apps)));
+        rvApps.setItemAnimator(new DefaultItemAnimator());
+        rvApps.scrollToPosition(indexScrolledItem);
+        indexScrolledItem = 0;
     }
 
     @Override
     public void onDefaultsReset() {
-        if (mUtilSettings.getSortType() != UtilAppSorter.SortType.values()[UtilSettings.DEFAULT_SORT_TYPE]) {
-            mUtilSettings.save(UtilSettings.KEY_SORT_TYPE, UtilSettings.DEFAULT_SORT_TYPE);
+        if (utilSettings.getSortType() != UtilAppSorter.SortType.values()[UtilSettings.DEFAULT_SORT_TYPE]) {
+            utilSettings.save(UtilSettings.KEY_SORT_TYPE, UtilSettings.DEFAULT_SORT_TYPE);
             sendEditAppsBroadcast();
         }
     }

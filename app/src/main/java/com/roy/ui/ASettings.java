@@ -42,6 +42,7 @@ import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
+//2023.03.19 tried to convert kotlin but failed
 public class ASettings extends ABase implements Observer, ColorChooserDialog.ColorCallback {
 
     private static final String TAG_COLOR_BACKGROUND = "BackgroundColor";
