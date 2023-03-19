@@ -1,50 +1,47 @@
-package com.roy.ui;
+package com.roy.ui
 
-import android.app.ActivityManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.Bundle;
+import android.app.ActivityManager.TaskDescription
+import android.graphics.BitmapFactory
+import android.os.Bundle
+import androidx.annotation.LayoutRes
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import com.roy.R
+import com.roy.util.UtilSettings
 
-import androidx.annotation.LayoutRes;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
+open class ABase : AppCompatActivity() {
+    @JvmField
+    protected var utilSettings: UtilSettings? = null
 
-import com.roy.R;
-import com.roy.util.UtilSettings;
-
-public class ABase extends AppCompatActivity {
-
-    protected UtilSettings utilSettings;
-
-    @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
-        utilSettings = new UtilSettings(this);
+    override fun onCreate(savedInstanceState: Bundle?) {
+        utilSettings = UtilSettings(this)
         if (savedInstanceState == null) {
-            updateNightMode();
+            updateNightMode()
         }
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState)
     }
 
-    @Override
-    public void setContentView(@LayoutRes int layoutResID) {
-        super.setContentView(layoutResID);
-        setTaskDescription();
+    override fun setContentView(@LayoutRes layoutResID: Int) {
+        super.setContentView(layoutResID)
+        setTaskDescription()
     }
 
-    private void setTaskDescription() {
-        Bitmap appIconBitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
-        ActivityManager.TaskDescription taskDescription = new ActivityManager.TaskDescription(
-                getString(R.string.app_name),
-                appIconBitmap,
-                ContextCompat.getColor(getBaseContext(), R.color.colorPrimaryDark));
-        setTaskDescription(taskDescription);
+    private fun setTaskDescription() {
+        val appIconBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
+        val taskDescription = TaskDescription(
+            getString(/* resId = */ R.string.app_name),
+            appIconBitmap,
+            ContextCompat.getColor(baseContext, R.color.colorPrimaryDark)
+        )
+        setTaskDescription(taskDescription)
     }
 
-    protected void updateNightMode() {
+    protected fun updateNightMode() {
         if (utilSettings == null) {
-            utilSettings = new UtilSettings(this);
+            utilSettings = UtilSettings(this)
         }
-        getDelegate().setLocalNightMode(utilSettings.getNightMode());
+        utilSettings?.let {
+            delegate.localNightMode = it.nightMode
+        }
     }
 }
