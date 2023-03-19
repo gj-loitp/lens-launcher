@@ -23,17 +23,12 @@ import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 public class AHome extends ABase implements Observer {
 
-    @BindView(R.id.lensViews)
-    LensView mLensView;
-
-    @BindView(R.id.progressBarHome)
-    MaterialProgressBar mProgress;
+    LensView lensViews;
+    MaterialProgressBar progressBarHome;
 
     private ArrayList<App> mApps;
     private ArrayList<Bitmap> mAppIcons;
@@ -42,15 +37,22 @@ public class AHome extends ABase implements Observer {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.a_home);
-        ButterKnife.bind(this);
+
+        setupViews();
+
         PackageManager mPackageManager = getPackageManager();
-        mLensView.setPackageManager(mPackageManager);
-        mLensView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
+        lensViews.setPackageManager(mPackageManager);
+        lensViews.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
         assignApps(Objects.requireNonNull(Objects.requireNonNull(AppsSingleton.getInstance()).getApps()), AppsSingleton.getInstance().getAppIcons());
         LoadedObservable.getInstance().addObserver(this);
         VisibilityChangedObservable.getInstance().addObserver(this);
         BackgroundChangedObservable.getInstance().addObserver(this);
         NightModeObservable.getInstance().addObserver(this);
+    }
+
+    private void setupViews() {
+        lensViews = findViewById(R.id.lensViews);
+        progressBarHome = findViewById(R.id.progressBarHome);
     }
 
     @Override
@@ -73,19 +75,19 @@ public class AHome extends ABase implements Observer {
     }
 
     private void setBackground() {
-        mLensView.invalidate();
+        lensViews.invalidate();
     }
 
     private void assignApps(ArrayList<App> apps, ArrayList<Bitmap> appIcons) {
         if (apps.size() == 0 || appIcons.size() == 0) {
             return;
         }
-        mProgress.setVisibility(View.INVISIBLE);
-        mLensView.setVisibility(View.VISIBLE);
+        progressBarHome.setVisibility(View.INVISIBLE);
+        lensViews.setVisibility(View.VISIBLE);
         mApps = apps;
         mAppIcons = appIcons;
         removeHiddenApps();
-        mLensView.setApps(mApps, mAppIcons);
+        lensViews.setApps(mApps, mAppIcons);
     }
 
     private void removeHiddenApps() {
