@@ -37,4 +37,8 @@
         android:id="@+id/menuWhyAds"
         android:title="Why ad???"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menuPolicy"
+        android:title="Policy"
+        app:showAsAction="never" />
 </menu>

@@ -58,7 +58,11 @@
         <androidx.appcompat.widget.AppCompatButton
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="go" />
+            android:backgroundTint="@color/colorAccent"
+            android:paddingVertical="@dimen/activity_vertical_margin"
+            android:text="@string/start"
+            android:textColor="@color/colorWhite"
+            android:textStyle="bold" />
 
     </androidx.appcompat.widget.LinearLayoutCompat>
 
