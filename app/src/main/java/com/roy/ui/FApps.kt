@@ -19,7 +19,6 @@ import com.roy.enums.SortType
 import com.roy.itf.AppsInterface
 import com.roy.model.App
 import com.roy.sv.BroadcastReceivers.AppsEditedReceiver
-import com.roy.util.UtilAppSorter
 import com.roy.util.UtilSettings
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar
 

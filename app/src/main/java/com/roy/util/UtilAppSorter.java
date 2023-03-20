@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Objects;
 
+//2023.03.20 tried to convert kotlin but failed
 public class UtilAppSorter {
 
     public static void sort(ArrayList<App> apps, SortType sortType) {
