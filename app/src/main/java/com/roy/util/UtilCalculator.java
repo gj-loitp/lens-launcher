@@ -7,6 +7,7 @@ import android.util.DisplayMetrics;
 
 import com.roy.model.Grid;
 
+//2023.03.20 tried to convert kotlin but failed
 public class UtilCalculator {
 
     // Algorithm for calculating equispaced grid
