@@ -13,6 +13,7 @@ import java.util.Observer;
 //TODO admob
 //TODO dialog policy first
 //TODO firebase
+//TODO setting search icon pack
 
 //done
 //ic_launcher

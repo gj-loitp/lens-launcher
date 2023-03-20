@@ -1,5 +1,12 @@
 package com.roy.ui;
 
+import static com.roy.ext.ActivityKt.likeFacebookFanpage;
+import static com.roy.ext.ActivityKt.moreApp;
+import static com.roy.ext.ActivityKt.rateApp;
+import static com.roy.ext.ActivityKt.shareApp;
+import static com.roy.ext.ContextKt.openUrlInBrowser;
+import static com.roy.util.CKt.URL_POLICY_NOTION;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -172,16 +179,19 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
             Snackbar.make(toolbar, getString(R.string.snackbar_reset_successful), Snackbar.LENGTH_LONG).show();
             return true;
         } else if (id == R.id.menuRateApp) {
+            rateApp(this, this.getPackageName());
             return true;
         } else if (id == R.id.menuMoreApp) {
+            moreApp(this, "Roy93Group");
             return true;
         } else if (id == R.id.menuShareApp) {
+            shareApp(this);
             return true;
         } else if (id == R.id.menuFacebookFanPage) {
+            likeFacebookFanpage(this);
             return true;
         } else if (id == R.id.menuPolicy) {
-            return true;
-        } else if (id == R.id.menuFeedback) {
+            openUrlInBrowser(this, URL_POLICY_NOTION);
             return true;
         } else {
             return super.onOptionsItemSelected(item);

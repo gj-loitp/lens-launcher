@@ -34,10 +34,6 @@
         android:title="@string/facebook_fan_page"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menuFeedback"
-        android:title="@string/feedback"
-        app:showAsAction="never" />
-    <item
         android:id="@+id/menuPolicy"
         android:title="@string/terms_and_privacy_policy"
         app:showAsAction="never" />
