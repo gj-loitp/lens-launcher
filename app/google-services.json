@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "220185273154",
+    "project_id": "lenslauncher-25806",
+    "storage_bucket": "lenslauncher-25806.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:220185273154:android:7eed51725e7b1c389c9edb",
+        "android_client_info": {
+          "package_name": "com.roy93group.lenslauncher"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "220185273154-e5f5jbkv1h8u8hho98mvr8obj5vpll1m.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMIQojW5SA5xaY5oorQy0LfwyekRlOEG0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "220185273154-e5f5jbkv1h8u8hho98mvr8obj5vpll1m.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

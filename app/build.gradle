@@ -1,5 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 33
@@ -30,9 +32,13 @@ dependencies {
     implementation 'com.github.satyan:sugar:1.5'
     implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.5.0'
-//    implementation 'com.jakewharton:butterknife:10.0.0'
-//    annotationProcessor 'com.jakewharton:butterknife-compiler:10.0.0'
     implementation 'androidx.preference:preference-ktx:1.2.0'
+
+    //firebase
+    api platform('com.google.firebase:firebase-bom:31.0.2')
+    api 'com.google.firebase:firebase-analytics-ktx'
+    api 'com.google.firebase:firebase-crashlytics-ktx'
+    api 'com.google.firebase:firebase-config-ktx'
 
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.10'
