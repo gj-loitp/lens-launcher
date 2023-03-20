@@ -14,6 +14,7 @@ import androidx.appcompat.widget.SwitchCompat
 import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import com.roy.R
+import com.roy.ext.searchIconPack
 import com.roy.itf.SettingsInterface
 import com.roy.util.UtilLauncher
 import com.roy.util.UtilNightModeUtil
@@ -81,6 +82,9 @@ class FSettings : Fragment(), SettingsInterface {
         }
         view.findViewById<View>(R.id.llIconPack).setOnClickListener {
             showIconPackDialog()
+        }
+        view.findViewById<View>(R.id.btGetMoreIconPacks).setOnClickListener {
+            activity?.searchIconPack()
         }
         view.findViewById<View>(R.id.llNightMode).setOnClickListener {
             showNightModeChooser()
