@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
-    <!-- App Colors -->
-    <color name="colorPrimary">#111111</color>
-    <color name="colorPrimaryDark">#000000</color>
-    <color name="colorAccent">#F50057</color>
-
-    <!-- View Colors -->
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#3F51B5</color>
+    <color name="colorAccent">#3F51B5</color>
     <color name="colorBlack">#000000</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorTransparent">#00FFFFFF</color>
@@ -15,5 +11,4 @@
     <color name="colorShadow">#80000000</color>
     <color name="colorCircles">@color/colorBlack</color>
     <color name="colorAppTint">@color/colorBlack</color>
-
 </resources>
