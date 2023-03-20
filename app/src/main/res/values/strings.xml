@@ -64,7 +64,6 @@
     <string name="get_more_icon_packs">Get more icon packs</string>
     <string name="confirm">Confirm</string>
     <string name="agree_and_continue">Agree and Continue</string>
-    <string name="read_policy">Thank you for your trust and choosing our products and services.\n
-        By selecting "Agree and Continue", you certify that you have read and agree to our User Agreement and Privacy and accept that we collect, use and process your personal information in accordance with the terms of the Privacy policy</string>
+    <string name="read_policy">Thank you for your trust and choosing our products and services.\nBy selecting "Agree and Continue", you certify that you have read and agree to our User Agreement and Privacy and accept that we collect, use and process your personal information in accordance with the terms of the Privacy policy</string>
 
 </resources>
