@@ -15,6 +15,7 @@ import java.util.Observer;
 //TODO firebase
 //TODO setting search icon pack
 //TODO lock/unlock app
+//TODO check home default khi start launcher
 
 //done
 //ic_launcher
