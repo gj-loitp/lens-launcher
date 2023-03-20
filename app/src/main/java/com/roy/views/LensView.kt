@@ -1,462 +1,602 @@
-package com.roy.views;
+package com.roy.views
 
-import android.annotation.SuppressLint;
-import android.content.Context;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.RectF;
-import android.graphics.Typeface;
-import android.graphics.drawable.NinePatchDrawable;
-import android.util.AttributeSet;
-import android.view.HapticFeedbackConstants;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.Transformation;
+import android.annotation.SuppressLint
+import android.content.Context
+import android.content.pm.PackageManager
+import android.graphics.*
+import android.graphics.drawable.NinePatchDrawable
+import android.util.AttributeSet
+import android.view.HapticFeedbackConstants
+import android.view.MotionEvent
+import android.view.View
+import android.view.ViewConfiguration
+import android.view.animation.AccelerateDecelerateInterpolator
+import android.view.animation.Animation
+import android.view.animation.Transformation
+import androidx.core.content.ContextCompat
+import com.roy.R
+import com.roy.enum.DrawType
+import com.roy.model.App
+import com.roy.model.AppPersistent
+import com.roy.util.UtilApp
+import com.roy.util.UtilLensCalculator
+import com.roy.util.UtilSettings
+import java.util.*
+import kotlin.math.pow
+import kotlin.math.sqrt
 
-import androidx.core.content.ContextCompat;
+class LensView : View {
+    private var mPaintIcons: Paint? = null
+    private var mPaintCircles: Paint? = null
+    private var mPaintTouchSelection: Paint? = null
+    private var mPaintText: Paint? = null
+    private var mPaintNewAppTag: Paint? = null
+    private var mTouchX = -Float.MAX_VALUE
+    private var mTouchY = -Float.MAX_VALUE
+    private var mInsideRect = false
+    private var mRectToSelect: RectF? = RectF(
+        /* left = */ 0f,
+        /* top = */ 0f,
+        /* right = */ 0f,
+        /* bottom = */ 0f
+    )
+    private var mMustVibrate = true
+    private var mSelectIndex = 0
+    private var mApps: ArrayList<App>? = null
+    private var mAppIcons: ArrayList<Bitmap>? = null
+    private var mPackageManager: PackageManager? = null
+    private var mAnimationMultiplier = 0.0f
+    private var mAnimationHiding = false
+    private var mTouchSlop = 0f
+    private var mMoving = false
+    private var mUtilSettings: UtilSettings? = null
+    private var mWorkspaceBackgroundDrawable: NinePatchDrawable? = null
+    private var mInsets = Rect(
+        /* left = */ 0,
+        /* top = */ 0,
+        /* right = */ 0,
+        /* bottom = */ 0
+    )
 
-import com.roy.R;
-import com.roy.model.App;
-import com.roy.model.AppPersistent;
-import com.roy.model.Grid;
-import com.roy.util.UtilApp;
-import com.roy.util.UtilLensCalculator;
-import com.roy.util.UtilSettings;
-
-import java.util.ArrayList;
-import java.util.Objects;
-
-public class LensView extends View {
-
-    private Paint mPaintIcons;
-    private Paint mPaintCircles;
-    private Paint mPaintTouchSelection;
-    private Paint mPaintText;
-    private Paint mPaintNewAppTag;
-
-    private float mTouchX = -Float.MAX_VALUE;
-    private float mTouchY = -Float.MAX_VALUE;
-
-    private boolean mInsideRect = false;
-    private RectF mRectToSelect = new RectF(0, 0, 0, 0);
-    private boolean mMustVibrate = true;
-    private int mSelectIndex;
-
-    private ArrayList<App> mApps;
-    private ArrayList<Bitmap> mAppIcons;
-    private PackageManager mPackageManager;
-
-    private float mAnimationMultiplier = 0.0f;
-    private boolean mAnimationHiding = false;
-
-    private float mTouchSlop;
-    private boolean mMoving;
-
-    private UtilSettings mUtilSettings;
-
-    private NinePatchDrawable mWorkspaceBackgroundDrawable;
-
-    private Rect mInsets = new Rect(0, 0, 0, 0);
-
-    public enum DrawType {
-        APPS,
-        CIRCLES
+    private var mDrawType: DrawType? = null
+    fun setDrawType(drawType: DrawType?) {
+        mDrawType = drawType
+        invalidate()
     }
 
-    private DrawType mDrawType;
-
-    public void setDrawType(DrawType drawType) {
-        mDrawType = drawType;
-        invalidate();
+    constructor(context: Context?) : super(context) {
+        init()
     }
 
-    public LensView(Context context) {
-        super(context);
-        init();
+    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs) {
+        init()
     }
 
-    public LensView(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        init();
+    constructor(context: Context?, attrs: AttributeSet?, defStyle: Int) : super(
+        context, attrs, defStyle
+    ) {
+        init()
     }
 
-    public LensView(Context context, AttributeSet attrs, int defStyle) {
-        super(context, attrs, defStyle);
-        init();
+    fun setApps(apps: ArrayList<App>?, appIcons: ArrayList<Bitmap>?) {
+        mApps = apps
+        mAppIcons = appIcons
+        invalidate()
     }
 
-    public void setApps(ArrayList<App> apps, ArrayList<Bitmap> appIcons) {
-        mApps = apps;
-        mAppIcons = appIcons;
-        invalidate();
+    fun setPackageManager(packageManager: PackageManager?) {
+        mPackageManager = packageManager
     }
 
-    public void setPackageManager(PackageManager packageManager) {
-        mPackageManager = packageManager;
+    private fun init() {
+        mApps = ArrayList()
+        mAppIcons = ArrayList()
+        mDrawType = DrawType.APPS
+        setBackgroundColor(ContextCompat.getColor(context, R.color.colorTransparent))
+        mUtilSettings = UtilSettings(context)
+        setupPaints()
+        mWorkspaceBackgroundDrawable =
+            ContextCompat.getDrawable(context, R.drawable.workspace_bg) as NinePatchDrawable?
+        mTouchSlop = ViewConfiguration.get(context).scaledTouchSlop.toFloat()
     }
 
-    private void init() {
-        mApps = new ArrayList<>();
-        mAppIcons = new ArrayList<>();
-        mDrawType = DrawType.APPS;
-        setBackgroundColor(ContextCompat.getColor(getContext(), R.color.colorTransparent));
-        mUtilSettings = new UtilSettings(getContext());
-        setupPaints();
-        mWorkspaceBackgroundDrawable = (NinePatchDrawable) ContextCompat.getDrawable(getContext(), R.drawable.workspace_bg);
-        mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop();
+    @Deprecated("Deprecated in Java")
+    override fun fitSystemWindows(insets: Rect): Boolean {
+        mInsets = insets
+        return true
     }
 
-    @Override
-    protected boolean fitSystemWindows(Rect insets) {
-        mInsets = insets;
-        return true;
+    private fun setupPaints() {
+        mPaintIcons = Paint()
+        mPaintIcons?.apply {
+            isAntiAlias = true
+            style = Paint.Style.FILL
+            isFilterBitmap = true
+            isDither = true
+        }
+
+        mPaintCircles = Paint()
+        mPaintCircles?.apply {
+            isAntiAlias = true
+            style = Paint.Style.FILL
+            color = ContextCompat.getColor(context, R.color.colorCircles)
+        }
+
+        mPaintTouchSelection = Paint()
+        mPaintTouchSelection?.apply {
+            isAntiAlias = true
+            style = Paint.Style.STROKE
+            mUtilSettings?.let {
+                color = Color.parseColor(it.getString(UtilSettings.KEY_HIGHLIGHT_COLOR))
+            }
+            strokeWidth = resources.getDimension(R.dimen.stroke_width_touch_selection)
+        }
+
+        mPaintText = Paint()
+        mPaintText?.apply {
+            isAntiAlias = true
+            style = Paint.Style.FILL
+            color = ContextCompat.getColor(context, R.color.colorWhite)
+            textSize = resources.getDimension(R.dimen.text_size_lens)
+            textAlign = Paint.Align.CENTER
+            typeface = Typeface.createFromAsset(context.assets, "fonts/RobotoCondensed-Regular.ttf")
+        }
+
+        mPaintNewAppTag = Paint()
+        mPaintNewAppTag?.apply {
+            isAntiAlias = true
+            style = Paint.Style.FILL
+            mUtilSettings?.let {
+                color = Color.parseColor(it.getString(UtilSettings.KEY_HIGHLIGHT_COLOR))
+            }
+            isDither = true
+            setShadowLayer(
+                /* radius = */ resources.getDimension(R.dimen.shadow_text),
+                /* dx = */ resources.getDimension(R.dimen.shadow_text),
+                /* dy = */ resources.getDimension(R.dimen.shadow_text),
+                /* shadowColor = */ ContextCompat.getColor(context, R.color.colorShadow)
+            )
+        }
     }
 
-    private void setupPaints() {
-        mPaintIcons = new Paint();
-        mPaintIcons.setAntiAlias(true);
-        mPaintIcons.setStyle(Paint.Style.FILL);
-        mPaintIcons.setFilterBitmap(true);
-        mPaintIcons.setDither(true);
-
-        mPaintCircles = new Paint();
-        mPaintCircles.setAntiAlias(true);
-        mPaintCircles.setStyle(Paint.Style.FILL);
-        mPaintCircles.setColor(ContextCompat.getColor(getContext(), R.color.colorCircles));
-
-        mPaintTouchSelection = new Paint();
-        mPaintTouchSelection.setAntiAlias(true);
-        mPaintTouchSelection.setStyle(Paint.Style.STROKE);
-        mPaintTouchSelection.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
-        mPaintTouchSelection.setStrokeWidth(getResources().getDimension(R.dimen.stroke_width_touch_selection));
-
-        mPaintText = new Paint();
-        mPaintText.setAntiAlias(true);
-        mPaintText.setStyle(Paint.Style.FILL);
-        mPaintText.setColor(ContextCompat.getColor(getContext(), R.color.colorWhite));
-        mPaintText.setTextSize(getResources().getDimension(R.dimen.text_size_lens));
-        mPaintText.setTextAlign(Paint.Align.CENTER);
-        mPaintText.setTypeface(Typeface.createFromAsset(getContext().getAssets(), "fonts/RobotoCondensed-Regular.ttf"));
-
-        mPaintNewAppTag = new Paint();
-        mPaintNewAppTag.setAntiAlias(true);
-        mPaintNewAppTag.setStyle(Paint.Style.FILL);
-        mPaintNewAppTag.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
-        mPaintNewAppTag.setDither(true);
-        mPaintNewAppTag.setShadowLayer(getResources().getDimension(R.dimen.shadow_text),
-                getResources().getDimension(R.dimen.shadow_text),
-                getResources().getDimension(R.dimen.shadow_text),
-                ContextCompat.getColor(getContext(), R.color.colorShadow));
-    }
-
-    @Override
-    protected void onDraw(Canvas canvas) {
-        super.onDraw(canvas);
+    override fun onDraw(canvas: Canvas) {
+        super.onDraw(canvas)
         if (mDrawType == DrawType.APPS) {
-            if (mUtilSettings.getString(UtilSettings.KEY_BACKGROUND).equals("Color")) {
-                canvas.drawColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_BACKGROUND_COLOR)));
-            }
-            mPaintNewAppTag.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
-            drawWorkspaceBackground(canvas);
-            if (mApps != null) {
-                drawGrid(canvas, mApps.size());
-            }
-            if (mUtilSettings.getBoolean(UtilSettings.KEY_SHOW_TOUCH_SELECTION)) {
-                drawTouchSelection(canvas);
+            mUtilSettings?.let { us ->
+                if (us.getString(UtilSettings.KEY_BACKGROUND) == "Color") {
+                    canvas.drawColor(Color.parseColor(us.getString(UtilSettings.KEY_BACKGROUND_COLOR)))
+                }
+                mPaintNewAppTag?.color =
+                    Color.parseColor(us.getString(UtilSettings.KEY_HIGHLIGHT_COLOR))
+                drawWorkspaceBackground(canvas)
+                mApps?.let {
+                    drawGrid(canvas, it.size)
+                }
+                if (us.getBoolean(UtilSettings.KEY_SHOW_TOUCH_SELECTION)) {
+                    drawTouchSelection(canvas)
+                }
             }
         } else if (mDrawType == DrawType.CIRCLES) {
-            int mNumberOfCircles = 100;
-            mTouchX = getWidth() / 2;
-            mTouchY = getHeight() / 2;
-            drawGrid(canvas, mNumberOfCircles);
+            val mNumberOfCircles = 100
+            mTouchX = (width / 2).toFloat()
+            mTouchY = (height / 2).toFloat()
+            drawGrid(
+                canvas = canvas,
+                itemCount = mNumberOfCircles
+            )
         }
     }
 
     @SuppressLint("ClickableViewAccessibility")
-    @Override
-    public boolean onTouchEvent(MotionEvent event) {
-        if (mDrawType == DrawType.APPS) {
-            switch (event.getActionMasked()) {
-                case MotionEvent.ACTION_DOWN: {
-                    if (event.getX() < 0.0f) {
-                        mTouchX = 0.0f;
+    override fun onTouchEvent(event: MotionEvent): Boolean {
+        return if (mDrawType == DrawType.APPS) {
+            when (event.actionMasked) {
+                MotionEvent.ACTION_DOWN -> {
+                    mTouchX = if (event.x < 0.0f) {
+                        0.0f
                     } else {
-                        mTouchX = event.getX();
+                        event.x
                     }
-                    if (event.getY() < 0.0f) {
-                        mTouchY = 0.0f;
+                    mTouchY = if (event.y < 0.0f) {
+                        0.0f
                     } else {
-                        mTouchY = event.getY();
+                        event.y
                     }
-                    mSelectIndex = -1;
-                    mMoving = false;
-                    invalidate();
-                    return true;
+                    mSelectIndex = -1
+                    mMoving = false
+                    invalidate()
+                    true
                 }
-                case MotionEvent.ACTION_MOVE: {
-                    if (!mMoving && Math.sqrt(Math.pow(event.getX() - mTouchX, 2) + Math.pow(event.getY() - mTouchY, 2)) > mTouchSlop) {
-                        mMoving = true;
-                        LensAnimation lensShowAnimation = new LensAnimation(true);
-                        startAnimation(lensShowAnimation);
+                MotionEvent.ACTION_MOVE -> {
+                    if (!mMoving && sqrt(
+                            (event.x - mTouchX).toDouble().pow(2.0) + (event.y - mTouchY).toDouble()
+                                .pow(2.0)
+                        ) > mTouchSlop
+                    ) {
+                        mMoving = true
+                        val lensShowAnimation = LensAnimation(true)
+                        startAnimation(lensShowAnimation)
                     }
-
                     if (!mMoving) {
-                        return true;
+                        return true
                     }
-
-                    if (event.getX() < 0.0f) {
-                        mTouchX = 0.0f;
+                    mTouchX = if (event.x < 0.0f) {
+                        0.0f
                     } else {
-                        mTouchX = event.getX();
+                        event.x
                     }
-                    if (event.getY() < 0.0f) {
-                        mTouchY = 0.0f;
+                    mTouchY = if (event.y < 0.0f) {
+                        0.0f
                     } else {
-                        mTouchY = event.getY();
+                        event.y
                     }
-                    invalidate();
-                    return true;
+                    invalidate()
+                    true
                 }
-                case MotionEvent.ACTION_UP: {
-                    performLaunchVibration();
+                MotionEvent.ACTION_UP -> {
+                    performLaunchVibration()
                     if (mMoving) {
-                        LensAnimation lensHideAnimation = new LensAnimation(false);
-                        startAnimation(lensHideAnimation);
-                        mMoving = false;
+                        val lensHideAnimation = LensAnimation(false)
+                        startAnimation(lensHideAnimation)
+                        mMoving = false
                     } else {
-                        launchApp();
+                        launchApp()
                     }
-                    return true;
+                    true
                 }
-                default: {
-                    return super.onTouchEvent(event);
+                else -> {
+                    super.onTouchEvent(event)
                 }
             }
+        } else super.onTouchEvent(event)
+    }
+
+    private fun drawWorkspaceBackground(canvas: Canvas) {
+        val rect = Rect(/* left = */ 0, /* top = */ 0, /* right = */ width, /* bottom = */ height)
+        mWorkspaceBackgroundDrawable?.apply {
+            bounds = rect
+            draw(canvas)
         }
-        return super.onTouchEvent(event);
     }
 
-    private void drawWorkspaceBackground(Canvas canvas) {
-        Rect rect = new Rect(0, 0, getWidth(), getHeight());
-        mWorkspaceBackgroundDrawable.setBounds(rect);
-        mWorkspaceBackgroundDrawable.draw(canvas);
+    private fun drawTouchSelection(canvas: Canvas) {
+        mPaintTouchSelection?.let {
+            canvas.drawCircle(
+                /* cx = */ mTouchX,
+                /* cy = */ mTouchY,
+                /* radius = */ resources.getDimension(R.dimen.radius_touch_selection),
+                /* paint = */ it
+            )
+        }
     }
 
-    private void drawTouchSelection(Canvas canvas) {
-        canvas.drawCircle(mTouchX, mTouchY, getResources().getDimension(R.dimen.radius_touch_selection), mPaintTouchSelection);
-    }
-
-    private void drawGrid(Canvas canvas, int itemCount) {
-        Grid grid = UtilLensCalculator.calculateGrid(
-                getContext(),
-                getWidth() - (mInsets.left + mInsets.right),
-                getHeight() - (mInsets.top + mInsets.bottom),
-                itemCount);
-        mInsideRect = false;
-        int selectIndex = -1;
-        mRectToSelect = null;
-
-        for (float y = 0.0f; y < (float) grid.getItemCountVertical(); y += 1.0f) {
-            for (float x = 0.0f; x < (float) grid.getItemCountHorizontal(); x += 1.0f) {
-
-                int currentItem = (int) (y * ((float) grid.getItemCountHorizontal()) + (x + 1.0f));
-                int currentIndex = currentItem - 1;
-
-                if (currentItem <= grid.getItemCount() || mDrawType == DrawType.CIRCLES) {
-                    RectF rect = new RectF();
-                    rect.left = mInsets.left + (x + 1.0f) * grid.getSpacingHorizontal() + x * grid.getItemSize();
-                    rect.top = mInsets.top + (y + 1.0f) * grid.getSpacingVertical() + y * grid.getItemSize();
-                    rect.right = rect.left + grid.getItemSize();
-                    rect.bottom = rect.top + grid.getItemSize();
-
-                    float animationMultiplier;
-                    if (mDrawType == DrawType.APPS) {
-                        animationMultiplier = mAnimationMultiplier;
+    private fun drawGrid(canvas: Canvas, itemCount: Int) {
+        val grid = UtilLensCalculator.calculateGrid(
+            /* context = */ context,
+            /* screenWidth = */ width - (mInsets.left + mInsets.right),
+            /* screenHeight = */ height - (mInsets.top + mInsets.bottom),
+            /* itemCount = */ itemCount
+        )
+        mInsideRect = false
+        var selectIndex = -1
+        mRectToSelect = null
+        var y = 0.0f
+        while (y < grid.itemCountVertical.toFloat()) {
+            var x = 0.0f
+            while (x < grid.itemCountHorizontal.toFloat()) {
+                val currentItem = (y * grid.itemCountHorizontal.toFloat() + (x + 1.0f)).toInt()
+                val currentIndex = currentItem - 1
+                if (currentItem <= grid.itemCount || mDrawType == DrawType.CIRCLES) {
+                    var rect = RectF()
+                    rect.left =
+                        mInsets.left + (x + 1.0f) * grid.spacingHorizontal + x * grid.itemSize
+                    rect.top = mInsets.top + (y + 1.0f) * grid.spacingVertical + y * grid.itemSize
+                    rect.right = rect.left + grid.itemSize
+                    rect.bottom = rect.top + grid.itemSize
+                    val animationMultiplier: Float = if (mDrawType == DrawType.APPS) {
+                        mAnimationMultiplier
                     } else {
-                        animationMultiplier = 1.0f;
+                        1.0f
                     }
-
                     if (mTouchX >= 0 && mTouchY >= 0) {
-                        float shiftedCenterX = UtilLensCalculator.shiftPoint(getContext(), mTouchX, rect.centerX(), getWidth(), animationMultiplier);
-                        float shiftedCenterY = UtilLensCalculator.shiftPoint(getContext(), mTouchY, rect.centerY(), getHeight(), animationMultiplier);
-                        float scaledCenterX = UtilLensCalculator.scalePoint(getContext(), mTouchX, rect.centerX(), rect.width(), getWidth(), animationMultiplier);
-                        float scaledCenterY = UtilLensCalculator.scalePoint(getContext(), mTouchY, rect.centerY(), rect.height(), getHeight(), animationMultiplier);
-                        float newSize = UtilLensCalculator.calculateSquareScaledSize(scaledCenterX, shiftedCenterX, scaledCenterY, shiftedCenterY);
-
-                        if (mUtilSettings.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) > 0.0f && mUtilSettings.getFloat(UtilSettings.KEY_SCALE_FACTOR) > 0.0f) {
-                            rect = UtilLensCalculator.calculateRect(shiftedCenterX, shiftedCenterY, newSize);
-                        } else if (mUtilSettings.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) > 0.0f && mUtilSettings.getFloat(UtilSettings.KEY_SCALE_FACTOR) == 0.0f) {
-                            rect = UtilLensCalculator.calculateRect(shiftedCenterX, shiftedCenterY, rect.width());
+                        val shiftedCenterX = UtilLensCalculator.shiftPoint(
+                            /* context = */ context,
+                            /* lensPosition = */ mTouchX,
+                            /* itemPosition = */ rect.centerX(),
+                            /* boundary = */ width.toFloat(),
+                            /* multiplier = */ animationMultiplier
+                        )
+                        val shiftedCenterY = UtilLensCalculator.shiftPoint(
+                            /* context = */ context,
+                            /* lensPosition = */ mTouchY,
+                            /* itemPosition = */ rect.centerY(),
+                            /* boundary = */ height.toFloat(),
+                            /* multiplier = */ animationMultiplier
+                        )
+                        val scaledCenterX = UtilLensCalculator.scalePoint(
+                            /* context = */ context,
+                            /* lensPosition = */ mTouchX,
+                            /* itemPosition = */ rect.centerX(),
+                            /* itemSize = */ rect.width(),
+                            /* boundary = */ width.toFloat(),
+                            /* multiplier = */ animationMultiplier
+                        )
+                        val scaledCenterY = UtilLensCalculator.scalePoint(
+                            /* context = */ context,
+                            /* lensPosition = */ mTouchY,
+                            /* itemPosition = */ rect.centerY(),
+                            /* itemSize = */ rect.height(),
+                            /* boundary = */ height.toFloat(),
+                            /* multiplier = */ animationMultiplier
+                        )
+                        val newSize = UtilLensCalculator.calculateSquareScaledSize(
+                            /* scaledPositionX = */ scaledCenterX,
+                            /* shiftedPositionX = */ shiftedCenterX,
+                            /* scaledPositionY = */ scaledCenterY,
+                            /* shiftedPositionY = */ shiftedCenterY
+                        )
+                        mUtilSettings?.let { us ->
+                            if (us.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) > 0.0f
+                                && us.getFloat(UtilSettings.KEY_SCALE_FACTOR) > 0.0f
+                            ) {
+                                rect = UtilLensCalculator.calculateRect(
+                                    /* newCenterX = */ shiftedCenterX,
+                                    /* newCenterY = */ shiftedCenterY,
+                                    /* newSize = */ newSize
+                                )
+                            } else if (us.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) > 0.0f
+                                && us.getFloat(UtilSettings.KEY_SCALE_FACTOR) == 0.0f
+                            ) {
+                                rect = UtilLensCalculator.calculateRect(
+                                    /* newCenterX = */ shiftedCenterX,
+                                    /* newCenterY = */ shiftedCenterY,
+                                    /* newSize = */ rect.width()
+                                )
+                            }
                         }
 
-                        if (UtilLensCalculator.isInsideRect(mTouchX, mTouchY, rect)) {
-                            mInsideRect = true;
-                            selectIndex = currentIndex;
-                            mRectToSelect = rect;
+                        if (UtilLensCalculator.isInsideRect(
+                                /* x = */ mTouchX,
+                                /* y = */ mTouchY,
+                                /* rect = */ rect
+                            )
+                        ) {
+                            mInsideRect = true
+                            selectIndex = currentIndex
+                            mRectToSelect = rect
                         }
                     }
-
                     if (mDrawType == DrawType.APPS) {
-                        drawAppIcon(canvas, rect, currentIndex);
+                        drawAppIcon(
+                            canvas = canvas,
+                            rect = rect,
+                            index = currentIndex
+                        )
                     } else if (mDrawType == DrawType.CIRCLES) {
-                        drawCircle(canvas, rect);
+                        drawCircle(
+                            canvas = canvas,
+                            rect = rect
+                        )
+                    }
+                }
+                x += 1.0f
+            }
+            y += 1.0f
+        }
+        mMustVibrate = if (selectIndex >= 0) {
+            selectIndex != mSelectIndex
+        } else {
+            false
+        }
+        if (!mAnimationHiding) {
+            mSelectIndex = selectIndex
+        }
+        if (mDrawType == DrawType.APPS) {
+            performHoverVibration()
+        }
+        if (mRectToSelect != null && mDrawType == DrawType.APPS && mApps != null && mSelectIndex >= 0) {
+            drawAppName(
+                canvas = canvas,
+                rect = mRectToSelect
+            )
+        }
+    }
+
+    private fun drawAppIcon(
+        canvas: Canvas,
+        rect: RectF,
+        index: Int
+    ) {
+        mAppIcons?.let { list ->
+            if (index < list.size) {
+                val appIcon = list[index]
+                val src = Rect(
+                    /* left = */ 0,
+                    /* top = */ 0,
+                    /* right = */ appIcon.width,
+                    /* bottom = */ appIcon.height
+                )
+                canvas.drawBitmap(
+                    /* bitmap = */ appIcon,
+                    /* src = */ src,
+                    /* dst = */ rect,
+                    /* paint = */ mPaintIcons
+                )
+                mApps?.let { l ->
+                    if (l[index].installDate >= System.currentTimeMillis() - UtilSettings.SHOW_NEW_APP_TAG_DURATION
+                        &&
+                        AppPersistent.getAppOpenCount(
+                            Objects.requireNonNull(l[index].packageName).toString(),
+                            Objects.requireNonNull(l[index].name).toString()
+                        ) == 0L
+                    ) {
+                        drawNewAppTag(
+                            canvas = canvas,
+                            rect = rect
+                        )
                     }
                 }
             }
         }
+    }
 
-        if (selectIndex >= 0) {
-            mMustVibrate = selectIndex != mSelectIndex;
-        } else {
-            mMustVibrate = false;
-        }
-
-        if (!mAnimationHiding) {
-            mSelectIndex = selectIndex;
-        }
-
-        if (mDrawType == DrawType.APPS) {
-            performHoverVibration();
-        }
-
-        if (mRectToSelect != null && mDrawType == DrawType.APPS && mApps != null && mSelectIndex >= 0) {
-            drawAppName(canvas, mRectToSelect);
+    private fun drawCircle(
+        canvas: Canvas,
+        rect: RectF
+    ) {
+        mPaintCircles?.let {
+            canvas.drawCircle(
+                /* cx = */ rect.centerX(),
+                /* cy = */ rect.centerY(),
+                /* radius = */ rect.width() / 2.0f,
+                /* paint = */ it
+            )
         }
     }
 
-    private void drawAppIcon(Canvas canvas, RectF rect, int index) {
-        if (index < mAppIcons.size()) {
-            Bitmap appIcon = mAppIcons.get(index);
-            Rect src = new Rect(0, 0, appIcon.getWidth(), appIcon.getHeight());
-            canvas.drawBitmap(appIcon, src, rect, mPaintIcons);
-
-            if ((mApps.get(index).getInstallDate() >= (System.currentTimeMillis() - UtilSettings.SHOW_NEW_APP_TAG_DURATION)
-                    && (AppPersistent.getAppOpenCount(
-                    Objects.requireNonNull(mApps.get(index).getPackageName()).toString(), Objects.requireNonNull(mApps.get(index).getName()).toString()) == 0))) {
-                drawNewAppTag(canvas, rect);
+    private fun drawAppName(
+        canvas: Canvas,
+        rect: RectF?
+    ) {
+        mUtilSettings?.let { us ->
+            if (us.getBoolean(UtilSettings.KEY_SHOW_NAME_APP_HOVER) && mMoving) {
+                mApps?.let { list ->
+                    rect?.let { r ->
+                        mPaintText?.let { p ->
+                            canvas.drawText(
+                                /* text = */ list[mSelectIndex].label as String,
+                                /* x = */ r.centerX(),
+                                /* y = */ r.top - resources.getDimension(R.dimen.margin_lens_text),
+                                /* paint = */ p
+                            )
+                        }
+                    }
+                }
             }
         }
     }
 
-    private void drawCircle(Canvas canvas, RectF rect) {
-        canvas.drawCircle(rect.centerX(), rect.centerY(), rect.width() / 2.0f, mPaintCircles);
-    }
-
-    private void drawAppName(Canvas canvas, RectF rect) {
-        if (mUtilSettings.getBoolean(UtilSettings.KEY_SHOW_NAME_APP_HOVER) && mMoving) {
-            canvas.drawText((String) mApps.get(mSelectIndex).getLabel(),
-                    rect.centerX(),
-                    rect.top - getResources().getDimension(R.dimen.margin_lens_text),
-                    mPaintText);
+    private fun drawNewAppTag(
+        canvas: Canvas,
+        rect: RectF
+    ) {
+        mUtilSettings?.let { us ->
+            if (us.getBoolean(UtilSettings.KEY_SHOW_NEW_APP_TAG)) {
+                mPaintNewAppTag?.let { p ->
+                    canvas.drawCircle(
+                        /* cx = */ rect.centerX(),
+                        /* cy = */ rect.bottom + resources.getDimension(R.dimen.margin_new_app_tag),
+                        /* radius = */ resources.getDimension(R.dimen.radius_new_app_tag),
+                        /* paint = */ p
+                    )
+                }
+            }
         }
     }
 
-    private void drawNewAppTag(Canvas canvas, RectF rect) {
-        if (mUtilSettings.getBoolean(UtilSettings.KEY_SHOW_NEW_APP_TAG)) {
-            canvas.drawCircle(rect.centerX(),
-                    rect.bottom + getResources().getDimension(R.dimen.margin_new_app_tag),
-                    getResources().getDimension(R.dimen.radius_new_app_tag),
-                    mPaintNewAppTag);
-        }
-    }
-
-    private void performHoverVibration() {
+    private fun performHoverVibration() {
         if (mInsideRect) {
             if (mMustVibrate) {
-                if (mUtilSettings.getBoolean(UtilSettings.KEY_VIBRATE_APP_HOVER) && !mAnimationHiding) {
-                    performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+                mUtilSettings?.let { us ->
+                    if (us.getBoolean(UtilSettings.KEY_VIBRATE_APP_HOVER)
+                        && !mAnimationHiding
+                    ) {
+                        performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
+                    }
                 }
-                mMustVibrate = false;
+                mMustVibrate = false
             }
         } else {
-            mMustVibrate = true;
+            mMustVibrate = true
         }
     }
 
-    private void performLaunchVibration() {
+    private fun performLaunchVibration() {
         if (mInsideRect) {
-            if (mUtilSettings.getBoolean(UtilSettings.KEY_VIBRATE_APP_LAUNCH)) {
-                performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY);
+            if (mUtilSettings?.getBoolean(UtilSettings.KEY_VIBRATE_APP_LAUNCH) == true) {
+                performHapticFeedback(HapticFeedbackConstants.VIRTUAL_KEY)
             }
         }
     }
 
-    private void launchApp() {
-        if (mPackageManager != null && mApps != null && mSelectIndex >= 0) {
-            UtilApp.launchComponent(
-                    getContext(),
-                    (String) mApps.get(mSelectIndex).getPackageName(),
-                    (String) mApps.get(mSelectIndex).getName(),
-                    this,
-                    mRectToSelect == null ? null :
-                            new Rect((int) mRectToSelect.left, (int) mRectToSelect.top,
-                                    (int) mRectToSelect.right, (int) mRectToSelect.bottom));
+    private fun launchApp() {
+        mApps?.let { list ->
+            if (mPackageManager != null && mSelectIndex >= 0) {
+                val bounds = if (mRectToSelect == null)
+                    null
+                else Rect(
+                    mRectToSelect!!.left.toInt(),
+                    mRectToSelect!!.top.toInt(),
+                    mRectToSelect!!.right.toInt(),
+                    mRectToSelect!!.bottom.toInt()
+                )
+                UtilApp.launchComponent(
+                    /* context = */ context,
+                    /* packageName = */ list[mSelectIndex].packageName as String?,
+                    /* name = */ list[mSelectIndex].name as String?,
+                    /* view = */ this,
+                    /* bounds = */ bounds
+                )
+            }
         }
     }
 
-    private class LensAnimation extends Animation {
-
-        private final boolean mShow;
-
-        public LensAnimation(boolean show) {
-            mShow = show;
-            setInterpolator(new AccelerateDecelerateInterpolator());
-            setDuration(mUtilSettings.getLong(UtilSettings.KEY_ANIMATION_TIME));
-            setAnimationListener(new AnimationListener() {
-                @Override
-                public void onAnimationStart(Animation animation) {
+    private inner class LensAnimation(private val mShow: Boolean) : Animation() {
+        init {
+            interpolator = AccelerateDecelerateInterpolator()
+            mUtilSettings?.let {
+                duration = it.getLong(UtilSettings.KEY_ANIMATION_TIME)
+            }
+            setAnimationListener(object : AnimationListener {
+                override fun onAnimationStart(animation: Animation) {
                     if (!mShow) {
-                        mAnimationHiding = true;
-                        mPaintText.clearShadowLayer();
+                        mAnimationHiding = true
+                        mPaintText?.clearShadowLayer()
                     } else {
-                        mAnimationHiding = false;
+                        mAnimationHiding = false
                     }
                 }
 
-                @Override
-                public void onAnimationEnd(Animation animation) {
+                override fun onAnimationEnd(animation: Animation) {
                     if (!mShow) {
-                        launchApp();
-                        mTouchX = -Float.MAX_VALUE;
-                        mTouchY = -Float.MAX_VALUE;
-                        mAnimationHiding = false;
+                        launchApp()
+                        mTouchX = -Float.MAX_VALUE
+                        mTouchY = -Float.MAX_VALUE
+                        mAnimationHiding = false
                     } else {
-                        mPaintText.setShadowLayer(
-                                getResources().getDimension(R.dimen.shadow_text),
-                                getResources().getDimension(R.dimen.shadow_text),
-                                getResources().getDimension(R.dimen.shadow_text),
-                                ContextCompat.getColor(getContext(), R.color.colorShadow));
+                        mPaintText?.setShadowLayer(
+                            /* radius = */ resources.getDimension(R.dimen.shadow_text),
+                            /* dx = */ resources.getDimension(R.dimen.shadow_text),
+                            /* dy = */ resources.getDimension(R.dimen.shadow_text),
+                            /* shadowColor = */ ContextCompat.getColor(context, R.color.colorShadow)
+                        )
                     }
                 }
 
-                @Override
-                public void onAnimationRepeat(Animation animation) {
-                }
-            });
+                override fun onAnimationRepeat(animation: Animation) {}
+            })
         }
 
-        @Override
-        protected void applyTransformation(float interpolatedTime, Transformation t) {
-            super.applyTransformation(interpolatedTime, t);
+        override fun applyTransformation(interpolatedTime: Float, t: Transformation) {
+            super.applyTransformation(interpolatedTime, t)
             if (mShow) {
-                mAnimationMultiplier = interpolatedTime;
-                mPaintTouchSelection.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
-                mPaintTouchSelection.setAlpha((int) (255.0f * interpolatedTime));
-                mPaintText.setAlpha((int) (255.0f * interpolatedTime));
+                mAnimationMultiplier = interpolatedTime
+                mUtilSettings?.let { us ->
+                    mPaintTouchSelection?.color =
+                        Color.parseColor(us.getString(UtilSettings.KEY_HIGHLIGHT_COLOR))
+                }
+                mPaintTouchSelection?.alpha = (255.0f * interpolatedTime).toInt()
+                mPaintText?.alpha = (255.0f * interpolatedTime).toInt()
             } else {
-                mAnimationMultiplier = 1.0f - interpolatedTime;
-                mPaintTouchSelection.setColor(Color.parseColor(mUtilSettings.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)));
-                mPaintTouchSelection.setAlpha((int) (255.0f * (1.0f - interpolatedTime)));
-                mPaintText.setAlpha((int) (255.0f * (1.0f - interpolatedTime)));
+                mAnimationMultiplier = 1.0f - interpolatedTime
+                mUtilSettings?.let { us ->
+                    mPaintTouchSelection?.color =
+                        Color.parseColor(us.getString(UtilSettings.KEY_HIGHLIGHT_COLOR))
+                }
+                mPaintTouchSelection?.alpha = (255.0f * (1.0f - interpolatedTime)).toInt()
+                mPaintText?.alpha = (255.0f * (1.0f - interpolatedTime)).toInt()
             }
-            postInvalidate();
+            postInvalidate()
         }
     }
 }

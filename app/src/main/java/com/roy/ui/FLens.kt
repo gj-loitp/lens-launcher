@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.fragment.app.Fragment
 import com.roy.R
+import com.roy.enum.DrawType
 import com.roy.itf.LensInterface
 import com.roy.util.UtilSettings
 import com.roy.views.LensView
@@ -90,7 +91,7 @@ class FLens : Fragment(), LensInterface {
         view.findViewById<View>(R.id.rlSbScaleFactorParent).setOnClickListener { }
         view.findViewById<View>(R.id.rlSbAnimationTimeParent).setOnClickListener { }
 
-        lensViewsSettings?.setDrawType(LensView.DrawType.CIRCLES)
+        lensViewsSettings?.setDrawType(DrawType.CIRCLES)
 
         sbMinIconSize?.let { sb ->
             sb.max = UtilSettings.MAX_ICON_SIZE
