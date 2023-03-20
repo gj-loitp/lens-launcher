@@ -1,32 +1,27 @@
-package com.roy.util;
+package com.roy.util
 
-import androidx.appcompat.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.appcompat.app.AppCompatDelegate.NightMode
 
-public class UtilNightModeUtil {
-
-    public static String getNightModeDisplayName(@AppCompatDelegate.NightMode int nightMode) {
-        switch (nightMode) {
-            case AppCompatDelegate.MODE_NIGHT_NO:
-                return "Light";
-            case AppCompatDelegate.MODE_NIGHT_YES:
-                return "Dark";
-            case AppCompatDelegate.MODE_NIGHT_AUTO:
-                return "Auto";
-            default:
-                return "Follow System";
+object UtilNightModeUtil {
+    @JvmStatic
+    fun getNightModeDisplayName(@NightMode nightMode: Int): String {
+        return when (nightMode) {
+            AppCompatDelegate.MODE_NIGHT_NO -> "Light"
+            AppCompatDelegate.MODE_NIGHT_YES -> "Dark"
+            AppCompatDelegate.MODE_NIGHT_AUTO -> "Auto"
+            else -> "Follow System"
         }
     }
 
-    public static @AppCompatDelegate.NightMode int getNightModeFromDisplayName(String displayName) {
-        switch (displayName) {
-            case "Light":
-                return AppCompatDelegate.MODE_NIGHT_NO;
-            case "Dark":
-                return AppCompatDelegate.MODE_NIGHT_YES;
-            case "Auto":
-                return AppCompatDelegate.MODE_NIGHT_AUTO;
-            default:
-                return AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+    @JvmStatic
+    @NightMode
+    fun getNightModeFromDisplayName(displayName: String?): Int {
+        return when (displayName) {
+            "Light" -> AppCompatDelegate.MODE_NIGHT_NO
+            "Dark" -> AppCompatDelegate.MODE_NIGHT_YES
+            "Auto" -> AppCompatDelegate.MODE_NIGHT_AUTO
+            else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
         }
     }
 }
