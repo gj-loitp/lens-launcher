@@ -11,7 +11,6 @@ import java.util.Observer;
 
 //TODO keystore
 //TODO admob
-//TODO firebase
 //TODO lock/unlock app
 
 //done
@@ -19,7 +18,9 @@ import java.util.Observer;
 //setting search icon pack
 //check home default khi start launcher
 //dialog policy first
+//firebase
 
+//https://console.firebase.google.com/u/0/project/lenslauncher-25806/overview
 //2023.03.18 tried to convert to kotlin but failed
 public class MyApplication extends SugarApp implements Observer {
 
