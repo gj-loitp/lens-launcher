@@ -11,7 +11,7 @@ import com.roy.ui.AFakeLauncher;
 
 public class UtilLauncher {
 
-    public static boolean isLauncherDefault(Application application) {
+    public static boolean isDefaultLauncher(Application application) {
         final Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         final ResolveInfo res = application.getPackageManager().resolveActivity(intent, 0);
@@ -24,7 +24,7 @@ public class UtilLauncher {
         }
     }
 
-    public static String getHomeLauncherName(Application application) {
+    public static String getNameHomeLauncher(Application application) {
         final Intent intent = new Intent(Intent.ACTION_MAIN);
         intent.addCategory(Intent.CATEGORY_HOME);
         final ResolveInfo res = application.getPackageManager().resolveActivity(intent, 0);

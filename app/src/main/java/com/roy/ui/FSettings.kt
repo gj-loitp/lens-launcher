@@ -158,7 +158,7 @@ class FSettings : Fragment(), SettingsInterface {
             val highlightColor = "#" + us.getString(UtilSettings.KEY_HIGHLIGHT_COLOR).substring(3)
             var homeLauncher: String? = ""
             activity?.let {
-                homeLauncher = UtilLauncher.getHomeLauncherName(it.application)
+                homeLauncher = UtilLauncher.getNameHomeLauncher(it.application)
             }
             tvSelectedHomeLauncher?.text = homeLauncher
             tvSelectedNightMode?.text = UtilNightModeUtil.getNightModeDisplayName(us.nightMode)

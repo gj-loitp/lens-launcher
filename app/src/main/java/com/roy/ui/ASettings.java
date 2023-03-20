@@ -131,7 +131,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menuItemShowApps) {
-            if (UtilLauncher.isLauncherDefault(getApplication())) {
+            if (UtilLauncher.isDefaultLauncher(getApplication())) {
                 Intent homeIntent = new Intent(Intent.ACTION_MAIN);
                 homeIntent.addCategory(Intent.CATEGORY_HOME);
                 startActivity(homeIntent);
