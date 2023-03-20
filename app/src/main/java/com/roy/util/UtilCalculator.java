@@ -55,17 +55,17 @@ public class UtilCalculator {
     }
 
     // Algorithm for circular distance
-    public static double calculateDistance(float x1, float x2, float y1, float y2) {
-        return Math.sqrt(Math.pow((double) (x2 - x1), 2) + Math.pow((double) (y2 - y1), 2));
-    }
+//    public static double calculateDistance(float x1, float x2, float y1, float y2) {
+//        return Math.sqrt(Math.pow((double) (x2 - x1), 2) + Math.pow((double) (y2 - y1), 2));
+//    }
 
     // Algorithm for determining whether a rect is within a given lens (centered at touchX, touchY)
-    public static boolean isRectWithinLens(RectF rect, float touchX, float touchY, float lensDiameter) {
-        return rect.left >= touchX - lensDiameter / 2.0f &&
-                rect.right <= touchX + lensDiameter / 2.0f &&
-                rect.top >= touchY - lensDiameter / 2.0f &&
-                rect.bottom <= touchY + lensDiameter / 2.0f;
-    }
+//    public static boolean isRectWithinLens(RectF rect, float touchX, float touchY, float lensDiameter) {
+//        return rect.left >= touchX - lensDiameter / 2.0f &&
+//                rect.right <= touchX + lensDiameter / 2.0f &&
+//                rect.top >= touchY - lensDiameter / 2.0f &&
+//                rect.bottom <= touchY + lensDiameter / 2.0f;
+//    }
 
     // Graphical Fisheye Lens algorithm for shifting
     public static float shiftPoint(Context context, float lensPosition, float itemPosition, float boundary, float multiplier) {
@@ -131,9 +131,9 @@ public class UtilCalculator {
     }
 
     // Algorithm for converting pixels to dp measurements
-    public static float convertPixelsToDp(float px, Context context) {
-        Resources resources = context.getResources();
-        DisplayMetrics metrics = resources.getDisplayMetrics();
-        return px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
-    }
+//    public static float convertPixelsToDp(float px, Context context) {
+//        Resources resources = context.getResources();
+//        DisplayMetrics metrics = resources.getDisplayMetrics();
+//        return px / ((float) metrics.densityDpi / DisplayMetrics.DENSITY_DEFAULT);
+//    }
 }
