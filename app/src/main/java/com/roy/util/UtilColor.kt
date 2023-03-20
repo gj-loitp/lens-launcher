@@ -1,50 +1,53 @@
-package com.roy.util;
+package com.roy.util
 
-import android.graphics.Bitmap;
-import android.graphics.Color;
-import androidx.annotation.ColorInt;
-import androidx.palette.graphics.Palette;
+import android.graphics.Bitmap
+import android.graphics.Color
+import androidx.annotation.ColorInt
+import androidx.palette.graphics.Palette
+import com.roy.model.App
 
-import com.roy.model.App;
-
-/**
- * Created by nicholasrout on 2016/05/28.
- */
-public class UtilColor {
-
-    public static @ColorInt int getPaletteColorFromApp(App app) {
-        return getPaletteColorFromBitmap(app.getIcon());
+object UtilColor {
+    @ColorInt
+    fun getPaletteColorFromApp(app: App): Int {
+        return getPaletteColorFromBitmap(app.icon)
     }
 
-    public static @ColorInt int getPaletteColorFromBitmap(Bitmap bitmap) {
-        Palette palette;
-        try {
-            palette = Palette.from(bitmap).generate();
-        } catch (IllegalArgumentException e) {
-            e.printStackTrace();
-            return Color.BLACK;
+    @JvmStatic
+    @ColorInt
+    fun getPaletteColorFromBitmap(bitmap: Bitmap?): Int {
+
+        val palette: Palette = try {
+            Palette.from(bitmap!!).generate()
+        } catch (e: IllegalArgumentException) {
+            e.printStackTrace()
+            return Color.BLACK
         }
-        if (palette.getSwatches().size() > 0) {
-            int swatchIndex = 0;
-            for (int i = 1; i < palette.getSwatches().size(); i++) {
-                if (palette.getSwatches().get(i).getPopulation()
-                        > palette.getSwatches().get(swatchIndex).getPopulation()) {
-                    swatchIndex = i;
+
+        return if (palette.swatches.size > 0) {
+            var swatchIndex = 0
+            for (i in 1 until palette.swatches.size) {
+                if (palette.swatches[i].population > palette.swatches[swatchIndex].population) {
+                    swatchIndex = i
                 }
             }
-            return palette.getSwatches().get(swatchIndex).getRgb();
+            palette.swatches[swatchIndex].rgb
         } else {
-            return Color.BLACK;
+            Color.BLACK
         }
     }
 
-    public static float getHueColorFromApp(App app) {
-        return getHueColorFromColor(app.getPaletteColor());
+    @JvmStatic
+    fun getHueColorFromApp(app: App): Float {
+        return getHueColorFromColor(app.paletteColor)
     }
 
-    public static float getHueColorFromColor(@ColorInt int color) {
-        float[] hsvValues = new float[3];
-        Color.colorToHSV(color, hsvValues);
-        return hsvValues[0];
+    @JvmStatic
+    fun getHueColorFromColor(@ColorInt color: Int): Float {
+        val hsvValues = FloatArray(3)
+        Color.colorToHSV(
+            /* color = */ color,
+            /* hsv = */ hsvValues
+        )
+        return hsvValues[0]
     }
 }
