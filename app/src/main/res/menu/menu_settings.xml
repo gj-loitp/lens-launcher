@@ -19,26 +19,26 @@
         app:showAsAction="never" />
     <item
         android:id="@+id/menuRateApp"
-        android:title="Rate app"
+        android:title="@string/rate_app"
         app:showAsAction="never" />
     <item
         android:id="@+id/menuMoreApp"
-        android:title="More app"
+        android:title="@string/more_app"
         app:showAsAction="never" />
     <item
         android:id="@+id/menuShareApp"
-        android:title="Share app"
+        android:title="@string/share_app"
         app:showAsAction="never" />
     <item
         android:id="@+id/menuFacebookFanPage"
-        android:title="Facebook fan page"
+        android:title="@string/facebook_fan_page"
         app:showAsAction="never" />
     <item
-        android:id="@+id/menuWhyAds"
-        android:title="Why ad???"
+        android:id="@+id/menuFeedback"
+        android:title="@string/feedback"
         app:showAsAction="never" />
     <item
         android:id="@+id/menuPolicy"
-        android:title="Policy"
+        android:title="@string/terms_and_privacy_policy"
         app:showAsAction="never" />
 </menu>

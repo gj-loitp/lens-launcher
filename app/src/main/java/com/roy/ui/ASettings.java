@@ -171,6 +171,18 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
             }
             Snackbar.make(toolbar, getString(R.string.snackbar_reset_successful), Snackbar.LENGTH_LONG).show();
             return true;
+        } else if (id == R.id.menuRateApp) {
+            return true;
+        } else if (id == R.id.menuMoreApp) {
+            return true;
+        } else if (id == R.id.menuShareApp) {
+            return true;
+        } else if (id == R.id.menuFacebookFanPage) {
+            return true;
+        } else if (id == R.id.menuPolicy) {
+            return true;
+        } else if (id == R.id.menuFeedback) {
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
