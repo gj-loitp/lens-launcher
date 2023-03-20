@@ -1,0 +1,20 @@
+{
+  "version": 3,
+  "artifactType": {
+    "type": "APK",
+    "kind": "Directory"
+  },
+  "applicationId": "com.roy93group.lenslauncher",
+  "variantName": "productionRelease",
+  "elements": [
+    {
+      "type": "SINGLE",
+      "filters": [],
+      "attributes": [],
+      "versionCode": 20230320,
+      "versionName": "2023.03.20",
+      "outputFile": "com.roy93group.lenslauncherrelease_2023.03.20_20230320.apk"
+    }
+  ],
+  "elementType": "File"
+}
