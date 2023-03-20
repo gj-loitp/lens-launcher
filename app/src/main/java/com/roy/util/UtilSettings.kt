@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.app.AppCompatDelegate.NightMode
 import androidx.preference.PreferenceManager
+import com.roy.BuildConfig
 import com.roy.enums.SortType
 
 class UtilSettings(private val mContext: Context) {
@@ -55,6 +56,8 @@ class UtilSettings(private val mContext: Context) {
         const val KEY_ICON_PACK_LABEL_NAME = "icon_pack_label_name"
         const val KEY_SORT_TYPE = "sort_type"
         const val KEY_NIGHT_MODE = "night_mode"
+
+        const val KEY_READ_POLICY = "KEY_READ_POLICY${BuildConfig.VERSION_CODE}"
     }
 
     private var mPrefs: SharedPreferences? = null

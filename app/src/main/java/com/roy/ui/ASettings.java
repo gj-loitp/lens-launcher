@@ -140,15 +140,20 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     protected void onResume() {
         super.onResume();
 
-        showDialog1(
-                this,
-                getString(R.string.terms_and_privacy_policy),
-                getString(R.string.read_policy),
-                getString(R.string.agree_and_continue),
-                () -> {
-
-                }
-        );
+        if (utilSettings != null) {
+            boolean hasRead = utilSettings.getBoolean(UtilSettings.KEY_READ_POLICY);
+            if (!hasRead) {
+                showDialog1(this,
+                        getString(R.string.terms_and_privacy_policy),
+                        getString(R.string.read_policy),
+                        getString(R.string.agree_and_continue),
+                        () -> {
+                            openUrlInBrowser(this, URL_POLICY_NOTION);
+                            utilSettings.save(UtilSettings.KEY_READ_POLICY, true);
+                        })
+                ;
+            }
+        }
     }
 
     private void launchApps() {

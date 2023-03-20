@@ -98,7 +98,7 @@ fun Context.showDialog1(
         onClickButton1?.run()
     }
     val dialog = builder.create()
-    dialog.setCancelable(false)
+    dialog.setCancelable(true)
     dialog.show()
     val color = ContextCompat.getColor(this, R.color.colorPrimary)
     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
