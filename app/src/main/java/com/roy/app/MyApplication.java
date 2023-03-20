@@ -14,11 +14,11 @@ import java.util.Observer;
 //TODO dialog policy first
 //TODO firebase
 //TODO lock/unlock app
-//TODO check home default khi start launcher
 
 //done
 //ic_launcher
 //setting search icon pack
+//check home default khi start launcher
 
 //2023.03.18 tried to convert to kotlin but failed
 public class MyApplication extends SugarApp implements Observer {

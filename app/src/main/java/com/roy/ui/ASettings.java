@@ -136,13 +136,16 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     }
 
     private void launchApps() {
-        if (UtilLauncher.isDefaultLauncher(getApplication())) {
+        boolean isDefaultLauncher = UtilLauncher.isDefaultLauncher(getApplication());
+        if (isDefaultLauncher) {
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
             homeIntent.addCategory(Intent.CATEGORY_HOME);
             startActivity(homeIntent);
         } else {
-            Intent homeIntent = new Intent(ASettings.this, AHome.class);
-            startActivity(homeIntent);
+//            Intent homeIntent = new Intent(ASettings.this, AHome.class);
+//            startActivity(homeIntent);
+
+            showHomeLauncherChooser();
         }
         overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
     }
