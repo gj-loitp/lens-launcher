@@ -4,7 +4,6 @@
 
     <item
         android:id="@+id/menuItemShowApps"
-        android:icon="@drawable/baseline_arrow_circle_right_24"
         android:title="@string/menu_title_show_apps"
         app:iconTint="@color/colorWhite"
         app:showAsAction="ifRoom" />
