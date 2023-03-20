@@ -57,7 +57,7 @@ class FLens : Fragment(), LensInterface {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.f_lens, container, false)
-        utilSettings = UtilSettings(activity)
+        utilSettings = UtilSettings(requireContext())
         return view
     }
 

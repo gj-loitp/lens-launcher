@@ -48,7 +48,7 @@ class FSettings : Fragment(), SettingsInterface {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.f_settings, container, false)
-        utilSettings = UtilSettings(activity)
+        utilSettings = UtilSettings(requireContext())
         return view
     }
 
@@ -155,7 +155,7 @@ class FSettings : Fragment(), SettingsInterface {
     private fun assignValues() {
         utilSettings?.let { us ->
             tvSelectedIconPack?.text = us.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME)
-            val highlightColor = "#" + us.getString(UtilSettings.KEY_HIGHLIGHT_COLOR).substring(3)
+            val highlightColor = "#" + us.getString(UtilSettings.KEY_HIGHLIGHT_COLOR)?.substring(3)
             var homeLauncher: String? = ""
             activity?.let {
                 homeLauncher = UtilLauncher.getNameHomeLauncher(it.application)
@@ -164,7 +164,7 @@ class FSettings : Fragment(), SettingsInterface {
             tvSelectedNightMode?.text = UtilNightModeUtil.getNightModeDisplayName(us.nightMode)
             if (us.getString(UtilSettings.KEY_BACKGROUND) == "Color") {
                 val backgroundColor =
-                    "#" + us.getString(UtilSettings.KEY_BACKGROUND_COLOR).substring(3)
+                    "#" + us.getString(UtilSettings.KEY_BACKGROUND_COLOR)?.substring(3)
                 tvSelectedBackground?.text = backgroundColor
                 ivSelectedBackgroundColor?.isVisible = true
                 val backgroundColorDrawable = GradientDrawable()

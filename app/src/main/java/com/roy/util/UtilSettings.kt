@@ -58,23 +58,23 @@ class UtilSettings(private val mContext: Context) {
     }
 
     private var mPrefs: SharedPreferences? = null
-    private fun sharedPreferences(): SharedPreferences? {
+    private fun sharedPreferences(): SharedPreferences {
         if (mPrefs == null) {
             mPrefs = PreferenceManager.getDefaultSharedPreferences(mContext)
         }
-        return mPrefs
+        return mPrefs!!
     }
 
-    fun save(name: String?, value: Int) {
-//        sharedPreferences().edit().putInt(name, value).commit();
-        sharedPreferences()!!.edit().putInt(name, value).apply()
+    fun save(
+        name: String?, value: Int
+    ) {
+        sharedPreferences().edit().putInt(name, value).apply()
     }
 
     @get:NightMode
     val nightMode: Int
-        get() = when (sharedPreferences()!!.getInt(
-            KEY_NIGHT_MODE,
-            DEFAULT_NIGHT_MODE
+        get() = when (sharedPreferences().getInt(
+            KEY_NIGHT_MODE, DEFAULT_NIGHT_MODE
         )) {
             AppCompatDelegate.MODE_NIGHT_AUTO -> AppCompatDelegate.MODE_NIGHT_AUTO
             AppCompatDelegate.MODE_NIGHT_NO -> AppCompatDelegate.MODE_NIGHT_NO
@@ -83,159 +83,201 @@ class UtilSettings(private val mContext: Context) {
         }
 
     fun save(name: String?, value: Float) {
-//        sharedPreferences().edit().putFloat(name, value).commit();
-        sharedPreferences()!!.edit().putFloat(name, value).apply()
+        sharedPreferences().edit().putFloat(name, value).apply()
     }
 
     fun getFloat(name: String?): Float {
         return when (name) {
             KEY_ICON_SIZE -> {
-                if (sharedPreferences()!!.getFloat(
-                        name,
-                        DEFAULT_ICON_SIZE
+                if (sharedPreferences().getFloat(
+                        /* p0 = */ name,
+                        /* p1 = */ DEFAULT_ICON_SIZE
                     ) < MIN_ICON_SIZE
                 ) {
-                    save(name, MIN_ICON_SIZE)
-                } else if (sharedPreferences()!!.getFloat(
-                        name,
-                        DEFAULT_ICON_SIZE
+                    save(
+                        name = name, value = MIN_ICON_SIZE
+                    )
+                } else if (sharedPreferences().getFloat(
+                        /* p0 = */ name,
+                        /* p1 = */ DEFAULT_ICON_SIZE
                     ) > getMaxFloatValue(name)
                 ) {
-                    save(name, getMaxFloatValue(name))
+                    save(
+                        name = name, value = getMaxFloatValue(name)
+                    )
                 }
-                sharedPreferences()!!.getFloat(name, DEFAULT_ICON_SIZE)
+                sharedPreferences().getFloat(name, DEFAULT_ICON_SIZE)
             }
             KEY_DISTORTION_FACTOR -> {
-                if (sharedPreferences()!!.getFloat(
-                        name,
-                        DEFAULT_DISTORTION_FACTOR
+                if (sharedPreferences().getFloat(
+                        /* p0 = */ name,
+                        /* p1 = */ DEFAULT_DISTORTION_FACTOR
                     ) < MIN_DISTORTION_FACTOR
                 ) {
-                    save(name, MIN_DISTORTION_FACTOR)
-                } else if (sharedPreferences()!!.getFloat(
-                        name,
-                        DEFAULT_DISTORTION_FACTOR
+                    save(
+                        name = name, value = MIN_DISTORTION_FACTOR
+                    )
+                } else if (sharedPreferences().getFloat(
+                        /* p0 = */ name,
+                        /* p1 = */ DEFAULT_DISTORTION_FACTOR
                     ) > getMaxFloatValue(name)
                 ) {
-                    save(name, getMaxFloatValue(name))
+                    save(
+                        name = name, value = getMaxFloatValue(name)
+                    )
                 }
-                sharedPreferences()!!.getFloat(name, DEFAULT_DISTORTION_FACTOR)
+                sharedPreferences().getFloat(
+                    /* p0 = */ name,
+                    /* p1 = */ DEFAULT_DISTORTION_FACTOR
+                )
             }
             KEY_SCALE_FACTOR -> {
-                if (sharedPreferences()!!.getFloat(
-                        name,
-                        DEFAULT_SCALE_FACTOR
+                if (sharedPreferences().getFloat(
+                        /* p0 = */ name,
+                        /* p1 = */ DEFAULT_SCALE_FACTOR
                     ) < MIN_SCALE_FACTOR
                 ) {
-                    save(name, MIN_SCALE_FACTOR)
-                } else if (sharedPreferences()!!.getFloat(
-                        name,
-                        DEFAULT_SCALE_FACTOR
+                    save(
+                        name = name, value = MIN_SCALE_FACTOR
+                    )
+                } else if (sharedPreferences().getFloat(
+                        /* p0 = */ name,
+                        /* p1 = */ DEFAULT_SCALE_FACTOR
                     ) > getMaxFloatValue(name)
                 ) {
-                    save(name, getMaxFloatValue(name))
+                    save(
+                        name = name, value = getMaxFloatValue(name)
+                    )
                 }
-                sharedPreferences()!!.getFloat(name, DEFAULT_SCALE_FACTOR)
+                sharedPreferences().getFloat(
+                    /* p0 = */ name,
+                    /* p1 = */ DEFAULT_SCALE_FACTOR
+                )
             }
-            else -> sharedPreferences()!!.getFloat(name, DEFAULT_FLOAT)
+            else -> sharedPreferences().getFloat(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_FLOAT
+            )
         }
     }
 
-    fun save(name: String?, value: Long) {
-//        sharedPreferences().edit().putLong(name, value).commit();
-        sharedPreferences()!!.edit().putLong(name, value).apply()
+    fun save(
+        name: String?, value: Long
+    ) {
+        sharedPreferences().edit().putLong(name, value).apply()
     }
 
     fun getLong(name: String): Long {
         return if (name == KEY_ANIMATION_TIME) {
-            if (sharedPreferences()!!.getLong(
-                    name,
-                    DEFAULT_ANIMATION_TIME
+            if (sharedPreferences().getLong(
+                    /* p0 = */ name,
+                    /* p1 = */ DEFAULT_ANIMATION_TIME
                 ) < MIN_ANIMATION_TIME
             ) {
-                save(name, MIN_ANIMATION_TIME)
-            } else if (sharedPreferences()!!.getLong(
-                    name,
-                    DEFAULT_ANIMATION_TIME
+                save(
+                    name = name, value = MIN_ANIMATION_TIME
+                )
+            } else if (sharedPreferences().getLong(
+                    /* p0 = */ name,
+                    /* p1 = */ DEFAULT_ANIMATION_TIME
                 ) > getMaxLongValue(name)
             ) {
-                save(name, getMaxLongValue(name))
+                save(
+                    name = name, value = getMaxLongValue(name)
+                )
             }
-            sharedPreferences()!!.getLong(name, DEFAULT_ANIMATION_TIME)
+            sharedPreferences().getLong(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_ANIMATION_TIME
+            )
         } else {
-            sharedPreferences()!!.getLong(name, DEFAULT_LONG)
+            sharedPreferences().getLong(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_LONG
+            )
         }
     }
 
-    fun save(name: String?, value: String?) {
-//        sharedPreferences().edit().putString(name, value).commit();
-        sharedPreferences()!!.edit().putString(name, value).apply()
+    fun save(
+        name: String?, value: String?
+    ) {
+        sharedPreferences().edit().putString(name, value).apply()
     }
 
     fun getString(name: String?): String? {
         return when (name) {
-            KEY_BACKGROUND -> sharedPreferences()!!.getString(
-                name,
-                DEFAULT_BACKGROUND
+            KEY_BACKGROUND -> sharedPreferences().getString(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_BACKGROUND
             )
-            KEY_BACKGROUND_COLOR -> sharedPreferences()!!.getString(
-                name,
-                DEFAULT_BACKGROUND_COLOR
+            KEY_BACKGROUND_COLOR -> sharedPreferences().getString(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_BACKGROUND_COLOR
             )
-            KEY_HIGHLIGHT_COLOR -> sharedPreferences()!!.getString(
-                name,
-                DEFAULT_HIGHLIGHT_COLOR
+            KEY_HIGHLIGHT_COLOR -> sharedPreferences().getString(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_HIGHLIGHT_COLOR
             )
-            KEY_ICON_PACK_LABEL_NAME -> sharedPreferences()!!.getString(
-                name,
-                DEFAULT_ICON_PACK_LABEL_NAME
+            KEY_ICON_PACK_LABEL_NAME -> sharedPreferences().getString(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_ICON_PACK_LABEL_NAME
             )
-            else -> sharedPreferences()!!.getString(name, DEFAULT_STRING)
+            else -> sharedPreferences().getString(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_STRING
+            )
         }
     }
 
     fun save(name: String?, value: Boolean) {
-//        sharedPreferences().edit().putBoolean(name, value).commit();
-        sharedPreferences()!!.edit().putBoolean(name, value).apply()
+        sharedPreferences().edit().putBoolean(name, value).apply()
     }
 
     fun getBoolean(name: String?): Boolean {
         return when (name) {
-            KEY_VIBRATE_APP_HOVER -> sharedPreferences()!!.getBoolean(
-                name,
-                DEFAULT_VIBRATE_APP_HOVER
+            KEY_VIBRATE_APP_HOVER -> sharedPreferences().getBoolean(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_VIBRATE_APP_HOVER
             )
-            KEY_VIBRATE_APP_LAUNCH -> sharedPreferences()!!.getBoolean(
-                name,
-                DEFAULT_VIBRATE_APP_LAUNCH
+            KEY_VIBRATE_APP_LAUNCH -> sharedPreferences().getBoolean(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_VIBRATE_APP_LAUNCH
             )
-            KEY_SHOW_NAME_APP_HOVER -> sharedPreferences()!!.getBoolean(
-                name,
-                DEFAULT_SHOW_NAME_APP_HOVER
+            KEY_SHOW_NAME_APP_HOVER -> sharedPreferences().getBoolean(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_SHOW_NAME_APP_HOVER
             )
-            KEY_SHOW_TOUCH_SELECTION -> sharedPreferences()!!.getBoolean(
-                name,
-                DEFAULT_SHOW_TOUCH_SELECTION
+            KEY_SHOW_TOUCH_SELECTION -> sharedPreferences().getBoolean(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_SHOW_TOUCH_SELECTION
             )
-            KEY_SHOW_NEW_APP_TAG -> sharedPreferences()!!.getBoolean(
-                name,
-                DEFAULT_SHOW_NEW_APP_TAG
+            KEY_SHOW_NEW_APP_TAG -> sharedPreferences().getBoolean(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_SHOW_NEW_APP_TAG
             )
-            else -> sharedPreferences()!!.getBoolean(name, DEFAULT_BOOLEAN)
+            else -> sharedPreferences().getBoolean(
+                /* p0 = */ name,
+                /* p1 = */ DEFAULT_BOOLEAN
+            )
         }
     }
 
     fun save(value: SortType) {
-        save(KEY_SORT_TYPE, value.ordinal)
+        save(
+            name = KEY_SORT_TYPE, value = value.ordinal
+        )
     }
 
     val sortType: SortType
         get() {
-            val ordinal = sharedPreferences()!!.getInt(KEY_SORT_TYPE, DEFAULT_SORT_TYPE)
+            val ordinal = sharedPreferences().getInt(
+                /* p0 = */ KEY_SORT_TYPE,
+                /* p1 = */ DEFAULT_SORT_TYPE
+            )
             return SortType.values()[ordinal]
         }
 
-    fun getMaxFloatValue(name: String?): Float {
+    private fun getMaxFloatValue(name: String?): Float {
         return when (name) {
             KEY_ICON_SIZE -> MAX_ICON_SIZE.toFloat() + MIN_ICON_SIZE
             KEY_DISTORTION_FACTOR -> MAX_DISTORTION_FACTOR.toFloat() / 2 + MIN_DISTORTION_FACTOR
@@ -244,7 +286,7 @@ class UtilSettings(private val mContext: Context) {
         }
     }
 
-    fun getMaxLongValue(name: String): Long {
+    private fun getMaxLongValue(name: String): Long {
         return if (name == KEY_ANIMATION_TIME) {
             MAX_ANIMATION_TIME.toLong() / 2 + MIN_ANIMATION_TIME
         } else {

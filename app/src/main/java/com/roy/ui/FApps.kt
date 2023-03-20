@@ -39,7 +39,7 @@ class FApps : Fragment(), AppsInterface {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.f_apps, container, false)
-        utilSettings = UtilSettings(activity)
+        utilSettings = UtilSettings(requireContext())
         instance?.apps?.let {
             setupRecycler(it)
         }
