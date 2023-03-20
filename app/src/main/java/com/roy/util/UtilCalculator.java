@@ -7,7 +7,7 @@ import android.util.DisplayMetrics;
 
 import com.roy.model.Grid;
 
-public class UtilLensCalculator {
+public class UtilCalculator {
 
     // Algorithm for calculating equispaced grid
     public static Grid calculateGrid(Context context, int screenWidth, int screenHeight, int itemCount) {
@@ -25,7 +25,7 @@ public class UtilLensCalculator {
         grid.setItemCountHorizontal(itemCountHorizontal);
         grid.setItemCountVertical(itemCountVertical);
         UtilSettings utilSettings = new UtilSettings(context);
-        float itemSize = UtilLensCalculator.convertDpToPixel(utilSettings.getFloat(UtilSettings.KEY_ICON_SIZE), context);
+        float itemSize = UtilCalculator.convertDpToPixel(utilSettings.getFloat(UtilSettings.KEY_ICON_SIZE), context);
         grid.setItemSize(itemSize);
         float spacingHorizontal = (((float) screenWidth) - ((float) itemCountHorizontal * itemSize)) / ((float) (itemCountHorizontal + 1));
         grid.setSpacingHorizontal(spacingHorizontal);
@@ -100,7 +100,7 @@ public class UtilLensCalculator {
         } else {
             itemPosition = itemPosition + d * (itemSize / 2.0f);
         }
-        return UtilLensCalculator.shiftPoint(context, lensPosition, itemPosition, boundary, multiplier);
+        return UtilCalculator.shiftPoint(context, lensPosition, itemPosition, boundary, multiplier);
     }
 
     // Graphical Fisheye Lens algorithm for determining final scaled size

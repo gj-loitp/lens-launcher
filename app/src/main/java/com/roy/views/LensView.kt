@@ -19,7 +19,7 @@ import com.roy.enums.DrawType
 import com.roy.model.App
 import com.roy.model.AppPersistent
 import com.roy.util.UtilApp
-import com.roy.util.UtilLensCalculator
+import com.roy.util.UtilCalculator
 import com.roy.util.UtilSettings
 import java.util.*
 import kotlin.math.pow
@@ -271,7 +271,7 @@ class LensView : View {
     }
 
     private fun drawGrid(canvas: Canvas, itemCount: Int) {
-        val grid = UtilLensCalculator.calculateGrid(
+        val grid = UtilCalculator.calculateGrid(
             /* context = */ context,
             /* screenWidth = */ width - (mInsets.left + mInsets.right),
             /* screenHeight = */ height - (mInsets.top + mInsets.bottom),
@@ -299,21 +299,21 @@ class LensView : View {
                         1.0f
                     }
                     if (mTouchX >= 0 && mTouchY >= 0) {
-                        val shiftedCenterX = UtilLensCalculator.shiftPoint(
+                        val shiftedCenterX = UtilCalculator.shiftPoint(
                             /* context = */ context,
                             /* lensPosition = */ mTouchX,
                             /* itemPosition = */ rect.centerX(),
                             /* boundary = */ width.toFloat(),
                             /* multiplier = */ animationMultiplier
                         )
-                        val shiftedCenterY = UtilLensCalculator.shiftPoint(
+                        val shiftedCenterY = UtilCalculator.shiftPoint(
                             /* context = */ context,
                             /* lensPosition = */ mTouchY,
                             /* itemPosition = */ rect.centerY(),
                             /* boundary = */ height.toFloat(),
                             /* multiplier = */ animationMultiplier
                         )
-                        val scaledCenterX = UtilLensCalculator.scalePoint(
+                        val scaledCenterX = UtilCalculator.scalePoint(
                             /* context = */ context,
                             /* lensPosition = */ mTouchX,
                             /* itemPosition = */ rect.centerX(),
@@ -321,7 +321,7 @@ class LensView : View {
                             /* boundary = */ width.toFloat(),
                             /* multiplier = */ animationMultiplier
                         )
-                        val scaledCenterY = UtilLensCalculator.scalePoint(
+                        val scaledCenterY = UtilCalculator.scalePoint(
                             /* context = */ context,
                             /* lensPosition = */ mTouchY,
                             /* itemPosition = */ rect.centerY(),
@@ -329,7 +329,7 @@ class LensView : View {
                             /* boundary = */ height.toFloat(),
                             /* multiplier = */ animationMultiplier
                         )
-                        val newSize = UtilLensCalculator.calculateSquareScaledSize(
+                        val newSize = UtilCalculator.calculateSquareScaledSize(
                             /* scaledPositionX = */ scaledCenterX,
                             /* shiftedPositionX = */ shiftedCenterX,
                             /* scaledPositionY = */ scaledCenterY,
@@ -339,7 +339,7 @@ class LensView : View {
                             if (us.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) > 0.0f
                                 && us.getFloat(UtilSettings.KEY_SCALE_FACTOR) > 0.0f
                             ) {
-                                rect = UtilLensCalculator.calculateRect(
+                                rect = UtilCalculator.calculateRect(
                                     /* newCenterX = */ shiftedCenterX,
                                     /* newCenterY = */ shiftedCenterY,
                                     /* newSize = */ newSize
@@ -347,7 +347,7 @@ class LensView : View {
                             } else if (us.getFloat(UtilSettings.KEY_DISTORTION_FACTOR) > 0.0f
                                 && us.getFloat(UtilSettings.KEY_SCALE_FACTOR) == 0.0f
                             ) {
-                                rect = UtilLensCalculator.calculateRect(
+                                rect = UtilCalculator.calculateRect(
                                     /* newCenterX = */ shiftedCenterX,
                                     /* newCenterY = */ shiftedCenterY,
                                     /* newSize = */ rect.width()
@@ -355,7 +355,7 @@ class LensView : View {
                             }
                         }
 
-                        if (UtilLensCalculator.isInsideRect(
+                        if (UtilCalculator.isInsideRect(
                                 /* x = */ mTouchX,
                                 /* y = */ mTouchY,
                                 /* rect = */ rect
