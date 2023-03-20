@@ -14,6 +14,7 @@ import java.util.Observer;
 //TODO dialog policy first
 //TODO firebase
 //TODO setting search icon pack
+//TODO lock/unlock app
 
 //done
 //ic_launcher
