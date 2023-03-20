@@ -17,4 +17,24 @@
         android:id="@+id/menuItemResetDefaultSettings"
         android:title="@string/menu_title_reset_defaults"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menuRateApp"
+        android:title="Rate app"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuMoreApp"
+        android:title="More app"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuShareApp"
+        android:title="Share app"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuFacebookFanPage"
+        android:title="Facebook fan page"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuWhyAds"
+        android:title="Why ad???"
+        app:showAsAction="never" />
 </menu>
