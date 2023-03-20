@@ -19,6 +19,41 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    android.applicationVariants.all { variant ->
+        variant.outputs.all {
+            outputFileName = defaultConfig.applicationId + buildType.name + "_" + defaultConfig.versionName + "_" + defaultConfig.versionCode + ".apk"
+        }
+    }
+
+    flavorDimensions "type"
+    productFlavors {
+
+        dev {
+//            applicationId = "com.roy93group.lenslauncher.dev"
+            dimension "type"
+            buildConfigField("String", "FLAVOR_buildEnv", '"dev"')
+            resValue "string", "app_name", "Zoom Launcher DEV"
+
+            //admob for test
+            resValue("string", "ADMOB_APP_ID", "ca-app-pub-3940256099942544~3347511713")
+            resValue("string", "admob_banner_id", "ca-app-pub-3940256099942544/6300978111")
+            resValue("string", "admob_interstitial_id", "ca-app-pub-3940256099942544/1033173712")
+        }
+
+        production {
+//            applicationId = "com.roy93group.lenslauncher.prod"
+            dimension "type"
+            buildConfigField("String", "FLAVOR_buildEnv", '"prod"')
+            resValue "string", "app_name", "Zoom Launcher"
+
+            //TODO update admob value for production
+            resValue("string", "ADMOB_APP_ID", "-")
+            resValue("string", "admob_banner_id", "-")
+            resValue("string", "admob_interstitial_id", "-")
+        }
+
+    }
 }
 
 dependencies {

@@ -1,5 +1,4 @@
 <resources>
-    <string name="app_name">Zoom Launcher</string>
     <string name="activity_title_about">About</string>
     <string name="activity_title_arranger">Order &amp; Visibility</string>
     <string name="activity_title_settings">Settings</string>
