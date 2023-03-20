@@ -15,7 +15,7 @@ import android.view.animation.Animation
 import android.view.animation.Transformation
 import androidx.core.content.ContextCompat
 import com.roy.R
-import com.roy.enum.DrawType
+import com.roy.enums.DrawType
 import com.roy.model.App
 import com.roy.model.AppPersistent
 import com.roy.util.UtilApp

@@ -11,7 +11,7 @@ import android.widget.TextView
 import androidx.appcompat.widget.AppCompatSeekBar
 import androidx.fragment.app.Fragment
 import com.roy.R
-import com.roy.enum.DrawType
+import com.roy.enums.DrawType
 import com.roy.itf.LensInterface
 import com.roy.util.UtilSettings
 import com.roy.views.LensView

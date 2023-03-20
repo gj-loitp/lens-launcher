@@ -21,6 +21,7 @@ import com.google.android.material.tabs.TabLayout;
 import com.roy.R;
 import com.roy.a.FragmentPagerAdapter;
 import com.roy.app.AppsSingleton;
+import com.roy.enums.SortType;
 import com.roy.itf.AppsInterface;
 import com.roy.itf.LensInterface;
 import com.roy.itf.SettingsInterface;
@@ -28,7 +29,6 @@ import com.roy.model.App;
 import com.roy.sv.BroadcastReceivers;
 import com.roy.sv.LoadedObservable;
 import com.roy.sv.NightModeObservable;
-import com.roy.util.UtilAppSorter;
 import com.roy.util.UtilIconPackManager;
 import com.roy.util.UtilLauncher;
 import com.roy.util.UtilNightModeUtil;
@@ -206,13 +206,13 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     }
 
     private void showSortTypeDialog() {
-        final List<UtilAppSorter.SortType> lSortType = new ArrayList<>(EnumSet.allOf(UtilAppSorter.SortType.class));
+        final List<SortType> lSortType = new ArrayList<>(EnumSet.allOf(SortType.class));
         final List<String> lSortTypeString = new ArrayList<>();
         for (int i = 0; i < lSortType.size(); i++) {
             lSortTypeString.add(getApplicationContext().getString(lSortType.get(i).getDisplayNameResId()));
         }
         assert utilSettings != null;
-        UtilAppSorter.SortType selectedSortType = utilSettings.getSortType();
+        SortType selectedSortType = utilSettings.getSortType();
         int selectedIndex = lSortType.indexOf(selectedSortType);
         dlgSortType = new MaterialDialog.Builder(ASettings.this).title(R.string.setting_sort_apps).items(lSortTypeString).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
             utilSettings.save(lSortType.get(which));

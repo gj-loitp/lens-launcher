@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.roy.R
 import com.roy.a.AppAdapter
 import com.roy.app.AppsSingleton.Companion.instance
+import com.roy.enums.SortType
 import com.roy.itf.AppsInterface
 import com.roy.model.App
 import com.roy.sv.BroadcastReceivers.AppsEditedReceiver
@@ -98,7 +99,7 @@ class FApps : Fragment(), AppsInterface {
 
     override fun onDefaultsReset() {
         utilSettings?.let { us ->
-            if (us.sortType != UtilAppSorter.SortType.values()[UtilSettings.DEFAULT_SORT_TYPE]) {
+            if (us.sortType != SortType.values()[UtilSettings.DEFAULT_SORT_TYPE]) {
                 us.save(UtilSettings.KEY_SORT_TYPE, UtilSettings.DEFAULT_SORT_TYPE)
                 sendEditAppsBroadcast()
             }

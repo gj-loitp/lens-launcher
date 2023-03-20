@@ -6,6 +6,8 @@ import android.preference.PreferenceManager;
 
 import androidx.appcompat.app.AppCompatDelegate;
 
+import com.roy.enums.SortType;
+
 public class UtilSettings {
 
     public static final float DEFAULT_ICON_SIZE = 18.0f;
@@ -184,13 +186,13 @@ public class UtilSettings {
         }
     }
 
-    public void save(UtilAppSorter.SortType value) {
+    public void save(SortType value) {
         save(KEY_SORT_TYPE, value.ordinal());
     }
 
-    public UtilAppSorter.SortType getSortType() {
+    public SortType getSortType() {
         int ordinal = sharedPreferences().getInt(KEY_SORT_TYPE, DEFAULT_SORT_TYPE);
-        return UtilAppSorter.SortType.values()[ordinal];
+        return SortType.values()[ordinal];
     }
 
     public float getMaxFloatValue(String name) {

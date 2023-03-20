@@ -15,10 +15,10 @@ import android.widget.Toast
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import com.roy.R
+import com.roy.enums.SortType
 import com.roy.model.App
 import com.roy.model.AppPersistent
 import com.roy.sv.BroadcastReceivers.AppsEditedReceiver
-import com.roy.util.UtilAppSorter.SortType
 import com.roy.util.UtilIconPackManager.IconPack
 import java.util.*
 

@@ -1,4 +1,4 @@
-package com.roy.enum
+package com.roy.enums
 
 enum class DrawType {
     APPS,
