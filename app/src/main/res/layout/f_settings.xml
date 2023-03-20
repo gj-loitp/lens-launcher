@@ -29,7 +29,8 @@
             <androidx.appcompat.widget.AppCompatTextView
                 android:id="@+id/tvSelectedHomeLauncher"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                tools:text="@string/app_name" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -44,31 +45,23 @@
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="0dp"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin">
+                android:text="@string/setting_icon_pack"
+                android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/setting_icon_pack"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvSelectedIconPack"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/setting_default_icon_pack" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSelectedIconPack"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/setting_default_icon_pack" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
@@ -83,30 +76,23 @@
             android:layout_height="wrap_content"
             android:background="?android:attr/selectableItemBackground"
             android:baselineAligned="false"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:paddingStart="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:paddingEnd="@dimen/activity_horizontal_margin"
+            android:paddingBottom="@dimen/activity_vertical_margin">
 
-            <androidx.appcompat.widget.LinearLayoutCompat
-                android:layout_width="0dp"
+            <androidx.appcompat.widget.AppCompatTextView
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:paddingStart="@dimen/activity_horizontal_margin"
-                android:paddingTop="@dimen/activity_vertical_margin"
-                android:paddingEnd="@dimen/activity_horizontal_margin"
-                android:paddingBottom="@dimen/activity_vertical_margin">
+                android:text="@string/setting_night_mode"
+                android:textStyle="bold" />
 
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/setting_night_mode"
-                    android:textStyle="bold" />
-
-                <androidx.appcompat.widget.AppCompatTextView
-                    android:id="@+id/tvSelectedNightMode"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-            </androidx.appcompat.widget.LinearLayoutCompat>
+            <androidx.appcompat.widget.AppCompatTextView
+                android:id="@+id/tvSelectedNightMode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="@string/app_name" />
 
         </androidx.appcompat.widget.LinearLayoutCompat>
 
