@@ -1,6 +1,5 @@
 package com.roy.a;
 
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Rect;
@@ -21,17 +20,14 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.roy.R;
-import com.roy.sv.BroadcastReceivers;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
+import com.roy.sv.BroadcastReceivers;
 import com.roy.ui.ASettings;
 import com.roy.util.UtilApp;
 
 import java.util.List;
 import java.util.Objects;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 //2023.03.19 tried to convert to kotlin but failed
 public class AppAdapter extends RecyclerView.Adapter {
@@ -39,8 +35,7 @@ public class AppAdapter extends RecyclerView.Adapter {
     private final Context mContext;
     private final List<App> mApps;
 
-    public AppAdapter(Context mContext,
-                      List<App> mApps) {
+    public AppAdapter(Context mContext, List<App> mApps) {
         this.mContext = mContext;
         this.mApps = mApps;
     }
@@ -80,64 +75,52 @@ public class AppAdapter extends RecyclerView.Adapter {
     }
 
     public static class AppViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener {
-
-        @BindView(R.id.cvAppContainer)
-        CardView mContainer;
-
-        @BindView(R.id.tvAppLabel)
-        TextView mLabel;
-
-        @BindView(R.id.ivAppIcon)
-        ImageView mIcon;
-
-        @BindView(R.id.ivAppHide)
-        ImageView mToggleAppVisibility;
-
-        @BindView(R.id.ivAppMenu)
-        ImageView mMenu;
+        CardView cvAppContainer;
+        TextView tvAppLabel;
+        ImageView ivAppIcon;
+        ImageView ivAppHide;
+        ImageView ivAppMenu;
 
         private App mApp;
         private final Context mContext;
 
-        public AppViewHolder(View itemView,
-                             Context context) {
+        public AppViewHolder(View itemView, Context context) {
             super(itemView);
-            ButterKnife.bind(this, itemView);
             this.mContext = context;
+            this.cvAppContainer = itemView.findViewById(R.id.cvAppContainer);
+            this.tvAppLabel = itemView.findViewById(R.id.tvAppLabel);
+            this.ivAppIcon = itemView.findViewById(R.id.ivAppIcon);
+            this.ivAppHide = itemView.findViewById(R.id.ivAppHide);
+            this.ivAppMenu = itemView.findViewById(R.id.ivAppMenu);
         }
 
         public void setAppElement(App app) {
             this.mApp = app;
-            mLabel.setText(mApp.getLabel());
-            mIcon.setImageBitmap(mApp.getIcon());
-            boolean isAppVisible =
-                    AppPersistent.getAppVisibility(Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString());
+            tvAppLabel.setText(mApp.getLabel());
+            ivAppIcon.setImageBitmap(mApp.getIcon());
+            boolean isAppVisible = AppPersistent.getAppVisibility(Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString());
             if (isAppVisible) {
-                mToggleAppVisibility.setImageResource(R.drawable.ic_visibility_grey_24dp);
+                ivAppHide.setImageResource(R.drawable.ic_visibility_grey_24dp);
             } else {
-                mToggleAppVisibility.setImageResource(R.drawable.ic_visibility_off_grey_24dp);
+                ivAppHide.setImageResource(R.drawable.ic_visibility_off_grey_24dp);
             }
             if (mApp.getPackageName().toString().equals("com.roy93group.lenslauncher")) {
-                mToggleAppVisibility.setVisibility(View.INVISIBLE);
+                ivAppHide.setVisibility(View.INVISIBLE);
             } else {
-                mToggleAppVisibility.setVisibility(View.VISIBLE);
+                ivAppHide.setVisibility(View.VISIBLE);
             }
         }
 
         public void toggleAppVisibility(App app) {
             this.mApp = app;
-            boolean isAppVisible =
-                    AppPersistent.getAppVisibility(Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString());
-            AppPersistent.setAppVisibility(
-                    mApp.getPackageName().toString(),
-                    mApp.getName().toString(),
-                    !isAppVisible);
+            boolean isAppVisible = AppPersistent.getAppVisibility(Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString());
+            AppPersistent.setAppVisibility(mApp.getPackageName().toString(), mApp.getName().toString(), !isAppVisible);
             if (isAppVisible) {
-                Snackbar.make(mContainer, mApp.getLabel() + " is now hidden", Snackbar.LENGTH_LONG).show();
-                mToggleAppVisibility.setImageResource(R.drawable.ic_visibility_off_grey_24dp);
+                Snackbar.make(cvAppContainer, mApp.getLabel() + " is now hidden", Snackbar.LENGTH_LONG).show();
+                ivAppHide.setImageResource(R.drawable.ic_visibility_off_grey_24dp);
             } else {
-                Snackbar.make(mContainer, mApp.getLabel() + " is now visible", Snackbar.LENGTH_LONG).show();
-                mToggleAppVisibility.setImageResource(R.drawable.ic_visibility_grey_24dp);
+                Snackbar.make(cvAppContainer, mApp.getLabel() + " is now visible", Snackbar.LENGTH_LONG).show();
+                ivAppHide.setImageResource(R.drawable.ic_visibility_grey_24dp);
             }
         }
 
@@ -154,20 +137,17 @@ public class AppAdapter extends RecyclerView.Adapter {
         }
 
         public void setOnClickListeners() {
-            itemView.setOnClickListener(view -> UtilApp.launchComponent(
-                    mContext,
-                    Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString(),
-                    itemView, new Rect(0, 0, itemView.getMeasuredWidth(), itemView.getMeasuredHeight())));
-            mToggleAppVisibility.setOnClickListener(v -> {
+            itemView.setOnClickListener(view -> UtilApp.launchComponent(mContext, Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString(), itemView, new Rect(0, 0, itemView.getMeasuredWidth(), itemView.getMeasuredHeight())));
+            ivAppHide.setOnClickListener(v -> {
                 if (mApp != null) {
                     sendChangeAppsVisibilityBroadcast();
                     toggleAppVisibility(mApp);
                 } else {
-                    Snackbar.make(mContainer, mContext.getString(R.string.error_app_not_found), Snackbar.LENGTH_LONG).show();
+                    Snackbar.make(cvAppContainer, mContext.getString(R.string.error_app_not_found), Snackbar.LENGTH_LONG).show();
                 }
             });
 
-            mMenu.setOnClickListener(view -> {
+            ivAppMenu.setOnClickListener(view -> {
                 PopupMenu popupMenu = new PopupMenu(mContext, view);
                 popupMenu.setOnMenuItemClickListener(AppViewHolder.this);
                 popupMenu.inflate(R.menu.menu_app);
@@ -177,27 +157,29 @@ public class AppAdapter extends RecyclerView.Adapter {
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-            switch (item.getItemId()) {
-                case R.id.menuItemElementAppInfo:
-                    try {
-                        Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
-                        intent.setData(Uri.parse("package:" + mApp.getPackageName()));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        mContext.startActivity(intent);
-                    } catch (ActivityNotFoundException e) {
-                        Toast.makeText(mContext, R.string.error_app_not_found, Toast.LENGTH_SHORT).show();
-                    }
-                    return true;
-                case R.id.menuItemElementUninstall:
-                    try {
-                        Intent intent = new Intent(Intent.ACTION_DELETE);
-                        intent.setData(Uri.parse("package:" + mApp.getPackageName()));
-                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                        mContext.startActivity(intent);
-                    } catch (ActivityNotFoundException e) {
-                        Toast.makeText(mContext, R.string.error_app_not_found, Toast.LENGTH_SHORT).show();
-                    }
-                    return true;
+            int id = item.getItemId();
+            if (id == R.id.menuItemElementAppInfo) {
+                try {
+                    Intent intent = new Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                    intent.setData(Uri.parse("package:" + mApp.getPackageName()));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(mContext, R.string.error_app_not_found, Toast.LENGTH_SHORT).show();
+                }
+                return true;
+            } else if (id == R.id.menuItemElementUninstall) {
+                try {
+                    Intent intent = new Intent(Intent.ACTION_DELETE);
+                    intent.setData(Uri.parse("package:" + mApp.getPackageName()));
+                    intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    mContext.startActivity(intent);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                    Toast.makeText(mContext, R.string.error_app_not_found, Toast.LENGTH_SHORT).show();
+                }
+                return true;
             }
             return false;
         }
