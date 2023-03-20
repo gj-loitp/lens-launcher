@@ -93,6 +93,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         fabSort = findViewById(R.id.fabSort);
 
         fabSort.setOnClickListener(view -> showSortTypeDialog());
+        findViewById(R.id.btStart).setOnClickListener(view -> launchApps());
 
         fabSort.hide();
         setSupportActionBar(toolbar);
@@ -127,19 +128,23 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         return true;
     }
 
+    private void launchApps() {
+        if (UtilLauncher.isDefaultLauncher(getApplication())) {
+            Intent homeIntent = new Intent(Intent.ACTION_MAIN);
+            homeIntent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(homeIntent);
+        } else {
+            Intent homeIntent = new Intent(ASettings.this, AHome.class);
+            startActivity(homeIntent);
+        }
+        overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
         if (id == R.id.menuItemShowApps) {
-            if (UtilLauncher.isDefaultLauncher(getApplication())) {
-                Intent homeIntent = new Intent(Intent.ACTION_MAIN);
-                homeIntent.addCategory(Intent.CATEGORY_HOME);
-                startActivity(homeIntent);
-            } else {
-                Intent homeIntent = new Intent(ASettings.this, AHome.class);
-                startActivity(homeIntent);
-            }
-            overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
+            launchApps();
             return true;
         } else if (id == R.id.menuItemAbout) {
             Intent aboutIntent = new Intent(ASettings.this, AAbout.class);
