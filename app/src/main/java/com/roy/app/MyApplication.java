@@ -9,7 +9,6 @@ import com.roy.sv.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO keystore
 //TODO admob
 //TODO lock/unlock app
 
@@ -19,6 +18,7 @@ import java.util.Observer;
 //check home default khi start launcher
 //dialog policy first
 //firebase
+//keystore
 
 //https://console.firebase.google.com/u/0/project/lenslauncher-25806/overview
 //2023.03.18 tried to convert to kotlin but failed
