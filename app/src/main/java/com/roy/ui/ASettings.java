@@ -5,6 +5,7 @@ import static com.roy.ext.ActivityKt.moreApp;
 import static com.roy.ext.ActivityKt.rateApp;
 import static com.roy.ext.ActivityKt.shareApp;
 import static com.roy.ext.ContextKt.openUrlInBrowser;
+import static com.roy.ext.ContextKt.showDialog1;
 import static com.roy.util.CKt.URL_POLICY_NOTION;
 
 import android.content.Intent;
@@ -133,6 +134,21 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_settings, menu);
         return true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        showDialog1(
+                this,
+                getString(R.string.terms_and_privacy_policy),
+                getString(R.string.read_policy),
+                getString(R.string.agree_and_continue),
+                () -> {
+
+                }
+        );
     }
 
     private void launchApps() {

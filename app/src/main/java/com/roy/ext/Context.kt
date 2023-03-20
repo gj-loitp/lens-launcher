@@ -8,6 +8,8 @@ import android.net.Uri
 import android.os.Build
 import android.provider.Settings
 import android.view.*
+import androidx.core.content.ContextCompat
+import com.roy.R
 import com.roy.util.URL_POLICY_NOTION
 
 //check xem app hien tai co phai la default launcher hay khong
@@ -72,3 +74,34 @@ fun Context?.openUrlInBrowser(
         this.startActivity(i)
     }
 }
+
+fun Context.showDialog1(
+    title: String? = null,
+    msg: String? = null,
+    button1: String = getString(R.string.confirm),
+    onClickButton1: Runnable? = null
+): AlertDialog {
+    val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.LightAlertDialogCustom))
+
+    if (title.isNullOrEmpty()) {
+        // do nothing
+    } else {
+        builder.setTitle(title)
+    }
+    if (msg.isNullOrEmpty()) {
+        // do nothing
+    } else {
+        builder.setMessage(msg)
+    }
+
+    builder.setPositiveButton(button1) { _, _ ->
+        onClickButton1?.run()
+    }
+    val dialog = builder.create()
+    dialog.setCancelable(false)
+    dialog.show()
+    val color = ContextCompat.getColor(this, R.color.colorPrimary)
+    dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
+    return dialog
+}
+
