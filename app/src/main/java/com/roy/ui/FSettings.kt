@@ -28,15 +28,11 @@ class FSettings : Fragment(), SettingsInterface {
 
     private var tvSelectedHomeLauncher: TextView? = null
     private var tvSelectedIconPack: TextView? = null
-    private var proIconPack: View? = null
     private var tvSelectedNightMode: TextView? = null
-    private var proNightMode: View? = null
     private var tvSelectedBackground: TextView? = null
     private var ivSelectedBackgroundColor: ImageView? = null
-    private var proBackground: View? = null
     private var tvSelectedHighlightColor: TextView? = null
     private var ivSelectedHighlightColor: ImageView? = null
-    private var proHighlightColor: View? = null
     private var swVibrateAppHover: SwitchCompat? = null
     private var swVibrateAppLaunch: SwitchCompat? = null
     private var swShowNameAppHover: SwitchCompat? = null
@@ -69,15 +65,11 @@ class FSettings : Fragment(), SettingsInterface {
     private fun setupViews(view: View) {
         tvSelectedHomeLauncher = view.findViewById(R.id.tvSelectedHomeLauncher)
         tvSelectedIconPack = view.findViewById(R.id.tvSelectedIconPack)
-        proIconPack = view.findViewById(R.id.proIconPack)
         tvSelectedNightMode = view.findViewById(R.id.tvSelectedNightMode)
-        proNightMode = view.findViewById(R.id.proNightMode)
         tvSelectedBackground = view.findViewById(R.id.tvSelectedBackground)
         ivSelectedBackgroundColor = view.findViewById(R.id.ivSelectedBackgroundColor)
-        proBackground = view.findViewById(R.id.proBackground)
         tvSelectedHighlightColor = view.findViewById(R.id.tvSelectedHighlightColor)
         ivSelectedHighlightColor = view.findViewById(R.id.ivSelectedHighlightColor)
-        proHighlightColor = view.findViewById(R.id.proHighlightColor)
         swVibrateAppHover = view.findViewById(R.id.swVibrateAppHover)
         swVibrateAppLaunch = view.findViewById(R.id.swVibrateAppLaunch)
         swShowNameAppHover = view.findViewById(R.id.swShowNameAppHover)
@@ -145,11 +137,6 @@ class FSettings : Fragment(), SettingsInterface {
                 /* value = */ isChecked
             )
         }
-
-        proIconPack?.isVisible = false
-        proNightMode?.isVisible = false
-        proBackground?.isVisible = false
-        proHighlightColor?.isVisible = false
     }
 
     private fun assignValues() {
