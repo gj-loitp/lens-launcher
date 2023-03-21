@@ -165,17 +165,17 @@ public class AppAdapter extends RecyclerView.Adapter {
         public void toggleAppLock(App app) {
             this.mApp = app;
             String pkgName = Objects.requireNonNull(mApp.getPackageName()).toString();
-            String name = mApp.getPackageName().toString();
+            String name = Objects.requireNonNull(mApp.getLabel()).toString();
             boolean isAppLock = AppPersistent.getAppLock(pkgName, name);
             if (mContext instanceof AppCompatActivity) {
                 Biometric.INSTANCE.toggleLockApp((AppCompatActivity) mContext, name, pkgName, isAppLock, (s, aBoolean) -> {
                     AppPersistent.setAppLock(pkgName, name, !isAppLock);
                     if (isAppLock) {
-                        Snackbar.make(cvAppContainer, mApp.getLabel() + " is now locked", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(cvAppContainer, name + " is now locked", Snackbar.LENGTH_LONG).show();
                         ivAppLock.setImageResource(R.drawable.baseline_lock_24);
                         ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
                     } else {
-                        Snackbar.make(cvAppContainer, mApp.getLabel() + " is now unlocked", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(cvAppContainer, name + " is now unlocked", Snackbar.LENGTH_LONG).show();
                         ivAppLock.setImageResource(R.drawable.baseline_lock_open_24);
                         ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorBlack));
                     }
