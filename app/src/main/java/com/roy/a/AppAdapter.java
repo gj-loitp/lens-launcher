@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -84,12 +85,12 @@ public class AppAdapter extends RecyclerView.Adapter {
         TextView tvAppLabel;
         ImageView ivAppIcon;
         ImageView ivAppHide;
-        ImageView ivAppLock;
+        Button btAppLock;
         ImageView ivAppMenu;
 
         private App mApp;
         private final Context mContext;
-        private boolean mIsHaveBiometric = false;
+        private final boolean mIsHaveBiometric;
 
         public AppViewHolder(View itemView, Context context) {
             super(itemView);
@@ -99,7 +100,7 @@ public class AppAdapter extends RecyclerView.Adapter {
             this.tvAppLabel = itemView.findViewById(R.id.tvAppLabel);
             this.ivAppIcon = itemView.findViewById(R.id.ivAppIcon);
             this.ivAppHide = itemView.findViewById(R.id.ivAppHide);
-            this.ivAppLock = itemView.findViewById(R.id.ivAppLock);
+            this.btAppLock = itemView.findViewById(R.id.btAppLock);
             this.ivAppMenu = itemView.findViewById(R.id.ivAppMenu);
         }
 
@@ -114,16 +115,14 @@ public class AppAdapter extends RecyclerView.Adapter {
             boolean isAppVisible = AppPersistent.getAppVisibility(pkgName, name);
             if (this.mIsHaveBiometric) {
                 boolean isAppLock = AppPersistent.getAppLock(pkgName, name);
-                ivAppLock.setVisibility(View.VISIBLE);
+                btAppLock.setVisibility(View.VISIBLE);
                 if (isAppLock) {
-                    ivAppLock.setImageResource(R.drawable.baseline_lock_open_24);
-                    ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorBlack));
+                    btAppLock.setText(R.string.lock);
                 } else {
-                    ivAppLock.setImageResource(R.drawable.baseline_lock_24);
-                    ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                    btAppLock.setText(R.string.unlock);
                 }
             } else {
-                ivAppLock.setVisibility(View.GONE);
+                btAppLock.setVisibility(View.GONE);
             }
 
             if (isAppVisible) {
@@ -136,13 +135,13 @@ public class AppAdapter extends RecyclerView.Adapter {
 
             if (mApp.getPackageName().toString().equals(PKG_NAME)) {
                 ivAppHide.setVisibility(View.GONE);
-                ivAppLock.setVisibility(View.GONE);
+                btAppLock.setVisibility(View.GONE);
             } else {
                 ivAppHide.setVisibility(View.VISIBLE);
                 if (mIsHaveBiometric) {
-                    ivAppLock.setVisibility(View.VISIBLE);
+                    btAppLock.setVisibility(View.VISIBLE);
                 } else {
-                    ivAppLock.setVisibility(View.GONE);
+                    btAppLock.setVisibility(View.GONE);
                 }
             }
         }
@@ -172,12 +171,10 @@ public class AppAdapter extends RecyclerView.Adapter {
                     AppPersistent.setAppLock(pkgName, name, !isAppLock);
                     if (isAppLock) {
                         Snackbar.make(cvAppContainer, name + " is now locked", Snackbar.LENGTH_LONG).show();
-                        ivAppLock.setImageResource(R.drawable.baseline_lock_24);
-                        ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                        btAppLock.setText(R.string.unlock);
                     } else {
                         Snackbar.make(cvAppContainer, name + " is now unlocked", Snackbar.LENGTH_LONG).show();
-                        ivAppLock.setImageResource(R.drawable.baseline_lock_open_24);
-                        ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorBlack));
+                        btAppLock.setText(R.string.lock);
                     }
                     return null;
                 });
@@ -218,7 +215,7 @@ public class AppAdapter extends RecyclerView.Adapter {
                     Snackbar.make(cvAppContainer, mContext.getString(R.string.error_app_not_found), Snackbar.LENGTH_LONG).show();
                 }
             });
-            ivAppLock.setOnClickListener(v -> {
+            btAppLock.setOnClickListener(v -> {
                 if (mApp != null) {
                     sendChangeAppsLockBroadcast();
                     toggleAppLock(mApp);
