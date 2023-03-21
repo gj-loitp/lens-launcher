@@ -164,27 +164,20 @@ public class AppAdapter extends RecyclerView.Adapter {
         }
 
         public void toggleAppLock(App app) {
-//            this.mApp = app;
-//            boolean isAppOpened = AppPersistent.getAppOpened(Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString());
-//            AppPersistent.setAppOpened(mApp.getPackageName().toString(), mApp.getName().toString(), !isAppOpened);
-//            if (isAppOpened) {
-//                btAppLock.setText(R.string.unlock);
-//            } else {
-//                btAppLock.setText(R.string.lock);
-//            }
-
             this.mApp = app;
             String pkgName = Objects.requireNonNull(mApp.getPackageName()).toString();
             String name = Objects.requireNonNull(mApp.getName()).toString();
+            String label = Objects.requireNonNull(mApp.getLabel()).toString();
             boolean isAppOpened = AppPersistent.getAppOpened(pkgName, name);
+
             if (mContext instanceof AppCompatActivity) {
-                Biometric.INSTANCE.toggleLockApp((AppCompatActivity) mContext, name, pkgName, isAppOpened, (s, aBoolean) -> {
+                Biometric.INSTANCE.toggleLockApp((AppCompatActivity) mContext, label, pkgName, isAppOpened, (s, aBoolean) -> {
                     AppPersistent.setAppOpened(pkgName, name, !isAppOpened);
                     if (isAppOpened) {
-                        Snackbar.make(cvAppContainer, mApp.getLabel() + " is now locked", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(cvAppContainer, label + " is now locked", Snackbar.LENGTH_LONG).show();
                         btAppLock.setText(R.string.unlock);
                     } else {
-                        Snackbar.make(cvAppContainer, mApp.getLabel() + " is now unlocked", Snackbar.LENGTH_LONG).show();
+                        Snackbar.make(cvAppContainer, label + " is now unlocked", Snackbar.LENGTH_LONG).show();
                         btAppLock.setText(R.string.lock);
                     }
                     return null;
