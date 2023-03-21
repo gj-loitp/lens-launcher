@@ -1,6 +1,5 @@
 package com.roy.a;
 
-import static com.roy.ext.BiometricKt.isHaveBiometric;
 import static com.roy.util.CKt.PKG_NAME;
 
 import android.content.Context;
@@ -17,6 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
@@ -24,6 +24,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.roy.R;
+import com.roy.ext.Biometric;
 import com.roy.model.App;
 import com.roy.model.AppPersistent;
 import com.roy.sv.BroadcastReceivers;
@@ -93,7 +94,7 @@ public class AppAdapter extends RecyclerView.Adapter {
         public AppViewHolder(View itemView, Context context) {
             super(itemView);
             this.mContext = context;
-            this.mIsHaveBiometric = isHaveBiometric(mContext);
+            this.mIsHaveBiometric = Biometric.INSTANCE.isHaveBiometric(mContext);
             this.cvAppContainer = itemView.findViewById(R.id.cvAppContainer);
             this.tvAppLabel = itemView.findViewById(R.id.tvAppLabel);
             this.ivAppIcon = itemView.findViewById(R.id.ivAppIcon);
@@ -163,17 +164,23 @@ public class AppAdapter extends RecyclerView.Adapter {
 
         public void toggleAppLock(App app) {
             this.mApp = app;
-            boolean isAppLock = AppPersistent.getAppLock(Objects.requireNonNull(mApp.getPackageName()).toString(),
-                    Objects.requireNonNull(mApp.getName()).toString());
-            AppPersistent.setAppLock(mApp.getPackageName().toString(), mApp.getName().toString(), !isAppLock);
-            if (isAppLock) {
-                Snackbar.make(cvAppContainer, mApp.getLabel() + " is now locked", Snackbar.LENGTH_LONG).show();
-                ivAppLock.setImageResource(R.drawable.baseline_lock_24);
-                ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
-            } else {
-                Snackbar.make(cvAppContainer, mApp.getLabel() + " is now unlocked", Snackbar.LENGTH_LONG).show();
-                ivAppLock.setImageResource(R.drawable.baseline_lock_open_24);
-                ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorBlack));
+            String pkgName = Objects.requireNonNull(mApp.getPackageName()).toString();
+            String name = mApp.getPackageName().toString();
+            boolean isAppLock = AppPersistent.getAppLock(pkgName, name);
+            if (mContext instanceof AppCompatActivity) {
+                Biometric.INSTANCE.toggleLockApp((AppCompatActivity) mContext, name, pkgName, isAppLock, (s, aBoolean) -> {
+                    AppPersistent.setAppLock(pkgName, name, !isAppLock);
+                    if (isAppLock) {
+                        Snackbar.make(cvAppContainer, mApp.getLabel() + " is now locked", Snackbar.LENGTH_LONG).show();
+                        ivAppLock.setImageResource(R.drawable.baseline_lock_24);
+                        ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                    } else {
+                        Snackbar.make(cvAppContainer, mApp.getLabel() + " is now unlocked", Snackbar.LENGTH_LONG).show();
+                        ivAppLock.setImageResource(R.drawable.baseline_lock_open_24);
+                        ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorBlack));
+                    }
+                    return null;
+                });
             }
         }
 
