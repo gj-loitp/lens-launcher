@@ -226,7 +226,20 @@ public class AppAdapter extends RecyclerView.Adapter {
         }
 
         public void setOnClickListeners() {
-            itemView.setOnClickListener(view -> UtilApp.launchComponent(mContext, Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString(), itemView, new Rect(0, 0, itemView.getMeasuredWidth(), itemView.getMeasuredHeight())));
+            itemView.setOnClickListener(view ->
+                    UtilApp.launchComponent(
+                            mContext,
+                            Objects.requireNonNull(mApp.getPackageName()).toString(),
+                            Objects.requireNonNull(mApp.getLabel()).toString(),
+                            Objects.requireNonNull(mApp.getName()).toString(),
+                            itemView,
+                            new Rect(
+                                    0,
+                                    0,
+                                    itemView.getMeasuredWidth(),
+                                    itemView.getMeasuredHeight())
+                    )
+            );
             ivAppHide.setOnClickListener(v -> {
                 if (mApp != null) {
                     sendChangeAppsVisibilityBroadcast();

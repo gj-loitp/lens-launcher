@@ -10,12 +10,15 @@ import android.content.pm.ResolveInfo
 import android.graphics.Rect
 import android.os.Build
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityOptionsCompat
 import androidx.core.content.ContextCompat
 import com.roy.R
 import com.roy.enums.SortType
+import com.roy.ext.Biometric
 import com.roy.model.App
 import com.roy.model.AppPersistent
 import com.roy.sv.BroadcastReceivers.AppsEditedReceiver
@@ -92,46 +95,72 @@ object UtilApp {
     // Launch apps, for launcher :-P
     @JvmStatic
     fun launchComponent(
-        context: Context, packageName: String?, name: String?, view: View?, bounds: Rect?
+        context: Context,
+        packageName: String?,
+        label: String?,
+        name: String?,
+        view: View?,
+        bounds: Rect?
     ) {
-        if (packageName != null && name != null) {
-            val componentIntent = Intent()
-            componentIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
-            componentIntent.component = ComponentName(/* pkg = */ packageName, /* cls = */ name)
-            if (packageName != PKG_NAME) {
-                componentIntent.action = Intent.ACTION_MAIN
-            }
-            componentIntent.addCategory(Intent.CATEGORY_LAUNCHER)
-            try {
-                // Launch Component
-                ContextCompat.startActivity(
-                    /* context = */ context,
-                    /* intent = */ componentIntent,
-                    /* options = */ getLauncherOptionsBundle(
-                        context = context, source = view, bounds = bounds
-                    )
-                )
-                // Increment app open count
-                AppPersistent.incrementAppCount(packageName, name)
-                // Resort apps (if open count selected)
-                val utilSettings = UtilSettings(context)
-                if (utilSettings.sortType == SortType.OPEN_COUNT_ASCENDING || utilSettings.sortType == SortType.OPEN_COUNT_DESCENDING) {
-                    val editAppsIntent = Intent(context, AppsEditedReceiver::class.java)
-                    context.sendBroadcast(editAppsIntent)
+        fun launch() {
+            if (packageName != null && name != null) {
+                val componentIntent = Intent()
+                componentIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
+                componentIntent.component = ComponentName(/* pkg = */ packageName, /* cls = */ name)
+                if (packageName != PKG_NAME) {
+                    componentIntent.action = Intent.ACTION_MAIN
                 }
-            } catch (e: ActivityNotFoundException) {
+                componentIntent.addCategory(Intent.CATEGORY_LAUNCHER)
+                try {
+                    // Launch Component
+                    ContextCompat.startActivity(
+                        /* context = */ context,
+                        /* intent = */ componentIntent,
+                        /* options = */ getLauncherOptionsBundle(
+                            context = context, source = view, bounds = bounds
+                        )
+                    )
+                    // Increment app open count
+                    AppPersistent.incrementAppCount(packageName, name)
+                    // Resort apps (if open count selected)
+                    val utilSettings = UtilSettings(context)
+                    if (utilSettings.sortType == SortType.OPEN_COUNT_ASCENDING || utilSettings.sortType == SortType.OPEN_COUNT_DESCENDING) {
+                        val editAppsIntent = Intent(context, AppsEditedReceiver::class.java)
+                        context.sendBroadcast(editAppsIntent)
+                    }
+                } catch (e: ActivityNotFoundException) {
+                    Toast.makeText(
+                        /* context = */ context,
+                        /* resId = */ R.string.error_app_not_found,
+                        /* duration = */ Toast.LENGTH_SHORT
+                    ).show()
+                }
+            } else {
                 Toast.makeText(
                     /* context = */ context,
-                    /* resId = */ R.string.error_app_not_found,
-                    /* duration = */ Toast.LENGTH_SHORT
+                    /* resId = */R.string.error_app_not_found,
+                    /* duration = */Toast.LENGTH_SHORT
                 ).show()
             }
+        }
+
+        val isAppOpened = AppPersistent.getAppOpened(packageName, name)
+        if (isAppOpened) {
+            launch()
         } else {
-            Toast.makeText(
-                /* context = */ context,
-                /* resId = */R.string.error_app_not_found,
-                /* duration = */Toast.LENGTH_SHORT
-            ).show()
+            //biometric
+            (context as? AppCompatActivity)?.let { a ->
+                packageName?.let { pk ->
+                    Biometric.toggleLockApp(
+                        a = a,
+                        appName = label ?: "",
+                        packageName = pk,
+                        isAppLock = false
+                    ) { _: String?, _: Boolean? ->
+                        launch()
+                    }
+                }
+            }
         }
     }
 

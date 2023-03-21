@@ -533,6 +533,7 @@ class LensView : View {
                 UtilApp.launchComponent(
                     /* context = */ context,
                     /* packageName = */ list[mSelectIndex].packageName as String?,
+                    /* label = */ list[mSelectIndex].label as String?,
                     /* name = */ list[mSelectIndex].name as String?,
                     /* view = */ this,
                     /* bounds = */ bounds
