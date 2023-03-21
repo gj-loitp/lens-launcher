@@ -22,21 +22,21 @@ public class AppPersistent extends SugarRecord {
     private long mOpenCount;
     private int mOrderNumber;
     private boolean mAppVisible;
-    private boolean mAppLock;
+    private boolean mAppOpened;
 
     private static final boolean DEFAULT_APP_VISIBILITY = true;
-    private static final boolean DEFAULT_APP_LOCK = false;
+    private static final boolean DEFAULT_APP_LOCK = true;
     private static final int DEFAULT_ORDER_NUMBER = -1;
     private static final long DEFAULT_OPEN_COUNT = 1;
 
-    public AppPersistent(String packageName, String name, long openCount, int orderNumber, boolean appVisible, boolean appLock) {
+    public AppPersistent(String packageName, String name, long openCount, int orderNumber, boolean appVisible, boolean appOpened) {
         this.mPackageName = packageName;
         this.mName = name;
         this.mIdentifier = AppPersistent.generateIdentifier(packageName, name);
         this.mOpenCount = openCount;
         this.mOrderNumber = orderNumber;
         this.mAppVisible = appVisible;
-        this.mAppLock = appLock;
+        this.mAppOpened = appOpened;
     }
 
     public String getPackageName() {
@@ -85,18 +85,18 @@ public class AppPersistent extends SugarRecord {
         this.mAppVisible = appVisible;
     }
 
-    public boolean isAppLock() {
-        return mAppLock;
+    public boolean isAppOpened() {
+        return mAppOpened;
     }
 
-    public void setAppLock(boolean appLock) {
-        this.mAppLock = appLock;
+    public void setAppOpened(boolean appOpened) {
+        this.mAppOpened = appOpened;
     }
 
     @NonNull
     @Override
     public String toString() {
-        return "AppPersistent{" + "mPackageName='" + mPackageName + '\'' + ", mName='" + mName + '\'' + ", mIdentifier='" + mIdentifier + '\'' + ", mOpenCount=" + mOpenCount + ", mOrderNumber=" + mOrderNumber + ", mAppVisible=" + mAppVisible + ", mAppLock=" + mAppLock + '}';
+        return "AppPersistent{" + "mPackageName='" + mPackageName + '\'' + ", mName='" + mName + '\'' + ", mIdentifier='" + mIdentifier + '\'' + ", mOpenCount=" + mOpenCount + ", mOrderNumber=" + mOrderNumber + ", mAppVisible=" + mAppVisible + ", mAppLock=" + mAppOpened + '}';
     }
 
     public static String generateIdentifier(String packageName, String name) {
@@ -127,21 +127,21 @@ public class AppPersistent extends SugarRecord {
         }
     }
 
-    public static boolean getAppLock(String packageName, String name) {
+    public static boolean getAppOpened(String packageName, String name) {
         String identifier = AppPersistent.generateIdentifier(packageName, name);
         AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
         if (appPersistent != null) {
-            return appPersistent.isAppLock();
+            return appPersistent.isAppOpened();
         } else {
             return true;
         }
     }
 
-    public static void setAppLock(String packageName, String name, boolean appLock) {
+    public static void setAppOpened(String packageName, String name, boolean appLock) {
         String identifier = AppPersistent.generateIdentifier(packageName, name);
         AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
         if (appPersistent != null) {
-            appPersistent.setAppLock(appLock);
+            appPersistent.setAppOpened(appLock);
             appPersistent.save();
         } else {
             AppPersistent newAppPersistent = new AppPersistent(packageName, name, DEFAULT_OPEN_COUNT, DEFAULT_ORDER_NUMBER, DEFAULT_APP_VISIBILITY, appLock);

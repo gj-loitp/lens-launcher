@@ -32,25 +32,23 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginStart="@dimen/margin_app"
-            android:layout_toStartOf="@+id/btAppLock"
+            android:layout_toStartOf="@+id/ivAppLock"
             android:layout_toEndOf="@+id/ivAppIcon"
             android:ellipsize="end"
             android:maxLines="3"
             android:textStyle="bold"
             tools:text="AppName" />
 
-        <androidx.appcompat.widget.AppCompatButton
-            android:id="@+id/btAppLock"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivAppLock"
+            android:layout_width="@dimen/width_app_icon"
+            android:layout_height="@dimen/height_app_action_button"
             android:layout_toStartOf="@+id/ivAppHide"
-            android:backgroundTint="@color/colorPrimary"
-            android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            android:textSize="12sp"
-            tools:ignore="contentDescription"
-            tools:text="Lock/unlock" />
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_visibility_grey_24dp"
+            android:tint="@color/colorAppTint"
+            tools:ignore="contentDescription" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivAppHide"
