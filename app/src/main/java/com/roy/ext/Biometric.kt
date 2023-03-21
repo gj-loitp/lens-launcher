@@ -73,28 +73,4 @@ object Biometric {
         }
         return BiometricPrompt(activity, executor, callback)
     }
-
-    //            if (mContext instanceof AppCompatActivity) {
-//                Biometric.INSTANCE.toggleLockApp((AppCompatActivity) mContext, name, pkgName, isAppLock, (s, aBoolean) -> {
-//                    Log.d("loitpp", "aBoolean " + aBoolean);
-//                    AppPersistent.setAppLocked(pkgName, name, aBoolean);
-//                    if (aBoolean) {
-//                        Snackbar.make(cvAppContainer, name + " is now locked", Snackbar.LENGTH_LONG).show();
-//                        btAppLock.setText("isAppLock " + aBoolean);
-//                        ViewCompat.setBackgroundTintList(
-//                                btAppLock,
-//                                ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimary))
-//                        );
-//                    } else {
-//                        Snackbar.make(cvAppContainer, name + " is now unlocked", Snackbar.LENGTH_LONG).show();
-//                        btAppLock.setText("isAppLock " + aBoolean);
-//                        ViewCompat.setBackgroundTintList(
-//                                btAppLock,
-//                                ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans))
-//                        );
-//                    }
-//                    return null;
-//                });
-//            }
-
 }
