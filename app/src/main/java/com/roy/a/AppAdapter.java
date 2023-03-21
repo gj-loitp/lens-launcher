@@ -4,6 +4,7 @@ import static com.roy.util.CKt.PKG_NAME;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.Settings;
@@ -17,9 +18,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -161,40 +164,32 @@ public class AppAdapter extends RecyclerView.Adapter {
         }
 
         public void toggleAppLock(App app) {
-            this.mApp = app;
-            boolean isAppOpened = AppPersistent.getAppOpened(Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString());
-            AppPersistent.setAppOpened(mApp.getPackageName().toString(), mApp.getName().toString(), !isAppOpened);
-            if (isAppOpened) {
-                btAppLock.setText(R.string.unlock);
-            } else {
-                btAppLock.setText(R.string.lock);
-            }
-
 //            this.mApp = app;
-//            String pkgName = Objects.requireNonNull(mApp.getPackageName()).toString();
-//            String name = Objects.requireNonNull(mApp.getLabel()).toString();
-//            boolean isAppLock = AppPersistent.getAppLock(pkgName, name);
-//            if (mContext instanceof AppCompatActivity) {
-//                Biometric.INSTANCE.toggleLockApp((AppCompatActivity) mContext, name, pkgName, isAppLock, (s, aBoolean) -> {
-//                    AppPersistent.setAppOpened(pkgName, name, !isAppLock);
-//                    if (isAppLock) {
-//                        Snackbar.make(cvAppContainer, name + " is now locked", Snackbar.LENGTH_LONG).show();
-//                        ivAppLock.setText(R.string.unlock);
-//                        ViewCompat.setBackgroundTintList(
-//                                ivAppLock,
-//                                ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimary))
-//                        );
-//                    } else {
-//                        Snackbar.make(cvAppContainer, name + " is now unlocked", Snackbar.LENGTH_LONG).show();
-//                        ivAppLock.setText(R.string.lock);
-//                        ViewCompat.setBackgroundTintList(
-//                                ivAppLock,
-//                                ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans))
-//                        );
-//                    }
-//                    return null;
-//                });
+//            boolean isAppOpened = AppPersistent.getAppOpened(Objects.requireNonNull(mApp.getPackageName()).toString(), Objects.requireNonNull(mApp.getName()).toString());
+//            AppPersistent.setAppOpened(mApp.getPackageName().toString(), mApp.getName().toString(), !isAppOpened);
+//            if (isAppOpened) {
+//                btAppLock.setText(R.string.unlock);
+//            } else {
+//                btAppLock.setText(R.string.lock);
 //            }
+
+            this.mApp = app;
+            String pkgName = Objects.requireNonNull(mApp.getPackageName()).toString();
+            String name = Objects.requireNonNull(mApp.getName()).toString();
+            boolean isAppOpened = AppPersistent.getAppOpened(pkgName, name);
+            if (mContext instanceof AppCompatActivity) {
+                Biometric.INSTANCE.toggleLockApp((AppCompatActivity) mContext, name, pkgName, isAppOpened, (s, aBoolean) -> {
+                    AppPersistent.setAppOpened(pkgName, name, !isAppOpened);
+                    if (isAppOpened) {
+                        Snackbar.make(cvAppContainer, mApp.getLabel() + " is now locked", Snackbar.LENGTH_LONG).show();
+                        btAppLock.setText(R.string.unlock);
+                    } else {
+                        Snackbar.make(cvAppContainer, mApp.getLabel() + " is now unlocked", Snackbar.LENGTH_LONG).show();
+                        btAppLock.setText(R.string.lock);
+                    }
+                    return null;
+                });
+            }
         }
 
         private void sendChangeAppsVisibilityBroadcast() {
