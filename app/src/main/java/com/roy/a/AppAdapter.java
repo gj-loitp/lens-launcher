@@ -4,6 +4,7 @@ import static com.roy.util.CKt.PKG_NAME;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.ColorStateList;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.Settings;
@@ -21,6 +22,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.cardview.widget.CardView;
 import androidx.core.content.ContextCompat;
+import androidx.core.view.ViewCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.snackbar.Snackbar;
@@ -118,8 +120,16 @@ public class AppAdapter extends RecyclerView.Adapter {
                 btAppLock.setVisibility(View.VISIBLE);
                 if (isAppLock) {
                     btAppLock.setText(R.string.lock);
+                    ViewCompat.setBackgroundTintList(
+                            btAppLock,
+                            ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans))
+                    );
                 } else {
                     btAppLock.setText(R.string.unlock);
+                    ViewCompat.setBackgroundTintList(
+                            btAppLock,
+                            ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimary))
+                    );
                 }
             } else {
                 btAppLock.setVisibility(View.GONE);
@@ -172,9 +182,17 @@ public class AppAdapter extends RecyclerView.Adapter {
                     if (isAppLock) {
                         Snackbar.make(cvAppContainer, name + " is now locked", Snackbar.LENGTH_LONG).show();
                         btAppLock.setText(R.string.unlock);
+                        ViewCompat.setBackgroundTintList(
+                                btAppLock,
+                                ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimary))
+                        );
                     } else {
                         Snackbar.make(cvAppContainer, name + " is now unlocked", Snackbar.LENGTH_LONG).show();
                         btAppLock.setText(R.string.lock);
+                        ViewCompat.setBackgroundTintList(
+                                btAppLock,
+                                ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans))
+                        );
                     }
                     return null;
                 });
