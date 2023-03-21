@@ -14,6 +14,7 @@ import com.roy.model.App;
 import com.roy.model.AppPersistent;
 import com.roy.sv.BackgroundChangedObservable;
 import com.roy.sv.LoadedObservable;
+import com.roy.sv.LockChangedObservable;
 import com.roy.sv.NightModeObservable;
 import com.roy.sv.VisibilityChangedObservable;
 import com.roy.views.LensView;
@@ -109,7 +110,10 @@ public class AHome extends ABase implements Observer {
 
     @Override
     public void update(Observable observable, Object data) {
-        if (observable instanceof LoadedObservable || observable instanceof VisibilityChangedObservable) {
+        if (observable instanceof LoadedObservable
+                || observable instanceof VisibilityChangedObservable
+                || observable instanceof LockChangedObservable
+        ) {
             assignApps(Objects.requireNonNull(
                             Objects.requireNonNull(AppsSingleton.getInstance()).getApps()),
                     AppsSingleton.getInstance().getAppIcons());

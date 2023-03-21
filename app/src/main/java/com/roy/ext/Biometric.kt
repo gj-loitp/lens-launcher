@@ -24,9 +24,9 @@ object Biometric {
         onAuthenticationSucceeded: ((String, Boolean) -> Unit),
     ) {
         val description = if (isAppLock) {
-            "Unlock $appName?"
+            "Lock $appName?\npackageName: $packageName"
         } else {
-            "Lock $appName?"
+            "Unlock $appName?\npackageName: $packageName"
         }
 
         val promptInfo = BiometricPrompt.PromptInfo.Builder()
