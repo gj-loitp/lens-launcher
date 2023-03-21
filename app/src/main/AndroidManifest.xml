@@ -97,13 +97,10 @@
         </receiver>
 
         <receiver android:name=".sv.BroadcastReceivers$AppsEditedReceiver" />
-
         <receiver android:name=".sv.BroadcastReceivers$AppsVisibilityChangedReceiver" />
-
+        <receiver android:name=".sv.BroadcastReceivers$AppsLockChangedReceiver" />
         <receiver android:name=".sv.BroadcastReceivers$AppsLoadedReceiver" />
-
         <receiver android:name=".sv.BroadcastReceivers$BackgroundChangedReceiver" />
-
         <receiver android:name=".sv.BroadcastReceivers$NightModeReceiver" />
 
     </application>

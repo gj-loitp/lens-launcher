@@ -98,7 +98,7 @@ object UtilApp {
             val componentIntent = Intent()
             componentIntent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK)
             componentIntent.component = ComponentName(/* pkg = */ packageName, /* cls = */ name)
-            if (packageName != "com.roy93group.lenslauncher") {
+            if (packageName != PKG_NAME) {
                 componentIntent.action = Intent.ACTION_MAIN
             }
             componentIntent.addCategory(Intent.CATEGORY_LAUNCHER)

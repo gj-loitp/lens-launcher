@@ -19,21 +19,36 @@
             android:id="@+id/ivAppIcon"
             android:layout_width="@dimen/width_app_icon"
             android:layout_height="@dimen/width_app_icon"
-            android:layout_margin="8dp"
-            tools:ignore="contentDescription" />
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            tools:ignore="contentDescription"
+            tools:src="@drawable/ic_launcher" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvAppLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:layout_toStartOf="@+id/ivAppHide"
+            android:layout_marginStart="@dimen/margin_app"
+            android:layout_toStartOf="@+id/ivAppLock"
             android:layout_toEndOf="@+id/ivAppIcon"
             android:ellipsize="end"
-            android:maxLines="1"
+            android:maxLines="3"
             android:textStyle="bold"
             tools:text="AppName" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/ivAppLock"
+            android:layout_width="@dimen/width_app_icon"
+            android:layout_height="@dimen/height_app_action_button"
+            android:layout_toStartOf="@+id/ivAppHide"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:scaleType="centerInside"
+            android:src="@drawable/baseline_lock_24"
+            android:tint="@color/colorAppTint"
+            tools:ignore="contentDescription" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivAppHide"

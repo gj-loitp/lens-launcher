@@ -32,6 +32,15 @@ class BroadcastReceivers {
         }
     }
 
+    class AppsLockChangedReceiver : BroadcastReceiver() {
+        override fun onReceive(
+            context: Context,
+            intent: Intent
+        ) {
+            LockChangedObservable.getInstance().update()
+        }
+    }
+
     class AppsLoadedReceiver : BroadcastReceiver() {
         override fun onReceive(
             context: Context,
