@@ -1,5 +1,6 @@
 package com.roy.a;
 
+import static com.roy.ext.BiometricKt.isHaveBiometric;
 import static com.roy.util.CKt.PKG_NAME;
 
 import android.content.Context;
@@ -77,7 +78,7 @@ public class AppAdapter extends RecyclerView.Adapter {
         appViewHolder.setAppElement(app);
     }
 
-    public static class AppViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener {
+    static class AppViewHolder extends RecyclerView.ViewHolder implements PopupMenu.OnMenuItemClickListener {
         CardView cvAppContainer;
         TextView tvAppLabel;
         ImageView ivAppIcon;
@@ -87,10 +88,12 @@ public class AppAdapter extends RecyclerView.Adapter {
 
         private App mApp;
         private final Context mContext;
+        private boolean mIsHaveBiometric = false;
 
         public AppViewHolder(View itemView, Context context) {
             super(itemView);
             this.mContext = context;
+            this.mIsHaveBiometric = isHaveBiometric(mContext);
             this.cvAppContainer = itemView.findViewById(R.id.cvAppContainer);
             this.tvAppLabel = itemView.findViewById(R.id.tvAppLabel);
             this.ivAppIcon = itemView.findViewById(R.id.ivAppIcon);
@@ -108,7 +111,19 @@ public class AppAdapter extends RecyclerView.Adapter {
             String name = Objects.requireNonNull(mApp.getName()).toString();
 
             boolean isAppVisible = AppPersistent.getAppVisibility(pkgName, name);
-            boolean isAppLock = AppPersistent.getAppLock(pkgName, name);
+            if (this.mIsHaveBiometric) {
+                boolean isAppLock = AppPersistent.getAppLock(pkgName, name);
+                ivAppLock.setVisibility(View.VISIBLE);
+                if (isAppLock) {
+                    ivAppLock.setImageResource(R.drawable.baseline_lock_open_24);
+                    ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorBlack));
+                } else {
+                    ivAppLock.setImageResource(R.drawable.baseline_lock_24);
+                    ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
+                }
+            } else {
+                ivAppLock.setVisibility(View.GONE);
+            }
 
             if (isAppVisible) {
                 ivAppHide.setImageResource(R.drawable.ic_visibility_grey_24dp);
@@ -117,20 +132,17 @@ public class AppAdapter extends RecyclerView.Adapter {
                 ivAppHide.setImageResource(R.drawable.ic_visibility_off_grey_24dp);
                 ivAppHide.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
             }
-            if (isAppLock) {
-                ivAppLock.setImageResource(R.drawable.baseline_lock_open_24);
-                ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorBlack));
-            } else {
-                ivAppLock.setImageResource(R.drawable.baseline_lock_24);
-                ivAppLock.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
-            }
 
             if (mApp.getPackageName().toString().equals(PKG_NAME)) {
-                ivAppHide.setVisibility(View.INVISIBLE);
-                ivAppLock.setVisibility(View.INVISIBLE);
+                ivAppHide.setVisibility(View.GONE);
+                ivAppLock.setVisibility(View.GONE);
             } else {
                 ivAppHide.setVisibility(View.VISIBLE);
-                ivAppLock.setVisibility(View.VISIBLE);
+                if (mIsHaveBiometric) {
+                    ivAppLock.setVisibility(View.VISIBLE);
+                } else {
+                    ivAppLock.setVisibility(View.GONE);
+                }
             }
         }
 
