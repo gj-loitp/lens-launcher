@@ -119,8 +119,16 @@ public class AppAdapter extends RecyclerView.Adapter {
                 btAppLock.setVisibility(View.VISIBLE);
                 if (isAppOpened) {
                     btAppLock.setText(R.string.lock);
+                    ViewCompat.setBackgroundTintList(
+                            btAppLock,
+                            ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans))
+                    );
                 } else {
                     btAppLock.setText(R.string.unlock);
+                    ViewCompat.setBackgroundTintList(
+                            btAppLock,
+                            ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimary))
+                    );
                 }
             } else {
                 btAppLock.setVisibility(View.GONE);
@@ -176,9 +184,17 @@ public class AppAdapter extends RecyclerView.Adapter {
                     if (isAppOpened) {
                         Snackbar.make(cvAppContainer, label + " is now locked", Snackbar.LENGTH_LONG).show();
                         btAppLock.setText(R.string.unlock);
+                        ViewCompat.setBackgroundTintList(
+                                btAppLock,
+                                ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimary))
+                        );
                     } else {
                         Snackbar.make(cvAppContainer, label + " is now unlocked", Snackbar.LENGTH_LONG).show();
                         btAppLock.setText(R.string.lock);
+                        ViewCompat.setBackgroundTintList(
+                                btAppLock,
+                                ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans))
+                        );
                     }
                     return null;
                 });

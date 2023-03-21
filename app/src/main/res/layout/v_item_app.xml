@@ -46,6 +46,7 @@
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/ivAppHide"
             android:textAllCaps="false"
+            android:textColor="@color/colorWhite"
             tools:ignore="contentDescription"
             tools:text="Lock" />
 
