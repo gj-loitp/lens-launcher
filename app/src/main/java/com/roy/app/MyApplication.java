@@ -9,9 +9,6 @@ import com.roy.sv.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO admob
-//TODO lock/unlock app
-
 //done
 //ic_launcher
 //setting search icon pack
@@ -19,6 +16,8 @@ import java.util.Observer;
 //dialog policy first
 //firebase
 //keystore
+//admob
+//lock/unlock app
 
 //https://console.firebase.google.com/u/0/project/lenslauncher-25806/overview
 //2023.03.18 tried to convert to kotlin but failed

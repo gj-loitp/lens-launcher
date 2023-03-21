@@ -10,8 +10,8 @@ android {
         applicationId "com.roy93group.lenslauncher"
         minSdkVersion 21
         targetSdkVersion 33
-        versionCode 20230320
-        versionName "2023.03.20"
+        versionCode 20230321
+        versionName "2023.03.21"
     }
 
     android.applicationVariants.all { variant ->
