@@ -11,6 +11,7 @@ import static com.roy.util.CKt.URL_POLICY_NOTION;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,7 +24,11 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
+import com.applovin.mediation.MaxAd;
+import com.applovin.mediation.MaxAdListener;
+import com.applovin.mediation.MaxError;
 import com.applovin.mediation.ads.MaxAdView;
+import com.applovin.mediation.ads.MaxInterstitialAd;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -51,6 +56,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
+import java.util.concurrent.TimeUnit;
 
 //2023.03.19 tried to convert kotlin but failed
 public class ASettings extends ABase implements Observer, ColorChooserDialog.ColorCallback {
@@ -62,6 +68,8 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     ViewPager viewpager;
     FloatingActionButton fabSort;
     private MaxAdView adView;
+    private MaxInterstitialAd interstitialAd;
+    private int retryAttempt;
 
     private ArrayList<App> listApp;
     private MaterialDialog dlgSortType;
@@ -132,6 +140,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         listApp = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
 
         adView = Applovin.INSTANCE.createAdBanner(this, ASettings.class.getSimpleName(), Color.TRANSPARENT, findViewById(R.id.flAd));
+        createAdInter();
     }
 
     @Override
@@ -159,6 +168,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     private void launchApps() {
         boolean isDefaultLauncher = UtilLauncher.isDefaultLauncher(getApplication());
         if (isDefaultLauncher) {
+            showAd();
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
             homeIntent.addCategory(Intent.CATEGORY_HOME);
             startActivity(homeIntent);
@@ -169,6 +179,55 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
             showHomeLauncherChooser();
         }
         overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
+    }
+
+    private void showAd() {
+        if (interstitialAd != null && interstitialAd.isReady()) {
+            interstitialAd.showAd();
+        }
+    }
+
+    private void createAdInter() {
+        interstitialAd = new MaxInterstitialAd(getString(R.string.INTER), this);
+        interstitialAd.setListener(new MaxAdListener() {
+            @Override
+            public void onAdLoaded(MaxAd maxAd) {
+                retryAttempt = 0;
+            }
+
+            @Override
+            public void onAdDisplayed(MaxAd maxAd) {
+
+            }
+
+            @Override
+            public void onAdHidden(MaxAd maxAd) {
+                // Interstitial ad is hidden. Pre-load the next ad
+                interstitialAd.loadAd();
+            }
+
+            @Override
+            public void onAdClicked(MaxAd maxAd) {
+
+            }
+
+            @Override
+            public void onAdLoadFailed(String s, MaxError maxError) {
+                retryAttempt++;
+                long delayMillis = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retryAttempt)));
+
+                new Handler().postDelayed(() -> interstitialAd.loadAd(), delayMillis);
+            }
+
+            @Override
+            public void onAdDisplayFailed(MaxAd maxAd, MaxError maxError) {
+                // Interstitial ad failed to display. AppLovin recommends that you load the next ad.
+                interstitialAd.loadAd();
+            }
+        });
+
+        // Load the first ad
+        interstitialAd.loadAd();
     }
 
     @Override
