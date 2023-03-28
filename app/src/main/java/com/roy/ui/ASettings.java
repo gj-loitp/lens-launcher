@@ -168,7 +168,6 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     private void launchApps() {
         boolean isDefaultLauncher = UtilLauncher.isDefaultLauncher(getApplication());
         if (isDefaultLauncher) {
-            showAd();
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
             homeIntent.addCategory(Intent.CATEGORY_HOME);
             startActivity(homeIntent);
@@ -181,7 +180,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
     }
 
-    private void showAd() {
+    void showAd() {
         if (interstitialAd != null && interstitialAd.isReady()) {
             interstitialAd.showAd();
         }
@@ -316,6 +315,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     }
 
     private void showSortTypeDialog() {
+        showAd();
         final List<SortType> lSortType = new ArrayList<>(EnumSet.allOf(SortType.class));
         final List<String> lSortTypeString = new ArrayList<>();
         for (int i = 0; i < lSortType.size(); i++) {
