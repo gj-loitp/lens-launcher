@@ -23,6 +23,7 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.afollestad.materialdialogs.MaterialDialog;
 import com.afollestad.materialdialogs.color.ColorChooserDialog;
+import com.applovin.mediation.ads.MaxAdView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -30,6 +31,7 @@ import com.roy.R;
 import com.roy.a.FragmentPagerAdapter;
 import com.roy.app.AppsSingleton;
 import com.roy.enums.SortType;
+import com.roy.ext.Applovin;
 import com.roy.itf.AppsInterface;
 import com.roy.itf.LensInterface;
 import com.roy.itf.SettingsInterface;
@@ -59,6 +61,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     TabLayout tabs;
     ViewPager viewpager;
     FloatingActionButton fabSort;
+    private MaxAdView adView;
 
     private ArrayList<App> listApp;
     private MaterialDialog dlgSortType;
@@ -127,6 +130,8 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
             }
         });
         listApp = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
+
+        adView = Applovin.INSTANCE.createAdBanner(this, ASettings.class.getSimpleName(), Color.TRANSPARENT, findViewById(R.id.flAd));
     }
 
     @Override
@@ -143,15 +148,10 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         if (utilSettings != null) {
             boolean hasRead = utilSettings.getBoolean(UtilSettings.KEY_READ_POLICY);
             if (!hasRead) {
-                showDialog1(this,
-                        getString(R.string.terms_and_privacy_policy),
-                        getString(R.string.read_policy),
-                        getString(R.string.agree_and_continue),
-                        () -> {
-                            openUrlInBrowser(this, URL_POLICY_NOTION);
-                            utilSettings.save(UtilSettings.KEY_READ_POLICY, true);
-                        })
-                ;
+                showDialog1(this, getString(R.string.terms_and_privacy_policy), getString(R.string.read_policy), getString(R.string.agree_and_continue), () -> {
+                    openUrlInBrowser(this, URL_POLICY_NOTION);
+                    utilSettings.save(UtilSettings.KEY_READ_POLICY, true);
+                });
             }
         }
     }
@@ -419,6 +419,9 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     protected void onDestroy() {
         dismissAllDialogs();
         LoadedObservable.getInstance().deleteObserver(this);
+        if (adView != null) {
+            adView.destroy();
+        }
         super.onDestroy();
     }
 

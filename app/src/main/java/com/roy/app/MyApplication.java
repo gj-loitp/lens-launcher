@@ -1,6 +1,7 @@
 package com.roy.app;
 
 import com.orm.SugarApp;
+import com.roy.ext.Applovin;
 import com.roy.sv.EditedObservable;
 import com.roy.sv.TaskSortApps;
 import com.roy.sv.TaskUpdateApps;
@@ -16,7 +17,6 @@ import java.util.Observer;
 //dialog policy first
 //firebase
 //keystore
-//admob
 //lock/unlock app
 
 //https://console.firebase.google.com/u/0/project/lenslauncher-25806/overview
@@ -30,6 +30,8 @@ public class MyApplication extends SugarApp implements Observer {
         UpdatedObservable.getInstance().addObserver(this);
         EditedObservable.getInstance().addObserver(this);
         updateApps();
+
+        Applovin.INSTANCE.setupAd(this);
     }
 
     @Override
