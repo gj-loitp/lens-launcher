@@ -10,6 +10,8 @@ import com.roy.sv.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
+//TODO switch customized
+
 //done
 //ic_launcher
 //setting search icon pack
