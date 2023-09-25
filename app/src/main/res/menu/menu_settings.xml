@@ -36,4 +36,12 @@
         android:id="@+id/menuPolicy"
         android:title="@string/terms_and_privacy_policy"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menuGithub"
+        android:title="@string/github"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuLicense"
+        android:title="@string/license"
+        app:showAsAction="never" />
 </menu>

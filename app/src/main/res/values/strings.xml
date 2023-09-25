@@ -67,4 +67,6 @@
     <string name="verify_your_identity">Verify your identity</string>
     <string name="lock">Lock</string>
     <string name="unlock">Unlock</string>
+    <string name="github">Github</string>
+    <string name="license">License</string>
 </resources>

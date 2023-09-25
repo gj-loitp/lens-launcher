@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 //TODO switch customized
+//TODO internal webview
 
 //done
 //ic_launcher
@@ -20,6 +21,8 @@ import java.util.Observer;
 //firebase
 //keystore
 //lock/unlock app
+//github
+//license
 
 //https://console.firebase.google.com/u/0/project/lenslauncher-25806/overview
 //2023.03.18 tried to convert to kotlin but failed
