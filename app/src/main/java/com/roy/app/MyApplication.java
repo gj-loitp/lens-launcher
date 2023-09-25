@@ -1,7 +1,7 @@
 package com.roy.app;
 
 import com.orm.SugarApp;
-import com.roy.ext.Applovin;
+import com.roy.ext.ApplovinKt;
 import com.roy.sv.EditedObservable;
 import com.roy.sv.TaskSortApps;
 import com.roy.sv.TaskUpdateApps;
@@ -14,7 +14,7 @@ import java.util.Observer;
 //TODO internal webview
 //TODO app launcher uninstall app
 //TODO app launcher app infor
-//TODO apply new logic applovin utils
+//TODO showMediationDebuggerApplovin
 //TODO lock/unlock app
 
 //done
@@ -27,6 +27,7 @@ import java.util.Observer;
 //lock/unlock app
 //github
 //license
+//apply new logic applovin utils
 
 //https://console.firebase.google.com/u/0/project/lenslauncher-25806/overview
 //2023.03.18 tried to convert to kotlin but failed
@@ -40,7 +41,7 @@ public class MyApplication extends SugarApp implements Observer {
         EditedObservable.getInstance().addObserver(this);
         updateApps();
 
-        Applovin.INSTANCE.setupAd(this);
+        ApplovinKt.setupApplovinAd(this);
     }
 
     @Override

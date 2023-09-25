@@ -4,6 +4,7 @@ import static com.roy.ext.ActivityKt.likeFacebookFanpage;
 import static com.roy.ext.ActivityKt.moreApp;
 import static com.roy.ext.ActivityKt.rateApp;
 import static com.roy.ext.ActivityKt.shareApp;
+import static com.roy.ext.ApplovinKt.destroyAdBanner;
 import static com.roy.ext.ContextKt.openUrlInBrowser;
 import static com.roy.ext.ContextKt.showDialog1;
 import static com.roy.util.CKt.URL_POLICY_NOTION;
@@ -36,7 +37,7 @@ import com.roy.R;
 import com.roy.a.FragmentPagerAdapter;
 import com.roy.app.AppsSingleton;
 import com.roy.enums.SortType;
-import com.roy.ext.Applovin;
+import com.roy.ext.ApplovinKt;
 import com.roy.itf.AppsInterface;
 import com.roy.itf.LensInterface;
 import com.roy.itf.SettingsInterface;
@@ -139,7 +140,11 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         });
         listApp = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
 
-        adView = Applovin.INSTANCE.createAdBanner(this, ASettings.class.getSimpleName(), Color.TRANSPARENT, findViewById(R.id.flAd));
+        adView = ApplovinKt.createAdBanner(this,
+                ASettings.class.getSimpleName(),
+                Color.TRANSPARENT,
+                findViewById(R.id.flAd),
+                true);
         createAdInter();
     }
 
@@ -485,7 +490,8 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         dismissAllDialogs();
         LoadedObservable.getInstance().deleteObserver(this);
         if (adView != null) {
-            adView.destroy();
+//            adView.destroy();
+            destroyAdBanner(findViewById(R.id.flAd), adView);
         }
         super.onDestroy();
     }

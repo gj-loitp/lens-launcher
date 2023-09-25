@@ -55,6 +55,9 @@ android {
             resValue("string", "SDK_KEY", "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt")
             resValue "string", "BANNER", "6bda5e47373ea3cf"
             resValue "string", "INTER", "f3f5a529bc245a0f"
+
+            resValue("string", "EnableAdInter", "true")
+            resValue("string", "EnableAdBanner", "true")
         }
 
         production {
@@ -65,6 +68,9 @@ android {
             resValue("string", "SDK_KEY", "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt")
             resValue "string", "BANNER", "6bda5e47373ea3cf"
             resValue "string", "INTER", "f3f5a529bc245a0f"
+
+            resValue("string", "EnableAdInter", "true")
+            resValue("string", "EnableAdBanner", "true")
         }
 
     }
