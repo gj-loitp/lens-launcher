@@ -12,6 +12,9 @@ import java.util.Observer;
 
 //TODO switch customized
 //TODO internal webview
+//TODO app launcher uninstall app
+//TODO app launcher app infor
+//TODO apply new logic applovin utils
 
 //done
 //ic_launcher
