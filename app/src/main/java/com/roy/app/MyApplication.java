@@ -14,7 +14,6 @@ import java.util.Observer;
 //TODO internal webview
 //TODO app launcher uninstall app
 //TODO app launcher app infor
-//TODO showMediationDebuggerApplovin
 //TODO lock/unlock app
 
 //done
@@ -28,6 +27,7 @@ import java.util.Observer;
 //github
 //license
 //apply new logic applovin utils
+//showMediationDebuggerApplovin
 
 //https://console.firebase.google.com/u/0/project/lenslauncher-25806/overview
 //2023.03.18 tried to convert to kotlin but failed

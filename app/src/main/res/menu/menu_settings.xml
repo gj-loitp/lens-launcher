@@ -37,6 +37,10 @@
         android:title="@string/terms_and_privacy_policy"
         app:showAsAction="never" />
     <item
+        android:id="@+id/menuApplovinConfig"
+        android:title="@string/applovin_config"
+        app:showAsAction="never" />
+    <item
         android:id="@+id/menuGithub"
         android:title="@string/github"
         app:showAsAction="never" />

@@ -69,4 +69,5 @@
     <string name="unlock">Unlock</string>
     <string name="github">Github</string>
     <string name="license">License</string>
+    <string name="applovin_config">Applovin config</string>
 </resources>

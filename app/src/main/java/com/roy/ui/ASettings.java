@@ -5,6 +5,7 @@ import static com.roy.ext.ActivityKt.moreApp;
 import static com.roy.ext.ActivityKt.rateApp;
 import static com.roy.ext.ActivityKt.shareApp;
 import static com.roy.ext.ApplovinKt.destroyAdBanner;
+import static com.roy.ext.ApplovinKt.showMediationDebuggerApplovin;
 import static com.roy.ext.ContextKt.openUrlInBrowser;
 import static com.roy.ext.ContextKt.showDialog1;
 import static com.roy.util.CKt.URL_POLICY_NOTION;
@@ -16,6 +17,7 @@ import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import androidx.annotation.ColorInt;
 import androidx.annotation.NonNull;
@@ -33,6 +35,7 @@ import com.applovin.mediation.ads.MaxInterstitialAd;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
+import com.roy.BuildConfig;
 import com.roy.R;
 import com.roy.a.FragmentPagerAdapter;
 import com.roy.app.AppsSingleton;
@@ -270,6 +273,17 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
             return true;
         } else if (id == R.id.menuMoreApp) {
             moreApp(this, "Roy93Group");
+            return true;
+        } else if (id == R.id.menuApplovinConfig) {
+            if (BuildConfig.DEBUG) {
+                showMediationDebuggerApplovin(this);
+            } else {
+                Toast.makeText(
+                        /* context = */ this,
+                        /* resId = */ "This feature is only available in Debug mode",
+                        /* duration = */ Toast.LENGTH_SHORT
+                ).show();
+            }
             return true;
         } else if (id == R.id.menuShareApp) {
             shareApp(this);
