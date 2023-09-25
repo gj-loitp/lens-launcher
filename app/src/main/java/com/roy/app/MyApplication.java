@@ -10,7 +10,6 @@ import com.roy.sv.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO switch customized
 //TODO internal webview
 //TODO app launcher uninstall app
 //TODO app launcher app infor
@@ -28,6 +27,7 @@ import java.util.Observer;
 //license
 //apply new logic applovin utils
 //showMediationDebuggerApplovin
+//switch customized like ios
 
 //https://console.firebase.google.com/u/0/project/lenslauncher-25806/overview
 //2023.03.18 tried to convert to kotlin but failed

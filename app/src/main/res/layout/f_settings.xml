@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
@@ -226,7 +227,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swVibrateAppHover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -234,9 +235,14 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
+                android:switchMinWidth="56dp"
                 android:text="@string/setting_vibrate_app_hover"
                 android:textColor="?android:attr/textColorSecondary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:thumb="@drawable/sw_thumb_selector"
+                app:thumbTint="@color/colorPrimary"
+                app:track="@drawable/sw_track_selector"
+                app:trackTintMode="multiply" />
 
         </RelativeLayout>
 
@@ -245,7 +251,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swVibrateAppLaunch"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -253,9 +259,14 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
+                android:switchMinWidth="56dp"
                 android:text="@string/setting_vibrate_app_launch"
                 android:textColor="?android:attr/textColorSecondary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:thumb="@drawable/sw_thumb_selector"
+                app:thumbTint="@color/colorPrimary"
+                app:track="@drawable/sw_track_selector"
+                app:trackTintMode="multiply" />
 
         </RelativeLayout>
 
@@ -264,7 +275,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swShowNameAppHover"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -272,9 +283,14 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
+                android:switchMinWidth="56dp"
                 android:text="@string/setting_show_name_app_hover"
                 android:textColor="?android:attr/textColorSecondary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:thumb="@drawable/sw_thumb_selector"
+                app:thumbTint="@color/colorPrimary"
+                app:track="@drawable/sw_track_selector"
+                app:trackTintMode="multiply" />
 
         </RelativeLayout>
 
@@ -283,7 +299,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swShowNewAppTag"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -291,9 +307,14 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
+                android:switchMinWidth="56dp"
                 android:text="@string/setting_show_new_app_tag"
                 android:textColor="?android:attr/textColorSecondary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:thumb="@drawable/sw_thumb_selector"
+                app:thumbTint="@color/colorPrimary"
+                app:track="@drawable/sw_track_selector"
+                app:trackTintMode="multiply" />
 
         </RelativeLayout>
 
@@ -302,7 +323,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-            <androidx.appcompat.widget.SwitchCompat
+            <com.google.android.material.switchmaterial.SwitchMaterial
                 android:id="@+id/swShowTouchSelection"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -310,9 +331,14 @@
                 android:paddingTop="@dimen/activity_vertical_margin"
                 android:paddingEnd="@dimen/activity_horizontal_margin"
                 android:paddingBottom="@dimen/activity_vertical_margin"
+                android:switchMinWidth="56dp"
                 android:text="@string/setting_show_touch_selection"
                 android:textColor="?android:attr/textColorSecondary"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:thumb="@drawable/sw_thumb_selector"
+                app:thumbTint="@color/colorPrimary"
+                app:track="@drawable/sw_track_selector"
+                app:trackTintMode="multiply" />
 
         </RelativeLayout>
 
