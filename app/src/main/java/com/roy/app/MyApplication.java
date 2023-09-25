@@ -15,6 +15,7 @@ import java.util.Observer;
 //TODO app launcher uninstall app
 //TODO app launcher app infor
 //TODO apply new logic applovin utils
+//TODO lock/unlock app
 
 //done
 //ic_launcher
