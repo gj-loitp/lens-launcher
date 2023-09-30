@@ -48,4 +48,8 @@
         android:id="@+id/menuLicense"
         android:title="@string/license"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menuChangelog"
+        android:title="@string/changelog"
+        app:showAsAction="never" />
 </menu>

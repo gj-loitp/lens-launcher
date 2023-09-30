@@ -10,8 +10,6 @@ import com.roy.sv.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO changelog view
-
 //TODO app launcher uninstall app
 //TODO app launcher app infor
 //TODO lock/unlock app
@@ -30,6 +28,7 @@ import java.util.Observer;
 //showMediationDebuggerApplovin
 //switch customized like ios
 //internal webview
+//changelog view
 
 //https://console.firebase.google.com/u/0/project/lenslauncher-25806/overview
 //2023.03.18 tried to convert to kotlin but failed
