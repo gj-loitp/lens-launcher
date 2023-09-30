@@ -14,15 +14,15 @@ import android.webkit.WebView
 import android.webkit.WebViewClient
 import android.widget.Button
 import androidx.activity.addCallback
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.roy.R
+import com.roy.ui.ABase
 
-class SuperWebViewActivity : AppCompatActivity() {
+class SuperWebViewActivity : ABase() {
     companion object {
         const val KEY_TITLE = "KEY_TITLE"
         const val KEY_URL = "KEY_URL"
