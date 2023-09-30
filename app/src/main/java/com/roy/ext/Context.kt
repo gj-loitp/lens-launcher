@@ -10,7 +10,6 @@ import android.provider.Settings
 import android.view.*
 import androidx.core.content.ContextCompat
 import com.roy.R
-import com.roy.util.URL_POLICY_NOTION
 import com.roy.views.SuperWebViewActivity
 
 //check xem app hien tai co phai la default launcher hay khong
