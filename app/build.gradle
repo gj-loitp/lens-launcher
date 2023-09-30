@@ -10,8 +10,8 @@ android {
         applicationId "com.roy93group.lenslauncher"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 20230925
-        versionName "2023.09.25"
+        versionCode 20230930
+        versionName "2023.09.30"
     }
 
     android.applicationVariants.configureEach { variant ->
@@ -56,8 +56,8 @@ android {
             resValue "string", "BANNER", "6bda5e47373ea3cf"
             resValue "string", "INTER", "f3f5a529bc245a0f"
 
-            resValue("string", "EnableAdInter", "true")
-            resValue("string", "EnableAdBanner", "true")
+            resValue("string", "EnableAdInter", "false")
+            resValue("string", "EnableAdBanner", "false")
         }
 
         production {
@@ -74,6 +74,13 @@ android {
         }
 
     }
+//    dataBinding {
+//        enabled = true
+//    }
+
+//    buildFeatures {
+//        viewBinding true
+//    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -99,6 +106,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.5.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
+    implementation("androidx.webkit:webkit:1.8.0")
 
     //firebase
     api platform('com.google.firebase:firebase-bom:31.0.2')

@@ -11,6 +11,7 @@ import android.view.*
 import androidx.core.content.ContextCompat
 import com.roy.R
 import com.roy.util.URL_POLICY_NOTION
+import com.roy.views.SuperWebViewActivity
 
 //check xem app hien tai co phai la default launcher hay khong
 fun Context.isDefaultLauncher(): Boolean {
@@ -35,7 +36,7 @@ fun Context.isDefaultLauncher(): Boolean {
 
 //mo app setting default cua device
 fun Context.launchSystemSetting(
-    packageName: String
+    packageName: String,
 ) {
     val intent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
     intent.data = Uri.parse("package:$packageName")
@@ -54,24 +55,33 @@ fun Context?.sendEmail(
 
 fun Context.openBrowserPolicy(
 ) {
-    this.openUrlInBrowser(url = URL_POLICY_NOTION)
+    this.openUrlInBrowser(url = URL_POLICY_NOTION, isUsingInternalWebView = false)
 }
 
 fun Context?.openUrlInBrowser(
-    url: String?
+    url: String?,
+    isUsingInternalWebView: Boolean = true,
 ) {
     if (this == null || url.isNullOrEmpty()) {
         return
     }
-    try {
-        val defaultBrowser =
-            Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_BROWSER)
-        defaultBrowser.data = Uri.parse(url)
-        this.startActivity(defaultBrowser)
-    } catch (e: Exception) {
-        val i = Intent(Intent.ACTION_VIEW)
-        i.data = Uri.parse(url)
-        this.startActivity(i)
+    if (isUsingInternalWebView) {
+        val intent = Intent(/* packageContext = */ this, /* cls = */ SuperWebViewActivity::class.java)
+        intent.putExtra(SuperWebViewActivity.KEY_URL, url)
+        this.startActivity(intent)
+    } else {
+        try {
+//            val defaultBrowser =
+//                Intent.makeMainSelectorActivity(Intent.ACTION_MAIN, Intent.CATEGORY_APP_BROWSER)
+//            defaultBrowser.data = Uri.parse(url)
+//            this.startActivity(defaultBrowser)
+//            this.tranIn()
+            val i = Intent(Intent.ACTION_VIEW)
+            i.data = Uri.parse(url)
+            this.startActivity(i)
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
     }
 }
 
@@ -79,7 +89,7 @@ fun Context.showDialog1(
     title: String? = null,
     msg: String? = null,
     button1: String = getString(R.string.confirm),
-    onClickButton1: Runnable? = null
+    onClickButton1: Runnable? = null,
 ): AlertDialog {
     val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.LightAlertDialogCustom))
 

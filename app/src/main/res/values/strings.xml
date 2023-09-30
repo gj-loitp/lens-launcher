@@ -70,4 +70,7 @@
     <string name="github">Github</string>
     <string name="license">License</string>
     <string name="applovin_config">Applovin config</string>
+    <string name="error_title">Oops!</string>
+    <string name="button_retry">TRY AGAIN</string>
+    <string name="error_message">Something went wrong.</string>
 </resources>

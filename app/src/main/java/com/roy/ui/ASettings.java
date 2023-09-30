@@ -166,7 +166,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
             boolean hasRead = utilSettings.getBoolean(UtilSettings.KEY_READ_POLICY);
             if (!hasRead) {
                 showDialog1(this, getString(R.string.terms_and_privacy_policy), getString(R.string.read_policy), getString(R.string.agree_and_continue), () -> {
-                    openUrlInBrowser(this, URL_POLICY_NOTION);
+                    openUrlInBrowser(this, URL_POLICY_NOTION, true);
                     utilSettings.save(UtilSettings.KEY_READ_POLICY, true);
                 });
             }
@@ -292,13 +292,13 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
             likeFacebookFanpage(this);
             return true;
         } else if (id == R.id.menuPolicy) {
-            openUrlInBrowser(this, URL_POLICY_NOTION);
+            openUrlInBrowser(this, URL_POLICY_NOTION, true);
             return true;
         } else if (id == R.id.menuGithub) {
-            openUrlInBrowser(this, "https://github.com/gj-loitp/lens-launcher");
+            openUrlInBrowser(this, "https://github.com/gj-loitp/lens-launcher", true);
             return true;
         } else if (id == R.id.menuLicense) {
-            openUrlInBrowser(this, "https://raw.githubusercontent.com/ricknout/lens-launcher/master/LICENSE.md");
+            openUrlInBrowser(this, "https://raw.githubusercontent.com/ricknout/lens-launcher/master/LICENSE.md", true);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
