@@ -301,7 +301,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
             openUrlInBrowser(this, "https://raw.githubusercontent.com/ricknout/lens-launcher/master/LICENSE.md", getString(R.string.license), true);
             return true;
         } else if (id == R.id.menuChangelog) {
-            openUrlInBrowser(this, "https://raw.githubusercontent.com/ricknout/lens-launcher/master/LICENSE.md", getString(R.string.license), true);
+            openUrlInBrowser(this, "https://raw.githubusercontent.com/gj-loitp/lens-launcher/dev/CHANGE_LOG.md", getString(R.string.changelog), true);
             return true;
         } else {
             return super.onOptionsItemSelected(item);
