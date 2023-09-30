@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 //TODO internal webview
+//TODO changelog view
 //TODO app launcher uninstall app
 //TODO app launcher app infor
 //TODO lock/unlock app
