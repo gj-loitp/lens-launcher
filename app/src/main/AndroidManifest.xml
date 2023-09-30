@@ -76,7 +76,8 @@
         <activity
             android:name=".views.SuperWebViewActivity"
             android:exported="true"
-            android:label="" />
+            android:label=""
+            android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
             android:name=".ui.AFakeLauncher"

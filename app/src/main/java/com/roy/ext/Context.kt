@@ -53,13 +53,14 @@ fun Context?.sendEmail(
     this?.startActivity(Intent.createChooser(emailIntent, "Send feedback"))
 }
 
-fun Context.openBrowserPolicy(
-) {
-    this.openUrlInBrowser(url = URL_POLICY_NOTION, isUsingInternalWebView = false)
-}
+//fun Context.openBrowserPolicy(
+//) {
+//    this.openUrlInBrowser(url = URL_POLICY_NOTION, isUsingInternalWebView = false, title = "Term and Policy")
+//}
 
 fun Context?.openUrlInBrowser(
     url: String?,
+    title: String?,
     isUsingInternalWebView: Boolean = true,
 ) {
     if (this == null || url.isNullOrEmpty()) {
@@ -68,6 +69,7 @@ fun Context?.openUrlInBrowser(
     if (isUsingInternalWebView) {
         val intent = Intent(/* packageContext = */ this, /* cls = */ SuperWebViewActivity::class.java)
         intent.putExtra(SuperWebViewActivity.KEY_URL, url)
+        intent.putExtra(SuperWebViewActivity.KEY_TITLE, title)
         this.startActivity(intent)
     } else {
         try {

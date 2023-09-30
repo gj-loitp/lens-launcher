@@ -15,31 +15,33 @@ import android.webkit.WebViewClient
 import android.widget.Button
 import androidx.activity.addCallback
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.Toolbar
 import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.core.view.isVisible
 import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.google.android.material.progressindicator.LinearProgressIndicator
-import com.roy.BuildConfig
 import com.roy.R
-import com.roy.ext.openUrlInBrowser
-import com.roy.ext.setSafeOnClickListener
 
 class SuperWebViewActivity : AppCompatActivity() {
     companion object {
+        const val KEY_TITLE = "KEY_TITLE"
         const val KEY_URL = "KEY_URL"
     }
 
+    private var currentTitle: String = ""
     private var currentWebsite: String = "https://www.facebook.com/loitp93/"
     private lateinit var webView: WebView
     private lateinit var progressIndicator: LinearProgressIndicator
     private lateinit var errorLayout: ConstraintLayout
     private lateinit var retryButton: Button
+    private lateinit var toolbar: Toolbar
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         setContentView(R.layout.a_super_wv)
 
+        currentTitle = intent?.getStringExtra(KEY_TITLE) ?: ""
         currentWebsite = intent?.getStringExtra(KEY_URL) ?: ""
 
         setupViews()
@@ -47,11 +49,21 @@ class SuperWebViewActivity : AppCompatActivity() {
 
     @SuppressLint("SetJavaScriptEnabled")
     private fun setupViews() {
-//        lActionBar = findViewById(R.id.lActionBar)
         webView = findViewById(R.id.webView)
         progressIndicator = findViewById(R.id.progressIndicator)
         errorLayout = findViewById(R.id.errorLayout)
         retryButton = findViewById(R.id.retryButton)
+
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        supportActionBar?.setDisplayShowHomeEnabled(true)
+
+        toolbar.setNavigationOnClickListener {
+            onBack()
+        }
+        supportActionBar?.title = currentTitle
 
         webView.webViewClient = MyWebViewClient()
         webView.webChromeClient = MyWebChromeClient()
@@ -138,6 +150,7 @@ class SuperWebViewActivity : AppCompatActivity() {
         override fun onPageFinished(view: WebView?, url: String?) {
             super.onPageFinished(view, url)
             progressIndicator.visibility = View.INVISIBLE
+//            toolbar.title = view?.title
         }
 
         override fun onReceivedError(
