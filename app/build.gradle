@@ -10,8 +10,8 @@ android {
         applicationId "com.roy93group.lenslauncher"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 20230930
-        versionName "2023.09.30"
+        versionCode 20231112
+        versionName "2023.11.12"
     }
 
     android.applicationVariants.configureEach { variant ->
@@ -99,7 +99,7 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     implementation 'androidx.appcompat:appcompat:1.6.1'
     implementation 'com.google.android.material:material:1.9.0'
-    implementation 'androidx.recyclerview:recyclerview:1.3.1'
+    implementation 'androidx.recyclerview:recyclerview:1.3.2'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'com.github.satyan:sugar:1.5'
