@@ -1,7 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'com.google.gms.google-services'
-apply plugin: 'com.google.firebase.crashlytics'
+//apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdk 34
@@ -109,10 +109,10 @@ dependencies {
     implementation("androidx.webkit:webkit:1.11.0")
 
     //firebase
-    api platform('com.google.firebase:firebase-bom:33.2.0')
-    api 'com.google.firebase:firebase-analytics-ktx'
-    api 'com.google.firebase:firebase-crashlytics-ktx'
-    api 'com.google.firebase:firebase-config-ktx'
+//    api platform('com.google.firebase:firebase-bom:33.2.0')
+//    api 'com.google.firebase:firebase-analytics-ktx'
+//    api 'com.google.firebase:firebase-crashlytics-ktx'
+//    api 'com.google.firebase:firebase-config-ktx'
 
     //https://github.com/SimformSolutionsPvtLtd/SSBiometricsAuthentication
     implementation("androidx.biometric:biometric:1.2.0-alpha05")
