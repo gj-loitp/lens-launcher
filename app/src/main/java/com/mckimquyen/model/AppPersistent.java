@@ -128,11 +128,15 @@ public class AppPersistent extends SugarRecord {
     }
 
     public static boolean getAppOpened(String packageName, String name) {
-        String identifier = AppPersistent.generateIdentifier(packageName, name);
-        AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
-        if (appPersistent != null) {
-            return appPersistent.isAppOpened();
-        } else {
+        try {
+            String identifier = AppPersistent.generateIdentifier(packageName, name);
+            AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
+            if (appPersistent != null) {
+                return appPersistent.isAppOpened();
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
             return true;
         }
     }
@@ -150,11 +154,15 @@ public class AppPersistent extends SugarRecord {
     }
 
     public static boolean getAppVisibility(String packageName, String name) {
-        String identifier = AppPersistent.generateIdentifier(packageName, name);
-        AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
-        if (appPersistent != null) {
-            return appPersistent.isAppVisible();
-        } else {
+        try {
+            String identifier = AppPersistent.generateIdentifier(packageName, name);
+            AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
+            if (appPersistent != null) {
+                return appPersistent.isAppVisible();
+            } else {
+                return true;
+            }
+        } catch (Exception e) {
             return true;
         }
     }
@@ -172,11 +180,15 @@ public class AppPersistent extends SugarRecord {
     }
 
     public static long getAppOpenCount(String packageName, String name) {
-        String identifier = AppPersistent.generateIdentifier(packageName, name);
-        AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
-        if (appPersistent != null) {
-            return appPersistent.getOpenCount();
-        } else {
+        try {
+            String identifier = AppPersistent.generateIdentifier(packageName, name);
+            AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
+            if (appPersistent != null) {
+                return appPersistent.getOpenCount();
+            } else {
+                return 0;
+            }
+        } catch (Exception e) {
             return 0;
         }
     }
