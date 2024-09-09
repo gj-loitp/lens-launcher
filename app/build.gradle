@@ -10,8 +10,8 @@ android {
         applicationId "com.roy93group.lenslauncher"
         minSdkVersion 21
         targetSdkVersion 34
-        versionCode 20240106
-        versionName "2024.01.06"
+        versionCode 20240909
+        versionName "2024.09.09"
     }
 
     android.applicationVariants.configureEach { variant ->
@@ -53,11 +53,11 @@ android {
             resValue "string", "app_name", "Zoom Launcher DEV"
 
             resValue("string", "SDK_KEY", "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt")
-            resValue "string", "BANNER", "6bda5e47373ea3cf"
-            resValue "string", "INTER", "f3f5a529bc245a0f"
+            resValue "string", "BANNER", ""
+            resValue "string", "INTER", ""
 
-            resValue("string", "EnableAdInter", "false")
-            resValue("string", "EnableAdBanner", "false")
+            resValue("string", "EnableAdInter", "true")
+            resValue("string", "EnableAdBanner", "true")
         }
 
         production {
@@ -66,8 +66,8 @@ android {
             buildConfigField("String", "FLAVOR_buildEnv", '"prod"')
             resValue "string", "app_name", "Zoom Launcher"
             resValue("string", "SDK_KEY", "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt")
-            resValue "string", "BANNER", "6bda5e47373ea3cf"
-            resValue "string", "INTER", "f3f5a529bc245a0f"
+            resValue "string", "BANNER", ""
+            resValue "string", "INTER", ""
 
             resValue("string", "EnableAdInter", "true")
             resValue("string", "EnableAdBanner", "true")
@@ -118,6 +118,6 @@ dependencies {
     implementation("androidx.biometric:biometric:1.2.0-alpha05")
 
     // debugImplementation because LeakCanary should only run in debug builds.
-    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.12'
-    implementation 'com.applovin:applovin-sdk:12.1.0'
+    debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
+    implementation 'com.applovin:applovin-sdk:12.6.1'
 }
