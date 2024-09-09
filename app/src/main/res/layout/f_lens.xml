@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <com.roy.views.LensView
+        <com.mckimquyen.views.LensView
             android:id="@+id/lensViewsSettings"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_lens_preview" />

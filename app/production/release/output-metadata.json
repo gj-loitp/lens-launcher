@@ -4,7 +4,7 @@
     "type": "APK",
     "kind": "Directory"
   },
-  "applicationId": "com.roy93group.lenslauncher",
+  "applicationId": "com.mckimquyen.lenslauncher",
   "variantName": "productionRelease",
   "elements": [
     {
@@ -13,7 +13,7 @@
       "attributes": [],
       "versionCode": 20230618,
       "versionName": "2023.06.18",
-      "outputFile": "com.roy93group.lenslauncherrelease_2023.06.18_20230618.apk"
+      "outputFile": "com.mckimquyen.lenslauncherrelease_2023.06.18_20230618.apk"
     }
   ],
   "elementType": "File"
