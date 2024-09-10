@@ -30,7 +30,7 @@ import com.mckimquyen.R;
 import com.mckimquyen.ext.Biometric;
 import com.mckimquyen.model.App;
 import com.mckimquyen.model.AppPersistent;
-import com.mckimquyen.sv.BroadcastReceivers;
+import com.mckimquyen.services.BroadcastReceivers;
 import com.mckimquyen.ui.ActSettings;
 import com.mckimquyen.util.UtilApp;
 

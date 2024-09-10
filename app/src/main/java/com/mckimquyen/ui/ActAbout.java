@@ -16,7 +16,7 @@ import androidx.core.content.ContextCompat;
 
 import com.google.android.material.appbar.CollapsingToolbarLayout;
 import com.mckimquyen.R;
-import com.mckimquyen.sv.NightModeObservable;
+import com.mckimquyen.services.NightModeObservable;
 
 import java.util.Objects;
 import java.util.Observable;

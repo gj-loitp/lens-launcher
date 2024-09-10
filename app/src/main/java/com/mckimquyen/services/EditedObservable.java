@@ -1,4 +1,4 @@
-package com.mckimquyen.sv;
+package com.mckimquyen.services;
 
 import java.util.Observable;
 

@@ -2,10 +2,10 @@ package com.mckimquyen.app;
 
 import com.orm.SugarApp;
 import com.mckimquyen.ext.ApplovinKt;
-import com.mckimquyen.sv.EditedObservable;
-import com.mckimquyen.sv.TaskSortApps;
-import com.mckimquyen.sv.TaskUpdateApps;
-import com.mckimquyen.sv.UpdatedObservable;
+import com.mckimquyen.services.EditedObservable;
+import com.mckimquyen.services.TaskSortApps;
+import com.mckimquyen.services.TaskUpdateApps;
+import com.mckimquyen.services.UpdatedObservable;
 
 import java.util.Observable;
 import java.util.Observer;

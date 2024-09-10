@@ -98,7 +98,7 @@
         </activity>
 
         <receiver
-            android:name=".sv.BroadcastReceivers$AppsUpdatedReceiver"
+            android:name=".services.BroadcastReceivers$AppsUpdatedReceiver"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
@@ -114,12 +114,12 @@
             android:name="applovin.sdk.key"
             android:value="@string/SDK_KEY" />
 
-        <receiver android:name=".sv.BroadcastReceivers$AppsEditedReceiver" />
-        <receiver android:name=".sv.BroadcastReceivers$AppsVisibilityChangedReceiver" />
-        <receiver android:name=".sv.BroadcastReceivers$AppsLockChangedReceiver" />
-        <receiver android:name=".sv.BroadcastReceivers$AppsLoadedReceiver" />
-        <receiver android:name=".sv.BroadcastReceivers$BackgroundChangedReceiver" />
-        <receiver android:name=".sv.BroadcastReceivers$NightModeReceiver" />
+        <receiver android:name=".services.BroadcastReceivers$AppsEditedReceiver" />
+        <receiver android:name=".services.BroadcastReceivers$AppsVisibilityChangedReceiver" />
+        <receiver android:name=".services.BroadcastReceivers$AppsLockChangedReceiver" />
+        <receiver android:name=".services.BroadcastReceivers$AppsLoadedReceiver" />
+        <receiver android:name=".services.BroadcastReceivers$BackgroundChangedReceiver" />
+        <receiver android:name=".services.BroadcastReceivers$NightModeReceiver" />
 
     </application>
 

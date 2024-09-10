@@ -1,4 +1,4 @@
-package com.mckimquyen.sv;
+package com.mckimquyen.services;
 
 import android.app.Application;
 import android.content.Context;

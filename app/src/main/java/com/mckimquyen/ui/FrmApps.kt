@@ -18,7 +18,7 @@ import com.mckimquyen.app.AppsSingleton.Companion.instance
 import com.mckimquyen.enums.SortType
 import com.mckimquyen.itf.AppsInterface
 import com.mckimquyen.model.App
-import com.mckimquyen.sv.BroadcastReceivers.AppsEditedReceiver
+import com.mckimquyen.services.BroadcastReceivers.AppsEditedReceiver
 import com.mckimquyen.util.UtilSettings
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar
 

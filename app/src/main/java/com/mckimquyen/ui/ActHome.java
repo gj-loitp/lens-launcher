@@ -12,11 +12,11 @@ import com.mckimquyen.R;
 import com.mckimquyen.app.AppsSingleton;
 import com.mckimquyen.model.App;
 import com.mckimquyen.model.AppPersistent;
-import com.mckimquyen.sv.BackgroundChangedObservable;
-import com.mckimquyen.sv.LoadedObservable;
-import com.mckimquyen.sv.LockChangedObservable;
-import com.mckimquyen.sv.NightModeObservable;
-import com.mckimquyen.sv.VisibilityChangedObservable;
+import com.mckimquyen.services.BackgroundChangedObservable;
+import com.mckimquyen.services.LoadedObservable;
+import com.mckimquyen.services.LockChangedObservable;
+import com.mckimquyen.services.NightModeObservable;
+import com.mckimquyen.services.VisibilityChangedObservable;
 import com.mckimquyen.views.LensView;
 
 import java.util.ArrayList;

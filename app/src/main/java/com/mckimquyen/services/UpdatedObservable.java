@@ -1,16 +1,16 @@
-package com.mckimquyen.sv;
+package com.mckimquyen.services;
 
 import java.util.Observable;
 
 //2023.03.19 tried to convert kotlin but failed
-public class LoadedObservable extends Observable {
-    private static final LoadedObservable instance = new LoadedObservable();
+public class UpdatedObservable extends Observable {
+    private static final UpdatedObservable instance = new UpdatedObservable();
 
-    public static LoadedObservable getInstance() {
+    public static UpdatedObservable getInstance() {
         return instance;
     }
 
-    private LoadedObservable() {
+    private UpdatedObservable() {
     }
 
     public void updateValue(Object data) {

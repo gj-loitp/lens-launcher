@@ -1,4 +1,4 @@
-package com.mckimquyen.sv
+package com.mckimquyen.services
 
 import android.content.BroadcastReceiver
 import android.content.Context

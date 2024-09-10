@@ -1,16 +1,16 @@
-package com.mckimquyen.sv;
+package com.mckimquyen.services;
 
 import java.util.Observable;
 
 //2023.03.19 tried to convert kotlin but failed
-public class NightModeObservable extends Observable {
-    private static final NightModeObservable instance = new NightModeObservable();
+public class LockChangedObservable extends Observable {
+    private static final LockChangedObservable instance = new LockChangedObservable();
 
-    public static NightModeObservable getInstance() {
+    public static LockChangedObservable getInstance() {
         return instance;
     }
 
-    private NightModeObservable() {
+    private LockChangedObservable() {
     }
 
     public void updateValue(Object data) {

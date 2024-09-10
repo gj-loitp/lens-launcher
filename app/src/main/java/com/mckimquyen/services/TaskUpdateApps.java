@@ -1,4 +1,4 @@
-package com.mckimquyen.sv;
+package com.mckimquyen.services;
 
 import android.app.Application;
 import android.content.Context;
@@ -46,7 +46,7 @@ public class TaskUpdateApps extends AsyncTask<Void, Void, Void> {
                 mPackageManager,
                 mContext,
                 mApplication,
-                mUtilSettings.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME),
+                Objects.requireNonNull(mUtilSettings.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME)),
                 mUtilSettings.getSortType());
         mApps = new ArrayList<>();
         mAppIcons = new ArrayList<>();

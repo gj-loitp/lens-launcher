@@ -1,16 +1,16 @@
-package com.mckimquyen.sv;
+package com.mckimquyen.services;
 
 import java.util.Observable;
 
 //2023.03.19 tried to convert kotlin but failed
-public class UpdatedObservable extends Observable {
-    private static final UpdatedObservable instance = new UpdatedObservable();
+public class VisibilityChangedObservable extends Observable {
+    private static final VisibilityChangedObservable instance = new VisibilityChangedObservable();
 
-    public static UpdatedObservable getInstance() {
+    public static VisibilityChangedObservable getInstance() {
         return instance;
     }
 
-    private UpdatedObservable() {
+    private VisibilityChangedObservable() {
     }
 
     public void updateValue(Object data) {
