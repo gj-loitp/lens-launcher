@@ -101,7 +101,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.a_settings);
+        setContentView(R.layout.act_settings);
 
         setupViews();
 

@@ -37,7 +37,7 @@ public class AHome extends ABase implements Observer {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.a_home);
+        setContentView(R.layout.act_home);
 
         setupViews();
 

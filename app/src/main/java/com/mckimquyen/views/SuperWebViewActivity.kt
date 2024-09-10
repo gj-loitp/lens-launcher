@@ -39,7 +39,7 @@ class SuperWebViewActivity : ABase() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        setContentView(R.layout.a_super_wv)
+        setContentView(R.layout.act_super_wv)
 
         currentTitle = intent?.getStringExtra(KEY_TITLE) ?: ""
         currentWebsite = intent?.getStringExtra(KEY_URL) ?: ""

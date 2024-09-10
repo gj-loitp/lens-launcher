@@ -7,6 +7,6 @@ import com.mckimquyen.R
 class AFakeLauncher : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.a_fake_launcher)
+        setContentView(R.layout.act_fake_launcher)
     }
 }

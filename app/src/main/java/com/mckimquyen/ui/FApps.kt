@@ -38,7 +38,7 @@ class FApps : Fragment(), AppsInterface {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.f_apps, container, false)
+        val view = inflater.inflate(R.layout.frm_apps, container, false)
         utilSettings = UtilSettings(requireContext())
         instance?.apps?.let {
             setupRecycler(it)
