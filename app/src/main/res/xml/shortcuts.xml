@@ -9,7 +9,7 @@
         android:shortcutShortLabel="@string/activity_title_settings">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.mckimquyen.ui.ASettings"
+            android:targetClass="com.mckimquyen.ui.ActSettings"
             android:targetPackage="com.mckimquyen" />
     </shortcut>
 
@@ -21,7 +21,7 @@
         android:shortcutShortLabel="@string/activity_title_apps">
         <intent
             android:action="android.intent.action.VIEW"
-            android:targetClass="com.mckimquyen.ui.AHome"
+            android:targetClass="com.mckimquyen.ui.ActHome"
             android:targetPackage="com.mckimquyen" />
     </shortcut>
 

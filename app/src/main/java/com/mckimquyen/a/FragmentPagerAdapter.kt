@@ -5,9 +5,9 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.mckimquyen.R
-import com.mckimquyen.ui.FApps
-import com.mckimquyen.ui.FLens
-import com.mckimquyen.ui.FSettings
+import com.mckimquyen.ui.FrmApps
+import com.mckimquyen.ui.FrmLens
+import com.mckimquyen.ui.FrmSettings
 
 class FragmentPagerAdapter(
     fragmentManager: FragmentManager,
@@ -20,9 +20,9 @@ class FragmentPagerAdapter(
 
     override fun getItem(position: Int): Fragment {
         when (position) {
-            0 -> return FLens.newInstance()
-            1 -> return FApps.newInstance()
-            2 -> return FSettings.newInstance()
+            0 -> return FrmLens.newInstance()
+            1 -> return FrmApps.newInstance()
+            2 -> return FrmSettings.newInstance()
         }
         return Fragment()
     }

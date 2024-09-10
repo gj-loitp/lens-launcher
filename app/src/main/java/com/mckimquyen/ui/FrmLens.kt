@@ -16,10 +16,10 @@ import com.mckimquyen.itf.LensInterface
 import com.mckimquyen.util.UtilSettings
 import com.mckimquyen.views.LensView
 
-class FLens : Fragment(), LensInterface {
+class FrmLens : Fragment(), LensInterface {
     companion object {
-        fun newInstance(): FLens {
-            return FLens()
+        fun newInstance(): FrmLens {
+            return FrmLens()
         }
     }
 
@@ -70,8 +70,8 @@ class FLens : Fragment(), LensInterface {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (activity != null && activity is ASettings) {
-            (activity as ASettings?)?.setLensInterface(this)
+        if (activity != null && activity is ActSettings) {
+            (activity as ActSettings?)?.setLensInterface(this)
         }
     }
 

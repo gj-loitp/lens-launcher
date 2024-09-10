@@ -22,11 +22,11 @@ import com.mckimquyen.sv.BroadcastReceivers.AppsEditedReceiver
 import com.mckimquyen.util.UtilSettings
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar
 
-class FApps : Fragment(), AppsInterface {
+class FrmApps : Fragment(), AppsInterface {
 
     companion object {
-        fun newInstance(): FApps {
-            return FApps()
+        fun newInstance(): FrmApps {
+            return FrmApps()
         }
     }
 
@@ -60,8 +60,8 @@ class FApps : Fragment(), AppsInterface {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (activity != null && activity is ASettings) {
-            (activity as ASettings?)?.setAppsInterface(this)
+        if (activity != null && activity is ActSettings) {
+            (activity as ActSettings?)?.setAppsInterface(this)
         }
     }
 

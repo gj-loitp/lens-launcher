@@ -5,7 +5,7 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
-import com.mckimquyen.ui.AFakeLauncher
+import com.mckimquyen.ui.ActFakeLauncher
 
 object UtilLauncher {
     @JvmStatic
@@ -34,7 +34,7 @@ object UtilLauncher {
     @JvmStatic
     fun resetPreferredLauncherAndOpenChooser(context: Context) {
         val packageManager = context.packageManager
-        val componentName = ComponentName(context, AFakeLauncher::class.java)
+        val componentName = ComponentName(context, ActFakeLauncher::class.java)
         packageManager.setComponentEnabledSetting(
             /* componentName = */ componentName,
             /* newState = */ PackageManager.COMPONENT_ENABLED_STATE_ENABLED,

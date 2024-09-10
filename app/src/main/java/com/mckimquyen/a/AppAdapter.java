@@ -31,7 +31,7 @@ import com.mckimquyen.ext.Biometric;
 import com.mckimquyen.model.App;
 import com.mckimquyen.model.AppPersistent;
 import com.mckimquyen.sv.BroadcastReceivers;
-import com.mckimquyen.ui.ASettings;
+import com.mckimquyen.ui.ActSettings;
 import com.mckimquyen.util.UtilApp;
 
 import java.util.List;
@@ -205,10 +205,10 @@ public class AppAdapter extends RecyclerView.Adapter {
             if (mContext == null) {
                 return;
             }
-            if (!(mContext instanceof ASettings)) {
+            if (!(mContext instanceof ActSettings)) {
                 return;
             }
-            ASettings activitySettings = (ASettings) mContext;
+            ActSettings activitySettings = (ActSettings) mContext;
             Intent changeAppsVisibilityIntent = new Intent(activitySettings, BroadcastReceivers.AppsVisibilityChangedReceiver.class);
             activitySettings.sendBroadcast(changeAppsVisibilityIntent);
         }
@@ -217,10 +217,10 @@ public class AppAdapter extends RecyclerView.Adapter {
             if (mContext == null) {
                 return;
             }
-            if (!(mContext instanceof ASettings)) {
+            if (!(mContext instanceof ActSettings)) {
                 return;
             }
-            ASettings activitySettings = (ASettings) mContext;
+            ActSettings activitySettings = (ActSettings) mContext;
             Intent intent = new Intent(activitySettings, BroadcastReceivers.AppsLockChangedReceiver.class);
             activitySettings.sendBroadcast(intent);
         }

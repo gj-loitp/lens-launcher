@@ -23,7 +23,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 //2023.03.19 tried to convert kotlin but failed
-public class AAbout extends ABase implements Observer {
+public class ActAbout extends ActBase implements Observer {
     TextView tvAbout;
     ImageView backdrop;
     CollapsingToolbarLayout collapsingToolbar;

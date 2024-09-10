@@ -27,7 +27,7 @@ import java.util.Observer;
 import me.zhanghai.android.materialprogressbar.MaterialProgressBar;
 
 //2023.03.19 tried to convert kotlin but failed
-public class AHome extends ABase implements Observer {
+public class ActHome extends ActBase implements Observer {
 
     LensView lensViews;
     MaterialProgressBar progressBarHome;
@@ -76,7 +76,7 @@ public class AHome extends ABase implements Observer {
     }
 
     private void assignApps(ArrayList<App> lApp, ArrayList<Bitmap> lAppIcon) {
-        if (lApp.size() == 0 || lAppIcon.size() == 0) {
+        if (lApp.isEmpty() || lAppIcon.isEmpty()) {
             return;
         }
         progressBarHome.setVisibility(View.INVISIBLE);

@@ -63,7 +63,7 @@ import java.util.Observer;
 import java.util.concurrent.TimeUnit;
 
 //2023.03.19 tried to convert kotlin but failed
-public class ASettings extends ABase implements Observer, ColorChooserDialog.ColorCallback {
+public class ActSettings extends ActBase implements Observer, ColorChooserDialog.ColorCallback {
 
     private static final String TAG_COLOR_BACKGROUND = "BackgroundColor";
     private static final String TAG_COLOR_HIGHLIGHT = "HighlightColor";
@@ -120,7 +120,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
 
         fabSort.hide();
         setSupportActionBar(toolbar);
-        FragmentPagerAdapter mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), ASettings.this);
+        FragmentPagerAdapter mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), ActSettings.this);
         viewpager.setAdapter(mPagerAdapter);
         tabs.setupWithViewPager(viewpager);
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
@@ -144,7 +144,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         listApp = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
 
         adView = ApplovinKt.createAdBanner(this,
-                ASettings.class.getSimpleName(),
+                ActSettings.class.getSimpleName(),
                 Color.TRANSPARENT,
                 findViewById(R.id.flAd),
                 true);
@@ -198,28 +198,28 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         interstitialAd = new MaxInterstitialAd(getString(R.string.INTER), this);
         interstitialAd.setListener(new MaxAdListener() {
             @Override
-            public void onAdLoaded(MaxAd maxAd) {
+            public void onAdLoaded(@NonNull MaxAd maxAd) {
                 retryAttempt = 0;
             }
 
             @Override
-            public void onAdDisplayed(MaxAd maxAd) {
+            public void onAdDisplayed(@NonNull MaxAd maxAd) {
 
             }
 
             @Override
-            public void onAdHidden(MaxAd maxAd) {
+            public void onAdHidden(@NonNull MaxAd maxAd) {
                 // Interstitial ad is hidden. Pre-load the next ad
                 interstitialAd.loadAd();
             }
 
             @Override
-            public void onAdClicked(MaxAd maxAd) {
+            public void onAdClicked(@NonNull MaxAd maxAd) {
 
             }
 
             @Override
-            public void onAdLoadFailed(String s, MaxError maxError) {
+            public void onAdLoadFailed(@NonNull String s, @NonNull MaxError maxError) {
                 retryAttempt++;
                 long delayMillis = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retryAttempt)));
 
@@ -227,7 +227,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
             }
 
             @Override
-            public void onAdDisplayFailed(MaxAd maxAd, MaxError maxError) {
+            public void onAdDisplayFailed(@NonNull MaxAd maxAd, @NonNull MaxError maxError) {
                 // Interstitial ad failed to display. AppLovin recommends that you load the next ad.
                 interstitialAd.loadAd();
             }
@@ -244,7 +244,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
             launchApps();
             return true;
         } else if (id == R.id.menuItemAbout) {
-            Intent aboutIntent = new Intent(ASettings.this, AAbout.class);
+            Intent aboutIntent = new Intent(ActSettings.this, ActAbout.class);
             startActivity(aboutIntent);
             overridePendingTransition(R.anim.a_slide_in_left, R.anim.a_slide_out_right);
             return true;
@@ -323,22 +323,22 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
     }
 
     private void sendUpdateAppsBroadcast() {
-        Intent refreshAppsIntent = new Intent(ASettings.this, BroadcastReceivers.AppsUpdatedReceiver.class);
+        Intent refreshAppsIntent = new Intent(ActSettings.this, BroadcastReceivers.AppsUpdatedReceiver.class);
         sendBroadcast(refreshAppsIntent);
     }
 
     private void sendEditAppsBroadcast() {
-        Intent editAppsIntent = new Intent(ASettings.this, BroadcastReceivers.AppsEditedReceiver.class);
+        Intent editAppsIntent = new Intent(ActSettings.this, BroadcastReceivers.AppsEditedReceiver.class);
         sendBroadcast(editAppsIntent);
     }
 
     private void sendBackgroundChangedBroadcast() {
-        Intent changeBackgroundIntent = new Intent(ASettings.this, BroadcastReceivers.BackgroundChangedReceiver.class);
+        Intent changeBackgroundIntent = new Intent(ActSettings.this, BroadcastReceivers.BackgroundChangedReceiver.class);
         sendBroadcast(changeBackgroundIntent);
     }
 
     public void sendNightModeBroadcast() {
-        Intent nightModeIntent = new Intent(ASettings.this, BroadcastReceivers.NightModeReceiver.class);
+        Intent nightModeIntent = new Intent(ActSettings.this, BroadcastReceivers.NightModeReceiver.class);
         sendBroadcast(nightModeIntent);
     }
 
@@ -352,7 +352,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         assert utilSettings != null;
         SortType selectedSortType = utilSettings.getSortType();
         int selectedIndex = lSortType.indexOf(selectedSortType);
-        dlgSortType = new MaterialDialog.Builder(ASettings.this).title(R.string.setting_sort_apps).items(lSortTypeString).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+        dlgSortType = new MaterialDialog.Builder(ActSettings.this).title(R.string.setting_sort_apps).items(lSortTypeString).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
             utilSettings.save(lSortType.get(which));
             sendEditAppsBroadcast();
             return true;
@@ -371,7 +371,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         assert utilSettings != null;
         String selectedPackageName = utilSettings.getString(UtilSettings.KEY_ICON_PACK_LABEL_NAME);
         int selectedIndex = lIconPackName.indexOf(selectedPackageName);
-        dlgIconPack = new MaterialDialog.Builder(ASettings.this).title(R.string.setting_icon_pack).items(lIconPackName).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+        dlgIconPack = new MaterialDialog.Builder(ActSettings.this).title(R.string.setting_icon_pack).items(lIconPackName).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
             utilSettings.save(UtilSettings.KEY_ICON_PACK_LABEL_NAME, lIconPackName.get(which));
             if (settingsInterface != null) {
                 settingsInterface.onValuesUpdated();
@@ -392,7 +392,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         assert utilSettings != null;
         String selectedNightMode = UtilNightModeUtil.getNightModeDisplayName(utilSettings.getNightMode());
         int selectedIndex = nightModes.indexOf(selectedNightMode);
-        dlgNightMode = new MaterialDialog.Builder(ASettings.this).title(R.string.setting_night_mode).items(R.array.night_modes).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+        dlgNightMode = new MaterialDialog.Builder(ActSettings.this).title(R.string.setting_night_mode).items(R.array.night_modes).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
             String selection = nightModes.get(which);
             utilSettings.save(UtilSettings.KEY_NIGHT_MODE, UtilNightModeUtil.getNightModeFromDisplayName(selection));
             sendNightModeBroadcast();
@@ -411,7 +411,7 @@ public class ASettings extends ABase implements Observer, ColorChooserDialog.Col
         assert utilSettings != null;
         String selectedBackground = utilSettings.getString(UtilSettings.KEY_BACKGROUND);
         int selectedIndex = backgroundNames.indexOf(selectedBackground);
-        dlgBackground = new MaterialDialog.Builder(ASettings.this).title(R.string.setting_background).items(R.array.backgrounds).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
+        dlgBackground = new MaterialDialog.Builder(ActSettings.this).title(R.string.setting_background).items(R.array.backgrounds).alwaysCallSingleChoiceCallback().itemsCallbackSingleChoice(selectedIndex, (dialog, view, which, text) -> {
             String selection = backgroundNames.get(which);
             if (selection.equals("Wallpaper")) {
                 utilSettings.save(UtilSettings.KEY_BACKGROUND, selection);

@@ -20,9 +20,9 @@ import androidx.webkit.WebSettingsCompat
 import androidx.webkit.WebViewFeature
 import com.google.android.material.progressindicator.LinearProgressIndicator
 import com.mckimquyen.R
-import com.mckimquyen.ui.ABase
+import com.mckimquyen.ui.ActBase
 
-class SuperWebViewActivity : ABase() {
+class SuperWebViewActivity : ActBase() {
     companion object {
         const val KEY_TITLE = "KEY_TITLE"
         const val KEY_URL = "KEY_URL"

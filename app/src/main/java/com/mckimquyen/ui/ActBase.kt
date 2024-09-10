@@ -9,7 +9,7 @@ import androidx.core.content.ContextCompat
 import com.mckimquyen.R
 import com.mckimquyen.util.UtilSettings
 
-open class ABase : AppCompatActivity() {
+open class ActBase : AppCompatActivity() {
     @JvmField
     protected var utilSettings: UtilSettings? = null
 
@@ -29,9 +29,9 @@ open class ABase : AppCompatActivity() {
     private fun setTaskDescription() {
         val appIconBitmap = BitmapFactory.decodeResource(resources, R.mipmap.ic_launcher)
         val taskDescription = TaskDescription(
-            getString(/* resId = */ R.string.app_name),
-            appIconBitmap,
-            ContextCompat.getColor(baseContext, R.color.colorPrimaryDark)
+            /* label = */ getString(/* resId = */ R.string.app_name),
+            /* icon = */ appIconBitmap,
+            /* colorPrimary = */ ContextCompat.getColor(baseContext, R.color.colorPrimaryDark)
         )
         setTaskDescription(taskDescription)
     }

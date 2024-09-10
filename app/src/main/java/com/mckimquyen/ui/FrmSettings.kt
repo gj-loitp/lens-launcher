@@ -20,10 +20,10 @@ import com.mckimquyen.util.UtilLauncher
 import com.mckimquyen.util.UtilNightModeUtil
 import com.mckimquyen.util.UtilSettings
 
-class FSettings : Fragment(), SettingsInterface {
+class FrmSettings : Fragment(), SettingsInterface {
     companion object {
-        fun newInstance(): FSettings {
-            return FSettings()
+        fun newInstance(): FrmSettings {
+            return FrmSettings()
         }
     }
 
@@ -58,8 +58,8 @@ class FSettings : Fragment(), SettingsInterface {
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
-        if (activity != null && activity is ASettings) {
-            (activity as ASettings?)?.setSettingsInterface(this)
+        if (activity != null && activity is ActSettings) {
+            (activity as ActSettings?)?.setSettingsInterface(this)
         }
     }
 
@@ -188,32 +188,32 @@ class FSettings : Fragment(), SettingsInterface {
     }
 
     private fun showIconPackDialog() {
-        if (activity != null && activity is ASettings) {
-            (activity as ASettings?)?.showIconPackDialog()
+        if (activity != null && activity is ActSettings) {
+            (activity as ActSettings?)?.showIconPackDialog()
         }
     }
 
     private fun showHomeLauncherChooser() {
-        if (activity != null && activity is ASettings) {
-            (activity as ASettings?)?.showHomeLauncherChooser()
+        if (activity != null && activity is ActSettings) {
+            (activity as ActSettings?)?.showHomeLauncherChooser()
         }
     }
 
     private fun showNightModeChooser() {
-        if (activity != null && activity is ASettings) {
-            (activity as ASettings?)?.showNightModeChooser()
+        if (activity != null && activity is ActSettings) {
+            (activity as ActSettings?)?.showNightModeChooser()
         }
     }
 
     private fun showBackgroundDialog() {
-        if (activity != null && activity is ASettings) {
-            (activity as ASettings?)?.showBackgroundDialog()
+        if (activity != null && activity is ActSettings) {
+            (activity as ActSettings?)?.showBackgroundDialog()
         }
     }
 
     private fun showHighlightColorDialog() {
-        if (activity != null && activity is ASettings) {
-            (activity as ASettings?)?.showHighlightColorDialog()
+        if (activity != null && activity is ActSettings) {
+            (activity as ActSettings?)?.showHighlightColorDialog()
         }
     }
 
@@ -269,8 +269,8 @@ class FSettings : Fragment(), SettingsInterface {
                 /* value = */ UtilSettings.DEFAULT_NIGHT_MODE
             )
         }
-        if (activity != null && activity is ASettings) {
-            (activity as ASettings?)?.sendNightModeBroadcast()
+        if (activity != null && activity is ActSettings) {
+            (activity as ActSettings?)?.sendNightModeBroadcast()
         }
     }
 }
