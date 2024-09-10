@@ -1,45 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:ignore="AlwaysShowAction">
 
     <item
         android:id="@+id/menuItemShowApps"
         android:title="@string/menu_title_show_apps"
         app:iconTint="@color/colorWhite"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
     <item
         android:id="@+id/menuItemAbout"
         android:title="@string/menu_title_about"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/menuItemResetDefaultSettings"
         android:title="@string/menu_title_reset_defaults"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuRateApp"
         android:title="@string/rate_app"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuMoreApp"
         android:title="@string/more_app"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuShareApp"
         android:title="@string/share_app"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuFacebookFanPage"
         android:title="@string/facebook_fan_page"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuPolicy"
         android:title="@string/terms_and_privacy_policy"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuApplovinConfig"
         android:title="@string/applovin_config"
-        app:showAsAction="never" />
+        app:showAsAction="ifRoom" />
     <item
         android:id="@+id/menuGithub"
         android:title="@string/github"

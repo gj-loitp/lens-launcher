@@ -44,7 +44,7 @@ class FSettings : Fragment(), SettingsInterface {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.f_settings, container, false)
+        val view = inflater.inflate(R.layout.frm_settings, container, false)
         utilSettings = UtilSettings(requireContext())
         return view
     }
