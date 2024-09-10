@@ -139,7 +139,7 @@ class LensView : View {
             color = ContextCompat.getColor(context, R.color.colorWhite)
             textSize = resources.getDimension(R.dimen.text_size_lens)
             textAlign = Paint.Align.CENTER
-            typeface = Typeface.createFromAsset(context.assets, "fonts/RobotoCondensed-Regular.ttf")
+//            typeface = Typeface.createFromAsset(context.assets, "fonts/RobotoCondensed-Regular.ttf")
         }
 
         mPaintNewAppTag = Paint()
@@ -207,6 +207,7 @@ class LensView : View {
                     invalidate()
                     true
                 }
+
                 MotionEvent.ACTION_MOVE -> {
                     if (!mMoving && sqrt(
                             (event.x - mTouchX).toDouble().pow(2.0) + (event.y - mTouchY).toDouble()
@@ -233,6 +234,7 @@ class LensView : View {
                     invalidate()
                     true
                 }
+
                 MotionEvent.ACTION_UP -> {
                     performLaunchVibration()
                     if (mMoving) {
@@ -244,6 +246,7 @@ class LensView : View {
                     }
                     true
                 }
+
                 else -> {
                     super.onTouchEvent(event)
                 }
@@ -405,7 +408,7 @@ class LensView : View {
     private fun drawAppIcon(
         canvas: Canvas,
         rect: RectF,
-        index: Int
+        index: Int,
     ) {
         mAppIcons?.let { list ->
             if (index < list.size) {
@@ -442,7 +445,7 @@ class LensView : View {
 
     private fun drawCircle(
         canvas: Canvas,
-        rect: RectF
+        rect: RectF,
     ) {
         mPaintCircles?.let {
             canvas.drawCircle(
@@ -456,7 +459,7 @@ class LensView : View {
 
     private fun drawAppName(
         canvas: Canvas,
-        rect: RectF?
+        rect: RectF?,
     ) {
         mUtilSettings?.let { us ->
             if (us.getBoolean(UtilSettings.KEY_SHOW_NAME_APP_HOVER) && mMoving) {
@@ -478,7 +481,7 @@ class LensView : View {
 
     private fun drawNewAppTag(
         canvas: Canvas,
-        rect: RectF
+        rect: RectF,
     ) {
         mUtilSettings?.let { us ->
             if (us.getBoolean(UtilSettings.KEY_SHOW_NEW_APP_TAG)) {
