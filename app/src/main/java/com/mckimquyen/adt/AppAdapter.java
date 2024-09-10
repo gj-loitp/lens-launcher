@@ -1,4 +1,4 @@
-package com.mckimquyen.a;
+package com.mckimquyen.adt;
 
 import static com.mckimquyen.util.CKt.PKG_NAME;
 

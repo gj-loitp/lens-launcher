@@ -6,7 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 
-import com.mckimquyen.app.AppsSingleton;
+import com.mckimquyen.app.RAppsSingleton;
 import com.mckimquyen.model.App;
 import com.mckimquyen.util.UtilAppSorter;
 import com.mckimquyen.util.UtilSettings;
@@ -35,7 +35,7 @@ public class TaskSortApps extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected Void doInBackground(Void... params) {
-        ArrayList<App> apps = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
+        ArrayList<App> apps = Objects.requireNonNull(RAppsSingleton.getInstance()).getApps();
         UtilAppSorter.sort(apps, mUtilSettings.getSortType());
         mApps = new ArrayList<>();
         mAppIcons = new ArrayList<>();
@@ -52,8 +52,8 @@ public class TaskSortApps extends AsyncTask<Void, Void, Void> {
 
     @Override
     protected void onPostExecute(Void result) {
-        Objects.requireNonNull(AppsSingleton.getInstance()).setApps(mApps);
-        AppsSingleton.getInstance().setAppIcons(mAppIcons);
+        Objects.requireNonNull(RAppsSingleton.getInstance()).setApps(mApps);
+        RAppsSingleton.getInstance().setAppIcons(mAppIcons);
         Intent appsLoadedIntent = new Intent(mApplication, BroadcastReceivers.AppsLoadedReceiver.class);
         mApplication.sendBroadcast(appsLoadedIntent);
         super.onPostExecute(result);

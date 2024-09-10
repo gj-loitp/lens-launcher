@@ -9,7 +9,7 @@ import android.view.Window;
 import android.view.WindowManager;
 
 import com.mckimquyen.R;
-import com.mckimquyen.app.AppsSingleton;
+import com.mckimquyen.app.RAppsSingleton;
 import com.mckimquyen.model.App;
 import com.mckimquyen.model.AppPersistent;
 import com.mckimquyen.services.BackgroundChangedObservable;
@@ -44,7 +44,7 @@ public class ActHome extends ActBase implements Observer {
         PackageManager mPackageManager = getPackageManager();
         lensViews.setPackageManager(mPackageManager);
         lensViews.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION);
-        assignApps(Objects.requireNonNull(Objects.requireNonNull(AppsSingleton.getInstance()).getApps()), AppsSingleton.getInstance().getAppIcons());
+        assignApps(Objects.requireNonNull(Objects.requireNonNull(RAppsSingleton.getInstance()).getApps()), RAppsSingleton.getInstance().getAppIcons());
         LoadedObservable.getInstance().addObserver(this);
         VisibilityChangedObservable.getInstance().addObserver(this);
         BackgroundChangedObservable.getInstance().addObserver(this);
@@ -115,8 +115,8 @@ public class ActHome extends ActBase implements Observer {
                 || observable instanceof LockChangedObservable
         ) {
             assignApps(Objects.requireNonNull(
-                            Objects.requireNonNull(AppsSingleton.getInstance()).getApps()),
-                    AppsSingleton.getInstance().getAppIcons());
+                            Objects.requireNonNull(RAppsSingleton.getInstance()).getApps()),
+                    RAppsSingleton.getInstance().getAppIcons());
         } else if (observable instanceof BackgroundChangedObservable) {
             setBackground();
         } else if (observable instanceof NightModeObservable) {

@@ -37,8 +37,8 @@ import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
 import com.mckimquyen.BuildConfig;
 import com.mckimquyen.R;
-import com.mckimquyen.a.FragmentPagerAdapter;
-import com.mckimquyen.app.AppsSingleton;
+import com.mckimquyen.adt.FragmentPagerAdapter;
+import com.mckimquyen.app.RAppsSingleton;
 import com.mckimquyen.enums.SortType;
 import com.mckimquyen.ext.ApplovinKt;
 import com.mckimquyen.itf.AppsInterface;
@@ -141,7 +141,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
             public void onPageScrollStateChanged(int state) {
             }
         });
-        listApp = Objects.requireNonNull(AppsSingleton.getInstance()).getApps();
+        listApp = Objects.requireNonNull(RAppsSingleton.getInstance()).getApps();
 
         adView = ApplovinKt.createAdBanner(this,
                 ActSettings.class.getSimpleName(),
@@ -311,8 +311,8 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
     @Override
     public void update(Observable observable, Object data) {
         if (observable instanceof LoadedObservable) {
-            if (AppsSingleton.getInstance() != null) {
-                listApp = AppsSingleton.getInstance().getApps();
+            if (RAppsSingleton.getInstance() != null) {
+                listApp = RAppsSingleton.getInstance().getApps();
             }
             if (appsInterface != null) {
                 appsInterface.onAppsUpdated(listApp);

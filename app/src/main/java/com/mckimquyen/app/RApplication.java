@@ -31,7 +31,7 @@ import java.util.Observer;
 //TODO roy93~ changelog view
 
 //2023.03.18 tried to convert to kotlin but failed
-public class MyApplication extends SugarApp implements Observer {
+public class RApplication extends SugarApp implements Observer {
 
     @Override
     public void onCreate() {

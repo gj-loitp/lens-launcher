@@ -13,8 +13,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.mckimquyen.R
-import com.mckimquyen.a.AppAdapter
-import com.mckimquyen.app.AppsSingleton.Companion.instance
+import com.mckimquyen.adt.AppAdapter
+import com.mckimquyen.app.RAppsSingleton.Companion.instance
 import com.mckimquyen.enums.SortType
 import com.mckimquyen.itf.AppsInterface
 import com.mckimquyen.model.App

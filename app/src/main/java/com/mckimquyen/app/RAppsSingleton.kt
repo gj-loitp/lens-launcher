@@ -3,7 +3,7 @@ package com.mckimquyen.app
 import android.graphics.Bitmap
 import com.mckimquyen.model.App
 
-class AppsSingleton private constructor() {
+class RAppsSingleton private constructor() {
     private var mApps: ArrayList<App>? = null
     private var mAppIcons: ArrayList<Bitmap>? = null
 
@@ -38,15 +38,15 @@ class AppsSingleton private constructor() {
         }
 
     companion object {
-        private var mAppsSingleton: AppsSingleton? = null
+        private var mRAppsSingleton: RAppsSingleton? = null
 
         @JvmStatic
-        val instance: AppsSingleton?
+        val instance: RAppsSingleton?
             get() {
-                if (mAppsSingleton == null) {
-                    mAppsSingleton = AppsSingleton()
+                if (mRAppsSingleton == null) {
+                    mRAppsSingleton = RAppsSingleton()
                 }
-                return mAppsSingleton
+                return mRAppsSingleton
             }
     }
 }
