@@ -8,7 +8,7 @@ android {
 
     defaultConfig {
         applicationId "com.mckimquyen.lenslauncher"
-        minSdkVersion 21
+        minSdkVersion 25
         targetSdkVersion 34
         versionCode 20240909
         versionName "2024.09.09"
