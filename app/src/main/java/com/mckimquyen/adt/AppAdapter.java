@@ -275,7 +275,6 @@ public class AppAdapter extends RecyclerView.Adapter {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 } catch (Exception e) {
-                    e.printStackTrace();
                     Toast.makeText(mContext, R.string.error_app_not_found, Toast.LENGTH_SHORT).show();
                 }
                 return true;
@@ -286,7 +285,6 @@ public class AppAdapter extends RecyclerView.Adapter {
                     intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                     mContext.startActivity(intent);
                 } catch (Exception e) {
-                    e.printStackTrace();
                     Toast.makeText(mContext, R.string.error_app_not_found, Toast.LENGTH_SHORT).show();
                 }
                 return true;

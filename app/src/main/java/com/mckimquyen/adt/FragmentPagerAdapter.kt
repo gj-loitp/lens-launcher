@@ -11,7 +11,7 @@ import com.mckimquyen.ui.FrmSettings
 
 class FragmentPagerAdapter(
     fragmentManager: FragmentManager,
-    private val mContext: Context
+    private val mContext: Context,
 ) : FragmentStatePagerAdapter(fragmentManager) {
 
     companion object {
