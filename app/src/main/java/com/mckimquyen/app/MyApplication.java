@@ -10,27 +10,26 @@ import com.mckimquyen.services.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO app launcher uninstall app
-//TODO app launcher app infor
-//TODO lock/unlock app
+//TODO roy93~ app launcher uninstall app
+//TODO roy93~ app launcher app infor
+//TODO roy93~ lock/unlock app
 
 //done
-//ic_launcher
-//setting search icon pack
-//check home default khi start launcher
-//dialog policy first
-//firebase
-//keystore
-//lock/unlock app
-//github
-//license
-//apply new logic applovin utils
-//showMediationDebuggerApplovin
-//switch customized like ios
-//internal webview
-//changelog view
+//TODO roy93~ ic_launcher
+//TODO roy93~ setting search icon pack
+//TODO roy93~ check home default khi start launcher
+//TODO roy93~ dialog policy first
+//TODO roy93~ firebase
+//TODO roy93~ keystore
+//TODO roy93~ lock/unlock app
+//TODO roy93~ github
+//TODO roy93~ license
+//TODO roy93~ apply new logic applovin utils
+//TODO roy93~ showMediationDebuggerApplovin
+//TODO roy93~ switch customized like ios
+//TODO roy93~ internal webview
+//TODO roy93~ changelog view
 
-//https://console.firebase.google.com/u/0/project/lenslauncher-25806/overview
 //2023.03.18 tried to convert to kotlin but failed
 public class MyApplication extends SugarApp implements Observer {
 

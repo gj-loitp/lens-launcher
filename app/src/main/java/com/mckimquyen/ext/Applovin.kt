@@ -52,7 +52,7 @@ fun Context.showMediationDebuggerApplovin() {
 
 fun Activity.createAdBanner(
     logTag: String?,
-    bkgColor: Int = Color.RED,
+    bkgColor: Int = Color.TRANSPARENT,
     viewGroup: ViewGroup?,
     isAdaptiveBanner: Boolean,
 ): MaxAdView {
@@ -133,7 +133,7 @@ fun Activity.createAdBanner(
         if (enableAdBanner) {
             ad.setBackgroundColor(bkgColor)
         } else {
-            ad.setBackgroundColor(Color.RED)
+            ad.setBackgroundColor(Color.TRANSPARENT)
         }
         viewGroup?.addView(adView)
         ad.loadAd()

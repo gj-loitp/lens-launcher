@@ -1,5 +1,8 @@
 package com.mckimquyen.model
 
+import androidx.annotation.Keep
+
+@Keep
 class Grid {
     var itemCount = 0
     var itemCountHorizontal = 0
