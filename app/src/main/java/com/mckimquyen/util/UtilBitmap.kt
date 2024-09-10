@@ -48,7 +48,7 @@ object UtilBitmap {
     // Get bitmap from resource id, with quality options
     private fun resIdToBitmap(
         res: Resources?,
-        resId: Int
+        resId: Int,
     ): Bitmap? {
         val options = BitmapFactory.Options()
         options.inScaled = false
@@ -68,32 +68,32 @@ object UtilBitmap {
     }
 
     // Get res id from app package name
-    fun packageNameToResId(
-        packageManager: PackageManager,
-        packageName: String
-    ): Int {
-        return try {
-            val applicationInfo = packageManager.getApplicationInfo(
-                /* p0 = */ packageName,
-                /* p1 = */ PackageManager.GET_META_DATA
-            )
-            applicationInfo.icon
-        } catch (e: PackageManager.NameNotFoundException) {
-            e.printStackTrace()
-            -1
-        }
-    }
+//    fun packageNameToResId(
+//        packageManager: PackageManager,
+//        packageName: String,
+//    ): Int {
+//        return try {
+//            val applicationInfo = packageManager.getApplicationInfo(
+//                packageName,
+//                PackageManager.GET_META_DATA
+//            )
+//            applicationInfo.icon
+//        } catch (e: PackageManager.NameNotFoundException) {
+//            e.printStackTrace()
+//            -1
+//        }
+//    }
 
     // Get bitmap from app package name
     fun packageNameToBitmap(
         packageManager: PackageManager,
-        packageName: String
+        packageName: String,
     ): Bitmap? {
         return try {
             val applicationInfo =
                 packageManager.getApplicationInfo(
-                    /* p0 = */ packageName,
-                    /* p1 = */ PackageManager.GET_META_DATA
+                    packageName,
+                    PackageManager.GET_META_DATA
                 )
             val resources = packageManager.getResourcesForApplication(applicationInfo)
             val appIconResId = applicationInfo.icon
@@ -108,12 +108,12 @@ object UtilBitmap {
     fun packageNameToBitmap(
         packageManager: PackageManager,
         packageName: String,
-        resId: Int
+        resId: Int,
     ): Bitmap? {
         return try {
             val applicationInfo = packageManager.getApplicationInfo(
-                /* p0 = */ packageName,
-                /* p1 = */ PackageManager.GET_META_DATA
+                packageName,
+                PackageManager.GET_META_DATA
             )
             val resources = packageManager.getResourcesForApplication(applicationInfo)
             var bitmap = resIdToBitmap(
@@ -122,7 +122,7 @@ object UtilBitmap {
             )
             if (bitmap == null) {
                 val drawable = packageManager.getApplicationIcon(
-                    /* p0 = */ packageName
+                    packageName
                 )
                 bitmap = drawableToBitmap(drawable)
             }

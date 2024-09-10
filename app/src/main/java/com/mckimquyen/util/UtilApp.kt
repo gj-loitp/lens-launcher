@@ -32,7 +32,7 @@ object UtilApp {
         context: Context?,
         application: Application?,
         iconPackLabelName: String,
-        sortType: SortType?
+        sortType: SortType?,
     ): ArrayList<App> {
         val apps = ArrayList<App>()
         val intent = Intent(Intent.ACTION_MAIN, null)
@@ -65,8 +65,8 @@ object UtilApp {
                 app.id = i
                 try {
                     app.installDate = packageManager.getPackageInfo(
-                        /* p0 = */ resolveInfo.activityInfo.packageName,
-                        /* p1 = */ 0
+                        resolveInfo.activityInfo.packageName,
+                        0
                     ).firstInstallTime
                 } catch (e: PackageManager.NameNotFoundException) {
                     app.installDate = 0
@@ -99,7 +99,7 @@ object UtilApp {
         label: String?,
         name: String?,
         view: View?,
-        bounds: Rect?
+        bounds: Rect?,
     ) {
         fun launch() {
             if (packageName != null && name != null) {
@@ -164,12 +164,12 @@ object UtilApp {
     }
 
     private fun getLauncherOptionsBundle(
-        context: Context, source: View?, bounds: Rect?
+        context: Context, source: View?, bounds: Rect?,
     ): Bundle? {
         var optionsBundle: Bundle? = null
         if (source != null) {
             val options: ActivityOptionsCompat =
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && bounds != null) {
+                if (bounds != null) {
                     // Clip reveal animation for Marshmallow and above
                     ActivityOptionsCompat.makeClipRevealAnimation(
                         /* source = */ source,

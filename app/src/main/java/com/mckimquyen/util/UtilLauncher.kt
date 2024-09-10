@@ -36,18 +36,18 @@ object UtilLauncher {
         val packageManager = context.packageManager
         val componentName = ComponentName(context, AFakeLauncher::class.java)
         packageManager.setComponentEnabledSetting(
-            /* p0 = */ componentName,
-            /* p1 = */ PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-            /* p2 = */ PackageManager.DONT_KILL_APP
+            /* componentName = */ componentName,
+            /* newState = */ PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+            /* flags = */ PackageManager.DONT_KILL_APP
         )
         val selector = Intent(Intent.ACTION_MAIN)
         selector.addCategory(Intent.CATEGORY_HOME)
         selector.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         context.startActivity(selector)
         packageManager.setComponentEnabledSetting(
-            /* p0 = */ componentName,
-            /* p1 = */ PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
-            /* p2 = */ PackageManager.DONT_KILL_APP
+            /* componentName = */ componentName,
+            /* newState = */ PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
+            /* flags = */ PackageManager.DONT_KILL_APP
         )
     }
 }

@@ -69,7 +69,7 @@ class UtilSettings(private val mContext: Context) {
     }
 
     fun save(
-        name: String?, value: Int
+        name: String?, value: Int,
     ) {
         sharedPreferences().edit().putInt(name, value).apply()
     }
@@ -93,16 +93,16 @@ class UtilSettings(private val mContext: Context) {
         return when (name) {
             KEY_ICON_SIZE -> {
                 if (sharedPreferences().getFloat(
-                        /* p0 = */ name,
-                        /* p1 = */ DEFAULT_ICON_SIZE
+                        name,
+                        DEFAULT_ICON_SIZE
                     ) < MIN_ICON_SIZE
                 ) {
                     save(
                         name = name, value = MIN_ICON_SIZE
                     )
                 } else if (sharedPreferences().getFloat(
-                        /* p0 = */ name,
-                        /* p1 = */ DEFAULT_ICON_SIZE
+                        name,
+                        DEFAULT_ICON_SIZE
                     ) > getMaxFloatValue(name)
                 ) {
                     save(
@@ -111,18 +111,19 @@ class UtilSettings(private val mContext: Context) {
                 }
                 sharedPreferences().getFloat(name, DEFAULT_ICON_SIZE)
             }
+
             KEY_DISTORTION_FACTOR -> {
                 if (sharedPreferences().getFloat(
-                        /* p0 = */ name,
-                        /* p1 = */ DEFAULT_DISTORTION_FACTOR
+                        name,
+                        DEFAULT_DISTORTION_FACTOR
                     ) < MIN_DISTORTION_FACTOR
                 ) {
                     save(
                         name = name, value = MIN_DISTORTION_FACTOR
                     )
                 } else if (sharedPreferences().getFloat(
-                        /* p0 = */ name,
-                        /* p1 = */ DEFAULT_DISTORTION_FACTOR
+                        name,
+                        DEFAULT_DISTORTION_FACTOR
                     ) > getMaxFloatValue(name)
                 ) {
                     save(
@@ -130,22 +131,23 @@ class UtilSettings(private val mContext: Context) {
                     )
                 }
                 sharedPreferences().getFloat(
-                    /* p0 = */ name,
-                    /* p1 = */ DEFAULT_DISTORTION_FACTOR
+                    name,
+                    DEFAULT_DISTORTION_FACTOR
                 )
             }
+
             KEY_SCALE_FACTOR -> {
                 if (sharedPreferences().getFloat(
-                        /* p0 = */ name,
-                        /* p1 = */ DEFAULT_SCALE_FACTOR
+                        name,
+                        DEFAULT_SCALE_FACTOR
                     ) < MIN_SCALE_FACTOR
                 ) {
                     save(
                         name = name, value = MIN_SCALE_FACTOR
                     )
                 } else if (sharedPreferences().getFloat(
-                        /* p0 = */ name,
-                        /* p1 = */ DEFAULT_SCALE_FACTOR
+                        name,
+                        DEFAULT_SCALE_FACTOR
                     ) > getMaxFloatValue(name)
                 ) {
                     save(
@@ -153,19 +155,20 @@ class UtilSettings(private val mContext: Context) {
                     )
                 }
                 sharedPreferences().getFloat(
-                    /* p0 = */ name,
-                    /* p1 = */ DEFAULT_SCALE_FACTOR
+                    name,
+                    DEFAULT_SCALE_FACTOR
                 )
             }
+
             else -> sharedPreferences().getFloat(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_FLOAT
+                name,
+                DEFAULT_FLOAT
             )
         }
     }
 
     fun save(
-        name: String?, value: Long
+        name: String?, value: Long,
     ) {
         sharedPreferences().edit().putLong(name, value).apply()
     }
@@ -173,16 +176,16 @@ class UtilSettings(private val mContext: Context) {
     fun getLong(name: String): Long {
         return if (name == KEY_ANIMATION_TIME) {
             if (sharedPreferences().getLong(
-                    /* p0 = */ name,
-                    /* p1 = */ DEFAULT_ANIMATION_TIME
+                    name,
+                    DEFAULT_ANIMATION_TIME
                 ) < MIN_ANIMATION_TIME
             ) {
                 save(
                     name = name, value = MIN_ANIMATION_TIME
                 )
             } else if (sharedPreferences().getLong(
-                    /* p0 = */ name,
-                    /* p1 = */ DEFAULT_ANIMATION_TIME
+                    name,
+                    DEFAULT_ANIMATION_TIME
                 ) > getMaxLongValue(name)
             ) {
                 save(
@@ -190,19 +193,19 @@ class UtilSettings(private val mContext: Context) {
                 )
             }
             sharedPreferences().getLong(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_ANIMATION_TIME
+                name,
+                DEFAULT_ANIMATION_TIME
             )
         } else {
             sharedPreferences().getLong(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_LONG
+                name,
+                DEFAULT_LONG
             )
         }
     }
 
     fun save(
-        name: String?, value: String?
+        name: String?, value: String?,
     ) {
         sharedPreferences().edit().putString(name, value).apply()
     }
@@ -210,24 +213,28 @@ class UtilSettings(private val mContext: Context) {
     fun getString(name: String?): String? {
         return when (name) {
             KEY_BACKGROUND -> sharedPreferences().getString(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_BACKGROUND
+                name,
+                DEFAULT_BACKGROUND
             )
+
             KEY_BACKGROUND_COLOR -> sharedPreferences().getString(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_BACKGROUND_COLOR
+                name,
+                DEFAULT_BACKGROUND_COLOR
             )
+
             KEY_HIGHLIGHT_COLOR -> sharedPreferences().getString(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_HIGHLIGHT_COLOR
+                name,
+                DEFAULT_HIGHLIGHT_COLOR
             )
+
             KEY_ICON_PACK_LABEL_NAME -> sharedPreferences().getString(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_ICON_PACK_LABEL_NAME
+                name,
+                DEFAULT_ICON_PACK_LABEL_NAME
             )
+
             else -> sharedPreferences().getString(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_STRING
+                name,
+                DEFAULT_STRING
             )
         }
     }
@@ -239,28 +246,33 @@ class UtilSettings(private val mContext: Context) {
     fun getBoolean(name: String?): Boolean {
         return when (name) {
             KEY_VIBRATE_APP_HOVER -> sharedPreferences().getBoolean(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_VIBRATE_APP_HOVER
+                name,
+                DEFAULT_VIBRATE_APP_HOVER
             )
+
             KEY_VIBRATE_APP_LAUNCH -> sharedPreferences().getBoolean(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_VIBRATE_APP_LAUNCH
+                name,
+                DEFAULT_VIBRATE_APP_LAUNCH
             )
+
             KEY_SHOW_NAME_APP_HOVER -> sharedPreferences().getBoolean(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_SHOW_NAME_APP_HOVER
+                name,
+                DEFAULT_SHOW_NAME_APP_HOVER
             )
+
             KEY_SHOW_TOUCH_SELECTION -> sharedPreferences().getBoolean(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_SHOW_TOUCH_SELECTION
+                name,
+                DEFAULT_SHOW_TOUCH_SELECTION
             )
+
             KEY_SHOW_NEW_APP_TAG -> sharedPreferences().getBoolean(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_SHOW_NEW_APP_TAG
+                name,
+                DEFAULT_SHOW_NEW_APP_TAG
             )
+
             else -> sharedPreferences().getBoolean(
-                /* p0 = */ name,
-                /* p1 = */ DEFAULT_BOOLEAN
+                name,
+                DEFAULT_BOOLEAN
             )
         }
     }
@@ -274,8 +286,8 @@ class UtilSettings(private val mContext: Context) {
     val sortType: SortType
         get() {
             val ordinal = sharedPreferences().getInt(
-                /* p0 = */ KEY_SORT_TYPE,
-                /* p1 = */ DEFAULT_SORT_TYPE
+                KEY_SORT_TYPE,
+                DEFAULT_SORT_TYPE
             )
             return SortType.values()[ordinal]
         }

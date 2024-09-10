@@ -60,12 +60,6 @@ public class UtilCalculator {
 //    }
 
     // Algorithm for determining whether a rect is within a given lens (centered at touchX, touchY)
-//    public static boolean isRectWithinLens(RectF rect, float touchX, float touchY, float lensDiameter) {
-//        return rect.left >= touchX - lensDiameter / 2.0f &&
-//                rect.right <= touchX + lensDiameter / 2.0f &&
-//                rect.top >= touchY - lensDiameter / 2.0f &&
-//                rect.bottom <= touchY + lensDiameter / 2.0f;
-//    }
 
     // Graphical Fisheye Lens algorithm for shifting
     public static float shiftPoint(Context context, float lensPosition, float itemPosition, float boundary, float multiplier) {

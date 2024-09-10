@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Objects;
 
 //2023.03.20 tried to convert kotlin but failed
 public class UtilIconPackManager {
@@ -112,7 +113,7 @@ public class UtilIconPackManager {
                             } else if (xpp.getName().equals("scale")) {
                                 if (xpp.getAttributeCount() > 0 && xpp.getAttributeName(0).equals("factor")) {
                                     try {
-                                        mFactor = Float.valueOf(xpp.getAttributeValue(0));
+                                        mFactor = Float.parseFloat(xpp.getAttributeValue(0));
                                     } catch (NumberFormatException e) {
                                         mFactor = 1.0f;
                                         e.printStackTrace();
@@ -150,6 +151,7 @@ public class UtilIconPackManager {
             int id = mIconPackRes.getIdentifier(drawableName, "drawable", mPackageName);
             if (id > 0) {
                 Drawable bitmap = mIconPackRes.getDrawable(id);
+
                 if (bitmap instanceof BitmapDrawable) return ((BitmapDrawable) bitmap).getBitmap();
             }
             return null;
@@ -163,8 +165,12 @@ public class UtilIconPackManager {
             PackageManager pm = mApplication.getPackageManager();
             Intent launchIntent = pm.getLaunchIntentForPackage(appPackageName);
             String componentName = null;
-            if (launchIntent != null)
-                componentName = pm.getLaunchIntentForPackage(appPackageName).getComponent().toString();
+            try {
+                if (launchIntent != null)
+                    componentName = Objects.requireNonNull(Objects.requireNonNull(pm.getLaunchIntentForPackage(appPackageName)).getComponent()).toString();
+            } catch (Exception e) {
+                componentName = "";
+            }
             String drawable = mPackagesDrawables.get(componentName);
             if (drawable != null) {
                 Bitmap bitmap = loadBitmap(drawable);
@@ -193,7 +199,7 @@ public class UtilIconPackManager {
                 return null;
             }
             // If no back images, return default app icon
-            if (mBackImages.size() == 0) {
+            if (mBackImages.isEmpty()) {
                 return defaultBitmap;
             }
             // Get a random back image

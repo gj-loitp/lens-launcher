@@ -13,9 +13,6 @@ public class UtilAppSorter {
 
     public static void sort(ArrayList<App> apps, SortType sortType) {
         switch (sortType) {
-            case LABEL_ASCENDING:
-                sortByLabelAscending(apps);
-                break;
             case LABEL_DESCENDING:
                 sortByLabelDescending(apps);
                 break;
@@ -44,7 +41,7 @@ public class UtilAppSorter {
     }
 
     private static void sortByLabelAscending(ArrayList<App> apps) {
-        Collections.sort(apps, (a1, a2) -> (Objects.requireNonNull(a1.getLabel()).toString()).compareToIgnoreCase(Objects.requireNonNull(a2.getLabel()).toString()));
+        apps.sort((a1, a2) -> (Objects.requireNonNull(a1.getLabel()).toString()).compareToIgnoreCase(Objects.requireNonNull(a2.getLabel()).toString()));
     }
 
     private static void sortByLabelDescending(ArrayList<App> apps) {
@@ -53,7 +50,7 @@ public class UtilAppSorter {
     }
 
     private static void sortByInstallDateAscending(ArrayList<App> apps) {
-        Collections.sort(apps, (a1, a2) -> {
+        apps.sort((a1, a2) -> {
             if (a1.getInstallDate() > a2.getInstallDate()) {
                 return -1;
             } else if (a1.getInstallDate() < a2.getInstallDate()) {
@@ -69,7 +66,7 @@ public class UtilAppSorter {
     }
 
     private static void sortByOpenCountAscending(ArrayList<App> apps) {
-        Collections.sort(apps, (a1, a2) -> {
+        apps.sort((a1, a2) -> {
             long a1OpenCount =
                     AppPersistent.getAppOpenCount(Objects.requireNonNull(a1.getPackageName()).toString(), Objects.requireNonNull(a1.getName()).toString());
             long a2OpenCount =
@@ -89,7 +86,7 @@ public class UtilAppSorter {
     }
 
     private static void sortByIconColorAscending(ArrayList<App> apps) {
-        Collections.sort(apps, (a1, a2) -> {
+        apps.sort((a1, a2) -> {
             float a1HSVColor = UtilColor.getHueColorFromApp(a1);
             float a2HSVColor = UtilColor.getHueColorFromApp(a2);
 
