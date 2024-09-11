@@ -3,6 +3,7 @@ package com.mckimquyen.ui
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -41,6 +42,7 @@ class FrmApps : Fragment(), AppsInterface {
         val view = inflater.inflate(R.layout.frm_apps, container, false)
         utilSettings = UtilSettings(requireContext())
         instance?.apps?.let {
+            Log.d("roy93~", "onCreateView $it")
             setupRecycler(it)
         }
         return view
@@ -74,7 +76,9 @@ class FrmApps : Fragment(), AppsInterface {
     }
 
     private fun setupRecycler(apps: ArrayList<App>?) {
+        Log.d("roy93~", "setupRecycler $apps")
         if (activity == null || apps?.size == 0) {
+            progressBarApps?.isVisible = false
             return
         }
 
@@ -106,6 +110,7 @@ class FrmApps : Fragment(), AppsInterface {
     }
 
     override fun onAppsUpdated(apps: ArrayList<App>?) {
+        Log.d("roy93~", "onAppsUpdated $apps")
         setupRecycler(apps)
     }
 }

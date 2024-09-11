@@ -1,5 +1,7 @@
 package com.mckimquyen.model;
 
+import android.util.Log;
+
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
@@ -142,14 +144,18 @@ public class AppPersistent extends SugarRecord {
     }
 
     public static void setAppOpened(String packageName, String name, boolean appLock) {
-        String identifier = AppPersistent.generateIdentifier(packageName, name);
-        AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
-        if (appPersistent != null) {
-            appPersistent.setAppOpened(appLock);
-            appPersistent.save();
-        } else {
-            AppPersistent newAppPersistent = new AppPersistent(packageName, name, DEFAULT_OPEN_COUNT, DEFAULT_ORDER_NUMBER, DEFAULT_APP_VISIBILITY, appLock);
-            newAppPersistent.save();
+        try {
+            String identifier = AppPersistent.generateIdentifier(packageName, name);
+            AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
+            if (appPersistent != null) {
+                appPersistent.setAppOpened(appLock);
+                appPersistent.save();
+            } else {
+                AppPersistent newAppPersistent = new AppPersistent(packageName, name, DEFAULT_OPEN_COUNT, DEFAULT_ORDER_NUMBER, DEFAULT_APP_VISIBILITY, appLock);
+                newAppPersistent.save();
+            }
+        } catch (Exception e) {
+            Log.e("roy93~", "setAppOpened e " + e);
         }
     }
 
