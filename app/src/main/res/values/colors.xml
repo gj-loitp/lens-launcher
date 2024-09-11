@@ -10,6 +10,6 @@
     <color name="colorDivider">#DDDDDD</color>
     <color name="colorValue">@color/colorBlack</color>
     <color name="colorShadow">#80000000</color>
-    <color name="colorCircles">@color/colorBlack</color>
+    <color name="colorCircles">#A6A4A6</color>
     <color name="colorAppTint">@color/colorBlack</color>
 </resources>
