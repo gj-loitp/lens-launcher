@@ -1,6 +1,8 @@
 package com.mckimquyen.ui
 
 import android.app.ActivityManager.TaskDescription
+import android.content.Context
+import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.annotation.LayoutRes
@@ -13,6 +15,13 @@ open class ActBase : AppCompatActivity() {
     @JvmField
     protected var utilSettings: UtilSettings? = null
 
+    override fun attachBaseContext(context: Context) {
+        val override = Configuration(context.resources.configuration)
+        override.fontScale = 1.0f
+        applyOverrideConfiguration(override)
+        super.attachBaseContext(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         utilSettings = UtilSettings(this)
         if (savedInstanceState == null) {
@@ -20,6 +29,7 @@ open class ActBase : AppCompatActivity() {
         }
         super.onCreate(savedInstanceState)
     }
+
 
     override fun setContentView(@LayoutRes layoutResID: Int) {
         super.setContentView(layoutResID)

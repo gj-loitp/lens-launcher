@@ -27,6 +27,7 @@ import java.util.Observer;
 //switch customized like ios
 //internal webview
 //changelog view
+//font scale
 
 //2023.03.18 tried to convert to kotlin but failed
 public class RApplication extends SugarApp implements Observer {
