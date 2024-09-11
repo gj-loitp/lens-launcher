@@ -174,14 +174,18 @@ public class AppPersistent extends SugarRecord {
     }
 
     public static void setAppVisibility(String packageName, String name, boolean mHideApp) {
-        String identifier = AppPersistent.generateIdentifier(packageName, name);
-        AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
-        if (appPersistent != null) {
-            appPersistent.setAppVisible(mHideApp);
-            appPersistent.save();
-        } else {
-            AppPersistent newAppPersistent = new AppPersistent(packageName, name, DEFAULT_OPEN_COUNT, DEFAULT_ORDER_NUMBER, mHideApp, DEFAULT_APP_LOCK);
-            newAppPersistent.save();
+        try {
+            String identifier = AppPersistent.generateIdentifier(packageName, name);
+            AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
+            if (appPersistent != null) {
+                appPersistent.setAppVisible(mHideApp);
+                appPersistent.save();
+            } else {
+                AppPersistent newAppPersistent = new AppPersistent(packageName, name, DEFAULT_OPEN_COUNT, DEFAULT_ORDER_NUMBER, mHideApp, DEFAULT_APP_LOCK);
+                newAppPersistent.save();
+            }
+        } catch (Exception e) {
+            Log.e("roy93~", "setAppVisibility e " + e);
         }
     }
 

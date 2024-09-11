@@ -137,7 +137,7 @@ public class AppAdapter extends RecyclerView.Adapter {
             boolean isAppVisible = AppPersistent.getAppVisibility(pkgName, name);
             if (isAppVisible) {
                 ivAppHide.setImageResource(R.drawable.ic_visibility_grey_24dp);
-                ivAppHide.setColorFilter(ContextCompat.getColor(mContext, R.color.colorBlack));
+                ivAppHide.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans));
             } else {
                 ivAppHide.setImageResource(R.drawable.ic_visibility_off_grey_24dp);
                 ivAppHide.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
@@ -167,7 +167,7 @@ public class AppAdapter extends RecyclerView.Adapter {
             } else {
                 Snackbar.make(cvAppContainer, mApp.getLabel() + " is now visible", Snackbar.LENGTH_LONG).show();
                 ivAppHide.setImageResource(R.drawable.ic_visibility_grey_24dp);
-                ivAppHide.setColorFilter(ContextCompat.getColor(mContext, R.color.colorBlack));
+                ivAppHide.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans));
             }
         }
 
