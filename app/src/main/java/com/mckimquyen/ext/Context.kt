@@ -86,11 +86,13 @@ fun Context?.openUrlInBrowser(
     }
 }
 
-fun Context.showDialog1(
+fun Context.showDialog2(
     title: String? = null,
     msg: String? = null,
     button1: String = getString(R.string.confirm),
+    button2: String = getString(R.string.cancel),
     onClickButton1: Runnable? = null,
+    onClickButton2: Runnable? = null,
 ): AlertDialog {
     val builder = AlertDialog.Builder(ContextThemeWrapper(this, R.style.LightAlertDialogCustom))
 
@@ -108,11 +110,15 @@ fun Context.showDialog1(
     builder.setPositiveButton(button1) { _, _ ->
         onClickButton1?.run()
     }
+    builder.setNegativeButton(button2) { _, _ ->
+        onClickButton2?.run()
+    }
     val dialog = builder.create()
     dialog.setCancelable(true)
     dialog.show()
     val color = ContextCompat.getColor(this, R.color.colorPrimary)
     dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(color)
+    dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color)
     return dialog
 }
 
