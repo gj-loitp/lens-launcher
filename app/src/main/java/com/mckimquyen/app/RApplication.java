@@ -10,8 +10,6 @@ import com.mckimquyen.services.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO roy93~ app launcher uninstall app
-//TODO roy93~ app launcher app infor
 //TODO roy93~ ic_launcher
 //TODO roy93~ dialog policy first
 //TODO roy93~ keystore
@@ -28,6 +26,8 @@ import java.util.Observer;
 //internal webview
 //changelog view
 //font scale
+//app launcher uninstall app
+//app launcher app infor
 
 //2023.03.18 tried to convert to kotlin but failed
 public class RApplication extends SugarApp implements Observer {
