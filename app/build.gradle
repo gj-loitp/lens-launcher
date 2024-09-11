@@ -50,7 +50,7 @@ android {
 //            applicationId = "com.mckimquyen.lenslauncher.dev"
             dimension "type"
             buildConfigField("String", "FLAVOR_buildEnv", '"dev"')
-            resValue "string", "app_name", "Zoom Launcher DEV"
+            resValue "string", "app_name", "Fisheye Launcher DEV"
 
             resValue("string", "SDK_KEY", "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt")
             resValue "string", "BANNER", "~"
@@ -64,7 +64,7 @@ android {
 //            applicationId = "com.mckimquyen.lenslauncher.prod"
             dimension "type"
             buildConfigField("String", "FLAVOR_buildEnv", '"prod"')
-            resValue "string", "app_name", "Zoom Launcher"
+            resValue "string", "app_name", "Fisheye Launcher"
             resValue("string", "SDK_KEY", "e75FnQfS9XTTqM1Kne69U7PW_MBgAnGQTFvtwVVui6kRPKs5L7ws9twr5IQWwVfzPKZ5pF2IfDa7lguMgGlCyt")
             resValue "string", "BANNER", "~"
             resValue "string", "INTER", "~"

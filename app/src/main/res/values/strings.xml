@@ -46,10 +46,10 @@
     <string name="progress_loading_apps">Loading Apps</string>
     <string name="progress_loading_icons">Loading Icons</string>
     <string name="snackbar_reset_successful">Values Reset To Default</string>
-    <string name="about"><![CDATA[Zoom Launcher is a unique, efficient way to browse and launch your apps.<br><br>Instead of scrolling long lists or swiping through multiple pages, Zoom Launcher implements two unique features:<br><br><b>• An Equispaced Grid that displays all of your apps, regardless of screen size or app count.<br><br>• A Graphical Fisheye Lens to quickly zoom, pan and launch apps using touch gestures.</b><br><br>Zoom Launcher also includes a full Settings menu to tweak all aspects of the Lens; Distortion, Scaling, Icon Size, Haptic Feedback, etc.</a>]]></string>
+    <string name="about"><![CDATA[Fisheye Launcher is a unique, efficient way to browse and launch your apps.<br><br>Instead of scrolling long lists or swiping through multiple pages, Fisheye Launcher implements two unique features:<br><br><b>• An Equispaced Grid that displays all of your apps, regardless of screen size or app count.<br><br>• A Graphical Fisheye Lens to quickly zoom, pan and launch apps using touch gestures.</b><br><br>Fisheye Launcher also includes a full Settings menu to tweak all aspects of the Lens; Distortion, Scaling, Icon Size, Haptic Feedback, etc.</a>]]></string>
     <string name="title_activity_main">MainActivity</string>
     <string name="pro">PRO</string>
-    <string name="get_pro">Get Zoom Launcher PRO</string>
+    <string name="get_pro">Get Fisheye Launcher PRO</string>
     <string name="done">Done</string>
     <string name="cancel">Cancel</string>
     <string name="back">Back</string>
