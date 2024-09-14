@@ -169,7 +169,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
                     openUrlInBrowser(this, URL_POLICY_NOTION, getString(R.string.terms_and_privacy_policy), false);
                     utilSettings.save(UtilSettings.KEY_READ_POLICY, true);
                 }, () -> {
-                    //do nothing
+                    utilSettings.save(UtilSettings.KEY_READ_POLICY, true);
                 });
             }
         }
