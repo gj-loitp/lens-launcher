@@ -10,7 +10,6 @@ import com.mckimquyen.services.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO roy93~ ic_launcher
 //TODO roy93~ dialog policy first
 //TODO roy93~ keystore
 //TODO roy93~ apply new logic applovin utils
@@ -18,6 +17,7 @@ import java.util.Observer;
 //TODO roy93~ khi cai ung dung dau tien, bi loi UI light mode
 
 //done
+//ic_launcher
 //setting search icon pack
 //check home default khi start launcher
 //lock/unlock app
