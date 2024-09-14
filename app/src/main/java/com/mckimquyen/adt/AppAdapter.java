@@ -5,6 +5,7 @@ import static com.mckimquyen.util.CKt.PKG_NAME;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.ColorStateList;
+import android.graphics.Color;
 import android.graphics.Rect;
 import android.net.Uri;
 import android.provider.Settings;
@@ -121,7 +122,7 @@ public class AppAdapter extends RecyclerView.Adapter {
                     btAppLock.setText(R.string.lock);
                     ViewCompat.setBackgroundTintList(
                             btAppLock,
-                            ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans))
+                            ColorStateList.valueOf(Color.GRAY)
                     );
                 } else {
                     btAppLock.setText(R.string.unlock);
@@ -137,7 +138,7 @@ public class AppAdapter extends RecyclerView.Adapter {
             boolean isAppVisible = AppPersistent.getAppVisibility(pkgName, name);
             if (isAppVisible) {
                 ivAppHide.setImageResource(R.drawable.ic_visibility_grey_24dp);
-                ivAppHide.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans));
+                ivAppHide.setColorFilter(Color.GRAY);
             } else {
                 ivAppHide.setImageResource(R.drawable.ic_visibility_off_grey_24dp);
                 ivAppHide.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimary));
@@ -167,7 +168,7 @@ public class AppAdapter extends RecyclerView.Adapter {
             } else {
                 Snackbar.make(cvAppContainer, mApp.getLabel() + " is now visible", Snackbar.LENGTH_LONG).show();
                 ivAppHide.setImageResource(R.drawable.ic_visibility_grey_24dp);
-                ivAppHide.setColorFilter(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans));
+                ivAppHide.setColorFilter(Color.GRAY);
             }
         }
 
