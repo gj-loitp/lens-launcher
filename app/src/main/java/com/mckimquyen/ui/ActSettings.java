@@ -121,6 +121,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
         fabSort.hide();
         setSupportActionBar(toolbar);
         FragmentPagerAdapter mPagerAdapter = new FragmentPagerAdapter(getSupportFragmentManager(), ActSettings.this);
+        viewpager.setOffscreenPageLimit(2);
         viewpager.setAdapter(mPagerAdapter);
         tabs.setupWithViewPager(viewpager);
         viewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
