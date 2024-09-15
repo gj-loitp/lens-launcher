@@ -37,22 +37,22 @@ class FrmApps : Fragment(), AppsInterface {
     private var indexScrolledItem = 0
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
+        inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?,
     ): View? {
         val view = inflater.inflate(R.layout.frm_apps, container, false)
         utilSettings = UtilSettings(requireContext())
-        instance?.apps?.let {
-            Log.d("roy93~", "onCreateView $it")
-            setupRecycler(it)
-        }
         return view
     }
 
     override fun onViewCreated(
-        view: View, savedInstanceState: Bundle?
+        view: View, savedInstanceState: Bundle?,
     ) {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
+        instance?.apps?.let {
+            Log.d("roy93~", "onCreateView $it")
+            setupRecycler(it)
+        }
     }
 
     private fun setupViews(view: View) {
@@ -68,9 +68,6 @@ class FrmApps : Fragment(), AppsInterface {
     }
 
     private fun sendEditAppsBroadcast() {
-//        if (activity == null) {
-//            return
-//        }
         val editAppsIntent = Intent(activity, AppsEditedReceiver::class.java)
         activity?.sendBroadcast(editAppsIntent)
     }
@@ -81,7 +78,7 @@ class FrmApps : Fragment(), AppsInterface {
             progressBarApps?.isVisible = false
             return
         }
-
+        Log.d("roy93~", "apps?.size ${apps?.size}")
         rvApps?.layoutManager?.let { lm ->
             indexScrolledItem = (lm as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
         }
@@ -92,12 +89,12 @@ class FrmApps : Fragment(), AppsInterface {
         val appAdapter = AppAdapter(activity, apps)
         rvApps?.apply {
             adapter = appAdapter
-            layoutManager =
-                GridLayoutManager(activity, resources.getInteger(R.integer.columns_apps))
+            layoutManager = GridLayoutManager(activity, resources.getInteger(R.integer.columns_apps))
             itemAnimator = DefaultItemAnimator()
             scrollToPosition(indexScrolledItem)
         }
         indexScrolledItem = 0
+        Log.d("roy93~", "done")
     }
 
     override fun onDefaultsReset() {
