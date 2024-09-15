@@ -43,8 +43,12 @@
         android:title="@string/applovin_config"
         app:showAsAction="ifRoom" />
     <item
-        android:id="@+id/menuGithub"
-        android:title="@string/github"
+        android:id="@+id/menuGithubOriginal"
+        android:title="@string/github_original"
+        app:showAsAction="never" />
+    <item
+        android:id="@+id/menuGithubFork"
+        android:title="@string/github_fork"
         app:showAsAction="never" />
     <item
         android:id="@+id/menuLicense"

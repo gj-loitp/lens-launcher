@@ -297,8 +297,11 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
         } else if (id == R.id.menuPolicy) {
             openUrlInBrowser(this, URL_POLICY_NOTION, getString(R.string.terms_and_privacy_policy), false);
             return true;
-        } else if (id == R.id.menuGithub) {
-            openUrlInBrowser(this, "https://github.com/gj-loitp/lens-launcher", getString(R.string.github), true);
+        } else if (id == R.id.menuGithubOriginal) {
+            openUrlInBrowser(this, "https://github.com/ricknout/lens-launcher", getString(R.string.github_original), true);
+            return true;
+        } else if (id == R.id.menuGithubFork) {
+            openUrlInBrowser(this, "https://github.com/gj-loitp/lens-launcher", getString(R.string.github_fork), true);
             return true;
         } else if (id == R.id.menuLicense) {
             openUrlInBrowser(this, "https://raw.githubusercontent.com/ricknout/lens-launcher/master/LICENSE.md", getString(R.string.license), true);
