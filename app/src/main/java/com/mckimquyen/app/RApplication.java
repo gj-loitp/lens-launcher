@@ -13,10 +13,9 @@ import java.util.Observer;
 //TODO roy93~ keystore
 //TODO roy93~ apply new logic applovin utils
 
-//TODO roy93~ bug khi toggle lock/unlock, hide/unhide ko work
-//TODO roy93~ khi cai ung dung dau tien, bi loi UI light mode
-
 //done
+//bug khi toggle lock/unlock, hide/unhide ko work
+//khi cai ung dung dau tien, bi loi UI light mode
 //bug load apps vo cuc o tab APPS
 //dialog policy first
 //ic_launcher
