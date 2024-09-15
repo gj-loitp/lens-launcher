@@ -194,7 +194,7 @@ public class AppAdapter extends RecyclerView.Adapter {
                         btAppLock.setText(R.string.lock);
                         ViewCompat.setBackgroundTintList(
                                 btAppLock,
-                                ColorStateList.valueOf(ContextCompat.getColor(mContext, R.color.colorPrimaryTrans))
+                                ColorStateList.valueOf(Color.GRAY)
                         );
                     }
                     return null;
