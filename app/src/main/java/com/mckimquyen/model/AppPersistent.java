@@ -11,7 +11,7 @@ import com.orm.query.Select;
 import com.orm.util.NamingHelper;
 
 //2023.03.19 try to convert kotlin but failed
-@Keep
+//@Keep
 public class AppPersistent extends SugarRecord {
 
     /* Required Default Constructor */
