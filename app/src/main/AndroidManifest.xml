@@ -35,7 +35,7 @@
             android:value="false" />
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
-            android:value="com.roy.model" />
+            android:value="com.mckimquyen.model" />
 
         <activity
             android:name=".ui.ActHome"

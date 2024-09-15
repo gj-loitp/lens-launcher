@@ -1,7 +1,5 @@
 package com.mckimquyen.model;
 
-import android.util.Log;
-
 import androidx.annotation.Keep;
 import androidx.annotation.NonNull;
 
@@ -11,7 +9,7 @@ import com.orm.query.Select;
 import com.orm.util.NamingHelper;
 
 //2023.03.19 try to convert kotlin but failed
-//@Keep
+@Keep
 public class AppPersistent extends SugarRecord {
 
     /* Required Default Constructor */
@@ -130,75 +128,55 @@ public class AppPersistent extends SugarRecord {
     }
 
     public static boolean getAppOpened(String packageName, String name) {
-        try {
-            String identifier = AppPersistent.generateIdentifier(packageName, name);
-            AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
-            if (appPersistent != null) {
-                return appPersistent.isAppOpened();
-            } else {
-                return true;
-            }
-        } catch (Exception e) {
+        String identifier = AppPersistent.generateIdentifier(packageName, name);
+        AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
+        if (appPersistent != null) {
+            return appPersistent.isAppOpened();
+        } else {
             return true;
         }
     }
 
     public static void setAppOpened(String packageName, String name, boolean appLock) {
-        try {
-            String identifier = AppPersistent.generateIdentifier(packageName, name);
-            AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
-            if (appPersistent != null) {
-                appPersistent.setAppOpened(appLock);
-                appPersistent.save();
-            } else {
-                AppPersistent newAppPersistent = new AppPersistent(packageName, name, DEFAULT_OPEN_COUNT, DEFAULT_ORDER_NUMBER, DEFAULT_APP_VISIBILITY, appLock);
-                newAppPersistent.save();
-            }
-        } catch (Exception e) {
-            Log.e("roy93~", "setAppOpened e " + e);
+        String identifier = AppPersistent.generateIdentifier(packageName, name);
+        AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
+        if (appPersistent != null) {
+            appPersistent.setAppOpened(appLock);
+            appPersistent.save();
+        } else {
+            AppPersistent newAppPersistent = new AppPersistent(packageName, name, DEFAULT_OPEN_COUNT, DEFAULT_ORDER_NUMBER, DEFAULT_APP_VISIBILITY, appLock);
+            newAppPersistent.save();
         }
     }
 
     public static boolean getAppVisibility(String packageName, String name) {
-        try {
-            String identifier = AppPersistent.generateIdentifier(packageName, name);
-            AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
-            if (appPersistent != null) {
-                return appPersistent.isAppVisible();
-            } else {
-                return true;
-            }
-        } catch (Exception e) {
+        String identifier = AppPersistent.generateIdentifier(packageName, name);
+        AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
+        if (appPersistent != null) {
+            return appPersistent.isAppVisible();
+        } else {
             return true;
         }
     }
 
     public static void setAppVisibility(String packageName, String name, boolean mHideApp) {
-        try {
-            String identifier = AppPersistent.generateIdentifier(packageName, name);
-            AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
-            if (appPersistent != null) {
-                appPersistent.setAppVisible(mHideApp);
-                appPersistent.save();
-            } else {
-                AppPersistent newAppPersistent = new AppPersistent(packageName, name, DEFAULT_OPEN_COUNT, DEFAULT_ORDER_NUMBER, mHideApp, DEFAULT_APP_LOCK);
-                newAppPersistent.save();
-            }
-        } catch (Exception e) {
-            Log.e("roy93~", "setAppVisibility e " + e);
+        String identifier = AppPersistent.generateIdentifier(packageName, name);
+        AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
+        if (appPersistent != null) {
+            appPersistent.setAppVisible(mHideApp);
+            appPersistent.save();
+        } else {
+            AppPersistent newAppPersistent = new AppPersistent(packageName, name, DEFAULT_OPEN_COUNT, DEFAULT_ORDER_NUMBER, mHideApp, DEFAULT_APP_LOCK);
+            newAppPersistent.save();
         }
     }
 
     public static long getAppOpenCount(String packageName, String name) {
-        try {
-            String identifier = AppPersistent.generateIdentifier(packageName, name);
-            AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
-            if (appPersistent != null) {
-                return appPersistent.getOpenCount();
-            } else {
-                return 0;
-            }
-        } catch (Exception e) {
+        String identifier = AppPersistent.generateIdentifier(packageName, name);
+        AppPersistent appPersistent = Select.from(AppPersistent.class).where(Condition.prop(NamingHelper.toSQLNameDefault("mIdentifier")).eq(identifier)).first();
+        if (appPersistent != null) {
+            return appPersistent.getOpenCount();
+        } else {
             return 0;
         }
     }

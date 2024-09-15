@@ -2,9 +2,8 @@ package com.mckimquyen.model
 
 import android.graphics.Bitmap
 import androidx.annotation.ColorInt
-import androidx.annotation.Keep
 
-@Keep
+//@Keep
 class App {
     var id = 0
     var label: CharSequence? = null
