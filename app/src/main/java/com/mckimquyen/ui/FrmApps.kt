@@ -50,7 +50,7 @@ class FrmApps : Fragment(), AppsInterface {
         super.onViewCreated(view, savedInstanceState)
         setupViews(view)
         instance?.apps?.let {
-            Log.d("roy93~", "onCreateView $it")
+//            Log.d("", "onCreateView $it")
             setupRecycler(it)
         }
     }
@@ -73,12 +73,12 @@ class FrmApps : Fragment(), AppsInterface {
     }
 
     private fun setupRecycler(apps: ArrayList<App>?) {
-        Log.d("roy93~", "setupRecycler $apps")
+//        Log.d("", "setupRecycler $apps")
         if (activity == null || apps?.size == 0) {
             progressBarApps?.isVisible = false
             return
         }
-        Log.d("roy93~", "apps?.size ${apps?.size}")
+//        Log.d("", "apps?.size ${apps?.size}")
         rvApps?.layoutManager?.let { lm ->
             indexScrolledItem = (lm as LinearLayoutManager).findFirstCompletelyVisibleItemPosition()
         }
@@ -94,7 +94,7 @@ class FrmApps : Fragment(), AppsInterface {
             scrollToPosition(indexScrolledItem)
         }
         indexScrolledItem = 0
-        Log.d("roy93~", "done")
+//        Log.d("", "done")
     }
 
     override fun onDefaultsReset() {
@@ -107,7 +107,7 @@ class FrmApps : Fragment(), AppsInterface {
     }
 
     override fun onAppsUpdated(apps: ArrayList<App>?) {
-        Log.d("roy93~", "onAppsUpdated $apps")
+//        Log.d("", "onAppsUpdated $apps")
         setupRecycler(apps)
     }
 }
