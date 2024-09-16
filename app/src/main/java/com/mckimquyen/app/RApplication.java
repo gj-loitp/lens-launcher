@@ -10,10 +10,10 @@ import com.mckimquyen.services.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO roy93~ keystore
 //TODO roy93~ apply new logic applovin utils
 
 //done
+//keystore
 //bug khi toggle lock/unlock, hide/unhide ko work
 //khi cai ung dung dau tien, bi loi UI light mode
 //bug load apps vo cuc o tab APPS
