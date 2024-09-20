@@ -10,8 +10,8 @@ android {
         applicationId "com.mckimquyen.lenslauncher"
         minSdkVersion 25
         targetSdkVersion 34
-        versionCode 20240915
-        versionName "2024.09.15"
+        versionCode 20240920
+        versionName "2024.09.20"
     }
 
     android.applicationVariants.configureEach { variant ->
@@ -69,8 +69,8 @@ android {
             resValue "string", "BANNER", "~"
             resValue "string", "INTER", "~"
 
-            resValue("string", "EnableAdInter", "true")
-            resValue("string", "EnableAdBanner", "true")
+            resValue("string", "EnableAdInter", "false")
+            resValue("string", "EnableAdBanner", "false")
         }
 
     }
@@ -106,7 +106,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.5.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation("androidx.webkit:webkit:1.11.0")
+    implementation("androidx.webkit:webkit:1.12.0")
 
     //firebase
 //    api platform('com.google.firebase:firebase-bom:33.2.0')
@@ -119,5 +119,5 @@ dependencies {
 
     // debugImplementation because LeakCanary should only run in debug builds.
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:2.14'
-    implementation 'com.applovin:applovin-sdk:12.6.1'
+    implementation 'com.applovin:applovin-sdk:13.0.0'
 }
