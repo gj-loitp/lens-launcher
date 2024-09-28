@@ -11,8 +11,10 @@ import java.util.Observable;
 import java.util.Observer;
 
 //TODO roy93~ apply new logic applovin utils
+//TODO roy93~ font scale
 
 //done
+//screen screenOrientation
 //keystore
 //bug khi toggle lock/unlock, hide/unhide ko work
 //khi cai ung dung dau tien, bi loi UI light mode
