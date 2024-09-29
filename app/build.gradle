@@ -10,8 +10,8 @@ android {
         applicationId "com.mckimquyen.lenslauncher"
         minSdkVersion 25
         targetSdkVersion 34
-        versionCode 20240929
-        versionName "2024.09.29"
+        versionCode 20240930
+        versionName "2024.09.30"
     }
 
     android.applicationVariants.configureEach { variant ->
