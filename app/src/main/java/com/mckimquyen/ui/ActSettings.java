@@ -512,6 +512,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
     protected void onDestroy() {
         dismissAllDialogs();
         LoadedObservable.getInstance().deleteObserver(this);
+        NightModeObservable.getInstance().deleteObserver(this);
         if (adView != null) {
 //            adView.destroy();
             destroyAdBanner(findViewById(R.id.flAd), adView);
