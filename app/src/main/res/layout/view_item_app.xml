@@ -24,7 +24,7 @@
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
             tools:ignore="contentDescription"
-            tools:src="@drawable/ic_launcher" />
+            tools:src="@drawable/ic_launcher_round" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/tvAppLabel"
