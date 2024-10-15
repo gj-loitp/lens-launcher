@@ -10,6 +10,7 @@ import android.provider.Settings
 import android.view.*
 import androidx.core.content.ContextCompat
 import com.mckimquyen.R
+import com.mckimquyen.util.isValid
 import com.mckimquyen.views.SuperWebViewActivity
 
 //check xem app hien tai co phai la default launcher hay khong
@@ -65,7 +66,7 @@ fun Context?.openUrlInBrowser(
     if (this == null || url.isNullOrEmpty()) {
         return
     }
-    if (isUsingInternalWebView) {
+    if (isUsingInternalWebView && isValid()) {
         val intent = Intent(/* packageContext = */ this, /* cls = */ SuperWebViewActivity::class.java)
         intent.putExtra(SuperWebViewActivity.KEY_URL, url)
         intent.putExtra(SuperWebViewActivity.KEY_TITLE, title)
