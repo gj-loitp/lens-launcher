@@ -12,6 +12,7 @@ import static com.mckimquyen.util.CKt.URL_POLICY_NOTION;
 
 import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.Menu;
@@ -309,6 +310,9 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
         } else if (id == R.id.menuChangelog) {
             openUrlInBrowser(this, "https://raw.githubusercontent.com/gj-loitp/lens-launcher/dev/CHANGE_LOG.md", getString(R.string.changelog), true);
             return true;
+        } else if (id == R.id.menuFeedback) {
+            sendEmail();
+            return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
@@ -529,5 +533,27 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
     public void finish() {
         super.finish();
         overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
+    }
+
+    private void sendEmail() {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("mailto:")); // Only email apps should handle this
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{
+                "roy.mobile.dev@gmail.com",
+                "20testersforclosedtesting@googlegroups.com"
+        });
+        intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback on Fisheye Launcher App");
+        intent.putExtra(Intent.EXTRA_TEXT, "Hello,\n\n"
+                + "I hope this message finds you well. Below are my feedback and suggestions regarding the Fisheye Launcher app:\n\n"
+                + "[Insert your feedback here]\n\n"
+                + "Thank you for your attention and support.\n\n"
+                + "Best regards,\n"
+                + "[Your Name]");
+
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            System.out.println("No email app found!");
+        }
     }
 }

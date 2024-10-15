@@ -58,4 +58,8 @@
         android:id="@+id/menuChangelog"
         android:title="@string/changelog"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/menuFeedback"
+        android:title="@string/feedback"
+        app:showAsAction="never" />
 </menu>

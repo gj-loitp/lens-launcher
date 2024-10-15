@@ -10,6 +10,8 @@ import com.mckimquyen.services.UpdatedObservable;
 import java.util.Observable;
 import java.util.Observer;
 
+//add section feedback
+
 //TODO roy93~ apply new logic applovin utils
 
 //done

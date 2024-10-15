@@ -121,4 +121,3 @@ fun Context.showDialog2(
     dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(color)
     return dialog
 }
-
