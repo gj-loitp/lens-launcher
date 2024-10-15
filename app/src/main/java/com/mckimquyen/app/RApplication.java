@@ -12,6 +12,7 @@ import java.util.Observer;
 
 //add section feedback
 //fix content labeling
+//fix touch target size
 
 //TODO roy93~ apply new logic applovin utils
 
