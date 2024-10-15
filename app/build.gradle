@@ -56,8 +56,8 @@ android {
             resValue "string", "BANNER", "~"
             resValue "string", "INTER", "~"
 
-            resValue("string", "EnableAdInter", "false")
-            resValue("string", "EnableAdBanner", "false")
+            resValue("string", "EnableAdInter", "true")
+            resValue("string", "EnableAdBanner", "true")
         }
 
         production {
@@ -69,8 +69,8 @@ android {
             resValue "string", "BANNER", "~"
             resValue "string", "INTER", "~"
 
-            resValue("string", "EnableAdInter", "false")
-            resValue("string", "EnableAdBanner", "false")
+            resValue("string", "EnableAdInter", "true")
+            resValue("string", "EnableAdBanner", "true")
         }
 
     }
