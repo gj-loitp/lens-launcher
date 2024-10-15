@@ -9,7 +9,8 @@
     android:stateListAnimator="@animator/a_raise"
     card_view:cardCornerRadius="@dimen/margin_app"
     card_view:cardElevation="@dimen/margin_app"
-    card_view:cardUseCompatPadding="true">
+    card_view:cardUseCompatPadding="true"
+    tools:ignore="HardcodedText,contentDescription">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -23,7 +24,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="8dp"
             android:layout_marginBottom="8dp"
-            tools:ignore="contentDescription"
+            android:contentDescription="ivAppIcon"
             tools:src="@drawable/ic_launcher_round" />
 
         <androidx.appcompat.widget.AppCompatTextView
@@ -45,9 +46,9 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toStartOf="@+id/ivAppHide"
+            android:contentDescription="btAppLock"
             android:textAllCaps="false"
-            android:textColor="@color/colorWhite"
-            tools:ignore="contentDescription"
+            android:textColor="@color/colorBlack"
             tools:text="Lock" />
 
         <androidx.appcompat.widget.AppCompatImageView
@@ -59,8 +60,7 @@
             android:contentDescription="ivAppHide"
             android:scaleType="centerInside"
             android:src="@drawable/ic_visibility_grey_24dp"
-            android:tint="@color/colorAppTint"
-            tools:ignore="contentDescription" />
+            android:tint="@color/colorAppTint" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/ivAppMenu"
@@ -71,8 +71,7 @@
             android:contentDescription="ivAppMenu"
             android:scaleType="centerInside"
             android:src="@drawable/ic_more_vert_grey_24dp"
-            android:tint="@color/colorAppTint"
-            tools:ignore="contentDescription" />
+            android:tint="@color/colorAppTint" />
 
     </RelativeLayout>
 
