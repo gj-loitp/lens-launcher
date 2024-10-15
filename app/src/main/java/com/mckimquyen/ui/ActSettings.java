@@ -374,7 +374,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
         final ArrayList<String> lIconPackName = new ArrayList<>();
         lIconPackName.add(getString(R.string.setting_default_icon_pack));
         for (int i = 0; i < lAvailableIconPack.size(); i++) {
-            if (lIconPackName.size() > 0 && !lIconPackName.contains(lAvailableIconPack.get(i).mName)) {
+            if (!lIconPackName.isEmpty() && !lIconPackName.contains(lAvailableIconPack.get(i).mName)) {
                 lIconPackName.add(lAvailableIconPack.get(i).mName);
             }
         }

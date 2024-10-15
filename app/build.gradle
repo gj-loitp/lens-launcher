@@ -103,7 +103,7 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'androidx.palette:palette-ktx:1.0.0'
     implementation 'com.github.satyan:sugar:1.5'
-    implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
+    implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.5.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
     implementation("androidx.webkit:webkit:1.12.1")
