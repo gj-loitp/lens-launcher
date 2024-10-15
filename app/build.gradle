@@ -10,8 +10,8 @@ android {
         applicationId "com.mckimquyen.lenslauncher"
         minSdkVersion 25
         targetSdkVersion 34
-        versionCode 20240930
-        versionName "2024.09.30"
+        versionCode 20241015
+        versionName "2024.10.15"
     }
 
     android.applicationVariants.configureEach { variant ->
@@ -106,7 +106,7 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.5.0'
     implementation 'com.afollestad.material-dialogs:commons:0.9.5.0'
     implementation 'androidx.preference:preference-ktx:1.2.1'
-    implementation("androidx.webkit:webkit:1.12.0")
+    implementation("androidx.webkit:webkit:1.12.1")
 
     //firebase
 //    api platform('com.google.firebase:firebase-bom:33.2.0')
