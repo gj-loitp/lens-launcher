@@ -11,6 +11,7 @@ import java.util.Observable;
 import java.util.Observer;
 
 //add section feedback
+//fix content labeling
 
 //TODO roy93~ apply new logic applovin utils
 
