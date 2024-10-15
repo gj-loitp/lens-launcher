@@ -59,7 +59,8 @@
                     android:id="@+id/sbMinIconSize"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/app_name" />
 
             </RelativeLayout>
 
@@ -94,7 +95,8 @@
                     android:id="@+id/sbDistortionFactor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/app_name" />
 
             </RelativeLayout>
 
@@ -129,7 +131,8 @@
                     android:id="@+id/sbScaleFactor"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/app_name" />
 
             </RelativeLayout>
 
@@ -164,7 +167,8 @@
                     android:id="@+id/sbAnimationTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="16dp" />
+                    android:layout_marginBottom="16dp"
+                    android:contentDescription="@string/app_name" />
 
             </RelativeLayout>
 
