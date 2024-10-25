@@ -6,6 +6,7 @@ import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.util.Log
 import androidx.core.content.ContextCompat.startActivity
 import com.mckimquyen.ext.chooseLauncher
 import com.mckimquyen.ui.ActFakeLauncher
@@ -36,12 +37,15 @@ object UtilLauncher {
 
     @JvmStatic
     fun resetPreferredLauncherAndOpenChooser(context: Context) {
-        val intent = Intent(android.provider.Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS)
-        intent.data = Uri.parse("package:${context.packageName}")
+//        val intent = Intent(android.provider.Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS)
+        val intent = Intent("android.settings.HOME_SETTINGS")
+//        intent.data = Uri.parse("package:${context.packageName}")
         intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
         if (intent.resolveActivity(context.packageManager) == null) {
+            Log.d("roy93~", "#1")
 //            context.chooseLauncher(ActFakeLauncher::class.java)
         } else {
+            Log.d("roy93~", "#2")
             context.startActivity(intent)
             return
         }
