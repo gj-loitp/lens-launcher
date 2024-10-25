@@ -38,6 +38,16 @@
             android:value="com.mckimquyen.model" />
 
         <activity
+            android:name=".ui.SplashAct"
+            android:exported="true"
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".ui.ActHome"
             android:exported="true"
             android:launchMode="singleTask"
@@ -46,9 +56,8 @@
             android:taskAffinity=""
             android:theme="@style/HomeTheme">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.HOME" />
+                <!--                <action android:name="android.intent.action.MAIN" />-->
+                <!--                <category android:name="android.intent.category.HOME" />-->
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity>
