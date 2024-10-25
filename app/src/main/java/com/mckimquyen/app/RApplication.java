@@ -44,12 +44,10 @@ public class RApplication extends SugarApp implements Observer {
     @Override
     public void onCreate() {
         super.onCreate();
-
+        ApplovinKt.setupApplovinAd(this);
         UpdatedObservable.getInstance().addObserver(this);
         EditedObservable.getInstance().addObserver(this);
         updateApps();
-
-        ApplovinKt.setupApplovinAd(this);
     }
 
     @Override

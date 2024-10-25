@@ -74,7 +74,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
     FloatingActionButton fabSort;
     private MaxAdView adView;
     private MaxInterstitialAd interstitialAd;
-    private int retryAttempt;
+//    private int retryAttempt;
 
     private ArrayList<App> listApp;
     private MaterialDialog dlgSortType;
@@ -193,17 +193,29 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
     }
 
     void showAd() {
+        boolean enableAdInter = getString(R.string.EnableAdInter) == "true";
+        if (!enableAdInter) {
+            return;
+        }
         if (interstitialAd != null && interstitialAd.isReady()) {
             interstitialAd.showAd();
         }
     }
 
     private void createAdInter() {
-        interstitialAd = new MaxInterstitialAd(getString(R.string.INTER), this);
+        boolean enableAdInter = getString(R.string.EnableAdInter) == "true";
+        if (!enableAdInter) {
+            return;
+        }
+        String id = getString(R.string.INTER);
+        if (id.isEmpty()) {
+            return;
+        }
+        interstitialAd = new MaxInterstitialAd(id, this);
         interstitialAd.setListener(new MaxAdListener() {
             @Override
             public void onAdLoaded(@NonNull MaxAd maxAd) {
-                retryAttempt = 0;
+//                retryAttempt = 0;
             }
 
             @Override
@@ -224,10 +236,10 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
 
             @Override
             public void onAdLoadFailed(@NonNull String s, @NonNull MaxError maxError) {
-                retryAttempt++;
-                long delayMillis = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retryAttempt)));
-
-                new Handler().postDelayed(() -> interstitialAd.loadAd(), delayMillis);
+//                retryAttempt++;
+//                long delayMillis = TimeUnit.SECONDS.toMillis((long) Math.pow(2, Math.min(6, retryAttempt)));
+//
+//                new Handler().postDelayed(() -> interstitialAd.loadAd(), delayMillis);
             }
 
             @Override
