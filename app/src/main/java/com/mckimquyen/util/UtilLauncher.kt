@@ -5,6 +5,9 @@ import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
+import androidx.core.content.ContextCompat.startActivity
+import com.mckimquyen.ext.chooseLauncher
 import com.mckimquyen.ui.ActFakeLauncher
 
 object UtilLauncher {
@@ -33,6 +36,16 @@ object UtilLauncher {
 
     @JvmStatic
     fun resetPreferredLauncherAndOpenChooser(context: Context) {
+        val intent = Intent(android.provider.Settings.ACTION_MANAGE_DEFAULT_APPS_SETTINGS)
+        intent.data = Uri.parse("package:${context.packageName}")
+        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK
+        if (intent.resolveActivity(context.packageManager) == null) {
+//            context.chooseLauncher(ActFakeLauncher::class.java)
+        } else {
+            context.startActivity(intent)
+            return
+        }
+
         val packageManager = context.packageManager
         val componentName = ComponentName(context, ActFakeLauncher::class.java)
         packageManager.setComponentEnabledSetting(

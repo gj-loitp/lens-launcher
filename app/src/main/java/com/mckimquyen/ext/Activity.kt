@@ -19,7 +19,7 @@ import android.view.*
 import com.mckimquyen.R
 
 //mo hop thoai de select launcher default
-fun Activity.chooseLauncher(cls: Class<*>) {
+fun Context.chooseLauncher(cls: Class<*>) {
     val componentName = ComponentName(this, cls)
     this.packageManager.setComponentEnabledSetting(
          componentName,
