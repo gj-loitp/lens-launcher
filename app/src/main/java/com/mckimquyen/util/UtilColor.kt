@@ -15,24 +15,29 @@ object UtilColor {
     @JvmStatic
     @ColorInt
     fun getPaletteColorFromBitmap(bitmap: Bitmap?): Int {
-
-        val palette: Palette = try {
-            Palette.from(bitmap!!).generate()
-        } catch (e: IllegalArgumentException) {
-            e.printStackTrace()
-            return Color.BLACK
-        }
-
-        return if (palette.swatches.size > 0) {
-            var swatchIndex = 0
-            for (i in 1 until palette.swatches.size) {
-                if (palette.swatches[i].population > palette.swatches[swatchIndex].population) {
-                    swatchIndex = i
-                }
+        try {
+            if (bitmap == null) {
+                return Color.BLACK
             }
-            palette.swatches[swatchIndex].rgb
-        } else {
-            Color.BLACK
+            val palette: Palette = try {
+                Palette.from(bitmap).generate()
+            } catch (e: IllegalArgumentException) {
+                e.printStackTrace()
+                return Color.BLACK
+            }
+            return if (palette.swatches.size > 0) {
+                var swatchIndex = 0
+                for (i in 1 until palette.swatches.size) {
+                    if (palette.swatches[i].population > palette.swatches[swatchIndex].population) {
+                        swatchIndex = i
+                    }
+                }
+                palette.swatches[swatchIndex].rgb
+            } else {
+                Color.BLACK
+            }
+        } catch (e: Exception) {
+            return Color.BLACK
         }
     }
 
