@@ -10,6 +10,9 @@
     <!-- Home (Launcher) Theme -->
     <style name="HomeTheme" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="android:windowBackground">@android:color/transparent</item>
+<!--        <item name="android:windowIsTranslucent">false</item>-->
+<!--        <item name="android:windowBackground">@drawable/startup</item>-->
+
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowShowWallpaper">true</item>
         <item name="android:windowNoTitle">true</item>

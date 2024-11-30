@@ -15,9 +15,8 @@ import java.util.Observer;
 //fix touch target size
 //fix low contrast
 
-//TODO roy93~ apply new logic applovin utils
-
 //done
+//apply new logic applovin utils
 //splash screen <<< app nay k can splash dau loi dep trai
 //screen screenOrientation
 //keystore
