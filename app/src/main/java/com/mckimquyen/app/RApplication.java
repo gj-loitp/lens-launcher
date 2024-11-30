@@ -1,11 +1,11 @@
 package com.mckimquyen.app;
 
-import com.orm.SugarApp;
 import com.mckimquyen.ext.ApplovinKt;
 import com.mckimquyen.services.EditedObservable;
 import com.mckimquyen.services.TaskSortApps;
 import com.mckimquyen.services.TaskUpdateApps;
 import com.mckimquyen.services.UpdatedObservable;
+import com.orm.SugarApp;
 
 import java.util.Observable;
 import java.util.Observer;
@@ -18,6 +18,7 @@ import java.util.Observer;
 //TODO roy93~ apply new logic applovin utils
 
 //done
+//splash screen <<< app nay k can splash dau loi dep trai
 //screen screenOrientation
 //keystore
 //bug khi toggle lock/unlock, hide/unhide ko work
