@@ -14,7 +14,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -61,7 +60,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Observable;
 import java.util.Observer;
-import java.util.concurrent.TimeUnit;
 
 //2023.03.19 tried to convert kotlin but failed
 public class ActSettings extends ActBase implements Observer, ColorChooserDialog.ColorCallback {
@@ -193,7 +191,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
     }
 
     void showAd() {
-        boolean enableAdInter = getString(R.string.EnableAdInter) == "true";
+        boolean enableAdInter = getString(R.string.EnableAdInter).equals("true");
         if (!enableAdInter) {
             return;
         }
@@ -203,7 +201,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
     }
 
     private void createAdInter() {
-        boolean enableAdInter = getString(R.string.EnableAdInter) == "true";
+        boolean enableAdInter = getString(R.string.EnableAdInter).equals("true");
         if (!enableAdInter) {
             return;
         }
@@ -260,6 +258,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
             launchApps();
             return true;
         } else if (id == R.id.menuItemAbout) {
+            showAd();
             Intent aboutIntent = new Intent(ActSettings.this, ActAbout.class);
             startActivity(aboutIntent);
             overridePendingTransition(R.anim.a_slide_in_left, R.anim.a_slide_out_right);
@@ -530,7 +529,6 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
         LoadedObservable.getInstance().deleteObserver(this);
         NightModeObservable.getInstance().deleteObserver(this);
         if (adView != null) {
-//            adView.destroy();
             destroyAdBanner(findViewById(R.id.flAd), adView);
         }
         super.onDestroy();
