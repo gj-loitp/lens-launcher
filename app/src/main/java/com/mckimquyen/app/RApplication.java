@@ -10,10 +10,8 @@ import com.orm.SugarApp;
 import java.util.Observable;
 import java.util.Observer;
 
-//add section feedback
-//fix content labeling
-//fix touch target size
-//fix low contrast
+//TODO roy93~ 120hz
+//TODO roy93~ review in app
 
 //done
 //apply new logic applovin utils
