@@ -28,6 +28,7 @@ public class ActAbout extends ActBase implements Observer {
     ImageView backdrop;
     CollapsingToolbarLayout collapsingToolbar;
     Toolbar toolbar;
+    private Animator animator;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,13 +50,36 @@ public class ActAbout extends ActBase implements Observer {
     }
 
     private void circularRevealAboutImage() {
-        if (backdrop != null) {
-            int cx = backdrop.getWidth() / 2;
-            int cy = backdrop.getHeight() / 2;
-            float finalRadius = (float) Math.hypot(cx, cy);
-            Animator anim = ViewAnimationUtils.createCircularReveal(backdrop, cx, cy, 0, finalRadius);
-            backdrop.setVisibility(View.VISIBLE);
-            anim.start();
+        try {
+            if (backdrop != null) {
+                // Kiểm tra xem view có còn attached không
+                if (!backdrop.isAttachedToWindow()) {
+                    return;
+                }
+                // Kiểm tra trạng thái của Activity
+                if (this.isDestroyed() || this.isFinishing()) {
+                    return; // Không thực hiện animation nếu Activity không hoạt động
+                }
+
+                int cx = backdrop.getWidth() / 2;
+                int cy = backdrop.getHeight() / 2;
+                float finalRadius = (float) Math.hypot(cx, cy);
+                animator = ViewAnimationUtils.createCircularReveal(backdrop, cx, cy, 0, finalRadius);
+                backdrop.setVisibility(View.VISIBLE);
+                if (animator != null) {
+                    animator.start();
+                }
+            }
+        } catch (Exception e) {
+            //do nothing
+        }
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        if (animator != null) {
+            animator.cancel();
         }
     }
 
