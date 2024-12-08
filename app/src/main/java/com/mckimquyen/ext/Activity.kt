@@ -16,24 +16,25 @@ import android.provider.AlarmClock
 import android.provider.CalendarContract
 import android.provider.Telephony
 import android.view.*
+import android.widget.Toast
 import com.mckimquyen.R
 
 //mo hop thoai de select launcher default
 fun Context.chooseLauncher(cls: Class<*>) {
     val componentName = ComponentName(this, cls)
     this.packageManager.setComponentEnabledSetting(
-         componentName,
-         PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
-         PackageManager.DONT_KILL_APP
+        componentName,
+        PackageManager.COMPONENT_ENABLED_STATE_ENABLED,
+        PackageManager.DONT_KILL_APP
     )
     val selector = Intent(Intent.ACTION_MAIN)
     selector.addCategory(Intent.CATEGORY_HOME)
     selector.flags = Intent.FLAG_ACTIVITY_NEW_TASK
     this.startActivity(selector)
     this.packageManager.setComponentEnabledSetting(
-         componentName,
-         PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
-         PackageManager.DONT_KILL_APP
+        componentName,
+        PackageManager.COMPONENT_ENABLED_STATE_DEFAULT,
+        PackageManager.DONT_KILL_APP
     )
 }
 
@@ -70,7 +71,7 @@ fun Activity.launchCalendar() {
 
 //go mot app bat ky nao do
 fun Activity.uninstallApp(
-    packageName: String
+    packageName: String,
 ) {
     val intent = Intent(Intent.ACTION_DELETE)
     intent.data = Uri.parse("package:$packageName")
@@ -108,14 +109,14 @@ fun Activity.getScreenOrientation(): Int {
 
 @Suppress("unused")
 fun Activity.setSoftInputMode(
-    mode: Int
+    mode: Int,
 ) {
     this.window.setSoftInputMode(mode)
 }
 
 // https://gist.github.com/mustafasevgi/8c6b638ffd5fca90d45d
 fun Activity?.sendSMS(
-    text: String
+    text: String,
 ) {
     if (this == null) {
         return
@@ -137,7 +138,7 @@ fun Activity?.sendSMS(
 }
 
 fun Activity.rateApp(
-    packageName: String? = null
+    packageName: String? = null,
 ) {
     if (packageName.isNullOrEmpty()) {
         return
@@ -160,7 +161,7 @@ fun Activity.rateApp(
 }
 
 fun Activity.moreApp(
-    nameOfDeveloper: String = "McKimQuyen"
+    nameOfDeveloper: String = "McKimQuyen",
 ) {
     val uri = "https://play.google.com/store/apps/developer?id=$nameOfDeveloper"
     val intent = Intent(Intent.ACTION_VIEW, Uri.parse(uri))
@@ -183,7 +184,7 @@ fun Activity.shareApp(
 }
 
 fun Activity.share(
-    msg: String
+    msg: String,
 ) {
     try {
         val intent = Intent(Intent.ACTION_SEND)
@@ -202,10 +203,18 @@ fun Activity.share(
 fun Activity?.likeFacebookFanpage(
 ) {
     this?.apply {
-        val facebookIntent = Intent(Intent.ACTION_VIEW)
-        val facebookUrl = getFacebookPageURL()
-        facebookIntent.data = Uri.parse(facebookUrl)
-        startActivity(facebookIntent)
+        try {
+            val facebookIntent = Intent(Intent.ACTION_VIEW)
+            val facebookUrl = getFacebookPageURL()
+            facebookIntent.data = Uri.parse(facebookUrl)
+            startActivity(facebookIntent)
+        } catch (e: Exception) {
+            Toast.makeText(
+                /* context = */ this,
+                /* text = */ "Error $e.\nPlease try again later",
+                /* duration = */ Toast.LENGTH_SHORT
+            ).show()
+        }
     }
 }
 
@@ -228,7 +237,7 @@ fun Context.getFacebookPageURL(): String {
 
 // playYoutube(activity, "http://www.youtube.com/watch?v=Hxy8BZGQ5Jo");
 fun Activity.playYoutube(
-    url: String?
+    url: String?,
 ) {
     if (url.isNullOrEmpty()) {
         return
@@ -237,13 +246,13 @@ fun Activity.playYoutube(
 }
 
 fun Activity.playYoutubeWithId(
-    id: String
+    id: String,
 ) {
     this.playYoutube(url = "http://www.youtube.com/watch?v=$id")
 }
 
 fun Activity.setChangeStatusBarTintToDark(
-    shouldChangeStatusBarTintToDark: Boolean
+    shouldChangeStatusBarTintToDark: Boolean,
 ) {
     val decor = this.window.decorView
     if (shouldChangeStatusBarTintToDark) {
@@ -322,7 +331,7 @@ fun Activity.toggleFullscreen(
 }
 
 fun Activity.toggleFullscreen(
-    isFullScreen: Boolean
+    isFullScreen: Boolean,
 ) {
     if (isFullScreen) {
         this.window.decorView.systemUiVisibility =
