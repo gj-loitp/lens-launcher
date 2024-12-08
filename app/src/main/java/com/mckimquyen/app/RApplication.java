@@ -10,10 +10,10 @@ import com.orm.SugarApp;
 import java.util.Observable;
 import java.util.Observer;
 
-//TODO roy93~ 120hz
 //TODO roy93~ review in app
 
 //done
+//120hz
 //apply new logic applovin utils
 //splash screen <<< app nay k can splash dau loi dep trai
 //screen screenOrientation

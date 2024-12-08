@@ -4,10 +4,9 @@ import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.appcompat.app.AppCompatActivity
 import com.mckimquyen.R
 
-class SplashAct : AppCompatActivity() {
+class SplashAct : BaseActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,4 +20,5 @@ class SplashAct : AppCompatActivity() {
             finish()
         }, 2000)
     }
+
 }

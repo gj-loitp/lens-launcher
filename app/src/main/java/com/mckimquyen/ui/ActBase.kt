@@ -1,26 +1,16 @@
 package com.mckimquyen.ui
 
 import android.app.ActivityManager.TaskDescription
-import android.content.Context
-import android.content.res.Configuration
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import androidx.annotation.LayoutRes
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import com.mckimquyen.R
 import com.mckimquyen.util.UtilSettings
 
-open class ActBase : AppCompatActivity() {
+open class ActBase : BaseActivity() {
     @JvmField
     protected var utilSettings: UtilSettings? = null
-
-    override fun attachBaseContext(context: Context) {
-        val override = Configuration(context.resources.configuration)
-        override.fontScale = 1.0f
-        applyOverrideConfiguration(override)
-        super.attachBaseContext(context)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         utilSettings = UtilSettings(this)
