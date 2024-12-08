@@ -3,6 +3,7 @@ package com.mckimquyen.ui;
 import static com.mckimquyen.ext.ActivityKt.likeFacebookFanpage;
 import static com.mckimquyen.ext.ActivityKt.moreApp;
 import static com.mckimquyen.ext.ActivityKt.rateApp;
+import static com.mckimquyen.ext.ActivityKt.rateAppInApp;
 import static com.mckimquyen.ext.ActivityKt.shareApp;
 import static com.mckimquyen.ext.ApplovinKt.destroyAdBanner;
 import static com.mckimquyen.ext.ApplovinKt.showMediationDebuggerApplovin;
@@ -181,10 +182,10 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
             homeIntent.addCategory(Intent.CATEGORY_HOME);
             startActivity(homeIntent);
+            rateAppInApp(this, BuildConfig.DEBUG);
         } else {
 //            Intent homeIntent = new Intent(ASettings.this, AHome.class);
 //            startActivity(homeIntent);
-
             showHomeLauncherChooser();
         }
         overridePendingTransition(R.anim.a_fade_in, R.anim.a_fade_out);
