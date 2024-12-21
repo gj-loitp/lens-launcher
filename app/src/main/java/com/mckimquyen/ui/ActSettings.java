@@ -288,7 +288,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
             rateApp(this, this.getPackageName());
             return true;
         } else if (id == R.id.menuMoreApp) {
-            moreApp(this, "McKimQuyen");
+            moreApp(this, "SAIGON PHANTOM LABS");
             return true;
         } else if (id == R.id.menuApplovinConfig) {
             if (BuildConfig.DEBUG) {
