@@ -1,5 +1,7 @@
 package com.mckimquyen.ui;
 
+import static com.mckimquyen.ext.ActivityKt.rateAppInApp;
+
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -8,6 +10,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
+import com.mckimquyen.BuildConfig;
 import com.mckimquyen.R;
 import com.mckimquyen.app.RAppsSingleton;
 import com.mckimquyen.model.App;
@@ -49,6 +52,7 @@ public class ActHome extends ActBase implements Observer {
         VisibilityChangedObservable.getInstance().addObserver(this);
         BackgroundChangedObservable.getInstance().addObserver(this);
         NightModeObservable.getInstance().addObserver(this);
+        rateAppInApp(this, BuildConfig.DEBUG);
     }
 
     private void setupViews() {

@@ -144,11 +144,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
         });
         listApp = Objects.requireNonNull(RAppsSingleton.getInstance()).getApps();
 
-        adView = ApplovinKt.createAdBanner(this,
-                ActSettings.class.getSimpleName(),
-                Color.TRANSPARENT,
-                findViewById(R.id.flAd),
-                true);
+        adView = ApplovinKt.createAdBanner(this, ActSettings.class.getSimpleName(), Color.TRANSPARENT, findViewById(R.id.flAd), true);
         createAdInter();
     }
 
@@ -179,10 +175,10 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
     private void launchApps() {
         boolean isDefaultLauncher = UtilLauncher.isDefaultLauncher(getApplication());
         if (isDefaultLauncher) {
+            showAd();
             Intent homeIntent = new Intent(Intent.ACTION_MAIN);
             homeIntent.addCategory(Intent.CATEGORY_HOME);
             startActivity(homeIntent);
-            rateAppInApp(this, BuildConfig.DEBUG);
         } else {
 //            Intent homeIntent = new Intent(ASettings.this, AHome.class);
 //            startActivity(homeIntent);
@@ -194,6 +190,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
     void showAd() {
         boolean enableAdInter = getString(R.string.EnableAdInter).equals("true");
         if (!enableAdInter) {
+            Toast.makeText(this, "Show ad full SUCCESSFULLY", Toast.LENGTH_SHORT).show();
             return;
         }
         if (interstitialAd != null && interstitialAd.isReady()) {
@@ -297,8 +294,7 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
                 Toast.makeText(
                         /* context = */ this,
                         /* resId = */ "This feature is only available in Debug mode",
-                        /* duration = */ Toast.LENGTH_SHORT
-                ).show();
+                        /* duration = */ Toast.LENGTH_SHORT).show();
             }
             return true;
         } else if (id == R.id.menuShareApp) {
@@ -549,17 +545,9 @@ public class ActSettings extends ActBase implements Observer, ColorChooserDialog
     private void sendEmail() {
         Intent intent = new Intent(Intent.ACTION_SENDTO);
         intent.setData(Uri.parse("mailto:")); // Only email apps should handle this
-        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{
-                "roy.mobile.dev@gmail.com",
-                "20testersforclosedtesting@googlegroups.com"
-        });
+        intent.putExtra(Intent.EXTRA_EMAIL, new String[]{"roy.mobile.dev@gmail.com", "20testersforclosedtesting@googlegroups.com"});
         intent.putExtra(Intent.EXTRA_SUBJECT, "Feedback on Fisheye Launcher App");
-        intent.putExtra(Intent.EXTRA_TEXT, "Hello,\n\n"
-                + "I hope this message finds you well. Below are my feedback and suggestions regarding the Fisheye Launcher app:\n\n"
-                + "[Insert your feedback here]\n\n"
-                + "Thank you for your attention and support.\n\n"
-                + "Best regards,\n"
-                + "[Your Name]");
+        intent.putExtra(Intent.EXTRA_TEXT, "Hello,\n\n" + "I hope this message finds you well. Below are my feedback and suggestions regarding the Fisheye Launcher app:\n\n" + "[Insert your feedback here]\n\n" + "Thank you for your attention and support.\n\n" + "Best regards,\n" + "[Your Name]");
 
         if (intent.resolveActivity(getPackageManager()) != null) {
             startActivity(intent);
