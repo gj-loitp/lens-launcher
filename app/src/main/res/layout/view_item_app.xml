@@ -48,7 +48,7 @@
             android:layout_toStartOf="@+id/ivAppHide"
             android:contentDescription="btAppLock"
             android:textAllCaps="false"
-            android:textColor="@color/colorBlack"
+            android:textColor="@color/colorWhite"
             tools:text="Lock" />
 
         <androidx.appcompat.widget.AppCompatImageView
