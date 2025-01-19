@@ -64,6 +64,7 @@
     <FrameLayout
         android:id="@+id/flAd"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:paddingBottom="8sp" />
 
 </androidx.appcompat.widget.LinearLayoutCompat>
